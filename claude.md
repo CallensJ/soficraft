@@ -38,27 +38,64 @@
 
 ---
 
-## 📁 Project Structure
+## 📁 Structure du Projet
 
 ```
 soficraft/
-├── src/app/
-│   ├── layout.tsx              # Root layout (metadata, document structure)
-│   ├── page.tsx                # Home page component
-│   ├── page.module.css         # Home page scoped styles
-│   ├── globals.css             # Global styles (fonts, resets, variables)
-│   └── favicon.ico             # Site icon
-├── public/                     # Static assets (images, fonts, icons)
-├── .gitignore                  # Git ignore rules
-├── .claude-code.json           # Claude Code config
-├── claude.md                   # This file - context for Claude
-├── package.json                # Dependencies
-├── tsconfig.json               # TypeScript config
-├── next.config.ts              # Next.js config
-├── eslint.config.mjs           # ESLint rules
-└── README.md                   # User-facing documentation
+├── src/
+│   └── app/
+│       ├── layout.tsx        # Layout principal (métadonnées, structure)
+│       ├── page.tsx          # Page d'accueil
+│       ├── page.module.css   # Styles de la page
+│       ├── globals.css       # Styles globaux
+│       └── favicon.ico       # Favicon SOFICRAFT
+├── public/                   # Assets statiques (images, fonts)
+├── .gitignore               # Ignore node_modules, .next, etc.
+├── package.json             # Dépendances (Next.js, GSAP, TypeScript)
+├── tsconfig.json            # Configuration TypeScript
+├── next.config.ts           # Configuration Next.js
+└── README.md                # Ce fichier
 ```
+## Structure du dossier /src/styles
 
+ # STRUCTURE SASS 7-1 PATTERN #
+ Architecture complète des dossiers :
+
+ ```
+src/styles/
+├── main.scss                  # 🔴 Point d'entrée principal (imports tous les fichiers)
+├── abstracts/                 # 1 - Variables, fonctions, mixins
+│   ├── _variables.scss        # Couleurs, typographies, espacements SOFICRAFT
+│   ├── _functions.scss        # Fonctions Sass custom
+│   └── _mixins.scss           # Mixins réutilisables (breakpoints, animations)
+├── vendors/                   # 2 - CSS externe (reset, normalize, etc.)
+│   ├── _normalize.scss        # Normalize.css custom
+│   └── _fonts.scss            # Import des fonts Google/custom
+├── base/                      # 3 - Styles de base (reset, body, etc.)
+│   ├── _reset.scss            # Reset CSS
+│   ├── _typography.scss       # Styles de base des éléments (h1, p, etc.)
+ │   └── _root.scss             # Variables CSS :root
+ ├── layout/                    # 4 - Layout majeur (header, footer, grid)
+ │   ├── _header.scss           # Styles du header
+ │   ├── _footer.scss           # Styles du footer
+ │   ├── _navigation.scss       # Styles de la nav
+ │   └── _container.scss        # Container wrapper
+ ├── components/                # 5 - Composants réutilisables
+ │   ├── _buttons.scss          # Styles des boutons
+ │   ├── _cards.scss            # Styles des cards
+ │   ├── _gallery.scss          # Styles de la galerie
+ │   ├── _form.scss             # Styles des formulaires
+ │   └── _modal.scss            # Styles des modales
+ ├── pages/                     # 6 - Styles spécifiques aux pages
+ │   ├── _home.scss             # Styles page d'accueil
+ │   ├── _gallery.scss          # Styles page galerie
+ │   ├── _product.scss          # Styles page produit
+ │   └── _contact.scss          # Styles page contact
+ └── themes/                    # 7 - Thèmes alternatifs
+     ├── _light.scss            # Thème clair (défaut)
+     └── _dark.scss             # Thème sombre (optionnel)
+     
+```
 ---
 
 ## 🎯 Development Guidelines
