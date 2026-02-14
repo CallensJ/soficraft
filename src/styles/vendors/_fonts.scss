@@ -1,7 +1,44 @@
-// ==========================================================================
+// ════════════════════════════════════════════════════════════════════════════
 // FONTS - SOFICRAFT
-// ==========================================================================
-// Import des fonts Google Fonts ou custom
+// ════════════════════════════════════════════════════════════════════════════
+// Import des Google Fonts
 
-// TODO: Import Google Fonts or custom fonts
-// Example: @import url('https://fonts.googleapis.com/css2?family=...');
+// ════════════════════════════════════════════════════════════════════════════
+// GOOGLE FONTS IMPORT
+// ════════════════════════════════════════════════════════════════════════════
+
+// Cormorant Garamond (Primary Font - Corps de texte)
+// Weights: 300, 400, 500, 600, 700
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+// Imperial Script (Secondary Font - Titres élégants)
+// Note: Si Imperial Script n'est pas disponible sur Google Fonts,
+// utiliser une alternative cursive élégante comme:
+// - Tangerine
+// - Great Vibes
+// - Dancing Script
+// - Parisienne
+
+// Alternative temporaire si Imperial Script n'est pas trouvé:
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+// ════════════════════════════════════════════════════════════════════════════
+// CUSTOM FONTS (Si vous avez des fichiers de police locaux)
+// ════════════════════════════════════════════════════════════════════════════
+
+// Exemple d'import de police locale :
+// @font-face {
+//   font-family: 'Imperial Script';
+//   src: url('/fonts/imperial-script.woff2') format('woff2'),
+//        url('/fonts/imperial-script.woff') format('woff');
+//   font-weight: normal;
+//   font-style: normal;
+//   font-display: swap;
+// }
+
+// ════════════════════════════════════════════════════════════════════════════
+// FONT LOADING OPTIMIZATION
+// ════════════════════════════════════════════════════════════════════════════
+
+// Les fonts sont chargées avec display=swap pour éviter le FOIT (Flash of Invisible Text)
+// et améliorer les performances de chargement initial

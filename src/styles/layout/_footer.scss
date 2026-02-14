@@ -1,6 +1,111 @@
-// ==========================================================================
+// ════════════════════════════════════════════════════════════════════════════
 // FOOTER - SOFICRAFT
-// ==========================================================================
+// ════════════════════════════════════════════════════════════════════════════
 // Styles du footer
 
-// TODO: Add footer layout styles
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// FOOTER
+// ════════════════════════════════════════════════════════════════════════════
+
+.footer {
+  background-color: $color-primary-darker;
+  color: $color-neutral-light;
+  padding-top: $space-4xl;
+  padding-bottom: $space-xl;
+
+  &__container {
+    @include container;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-3xl;
+    margin-bottom: $space-3xl;
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &__section {
+    h3 {
+      font-family: $font-secondary;
+      font-size: $fs-lg;
+      color: $color-primary-light;
+      margin-bottom: $space-lg;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: $space-sm;
+      }
+    }
+
+    a {
+      color: $color-neutral-light;
+      @include transition(color);
+
+      &:hover {
+        color: $color-primary-light;
+      }
+    }
+  }
+
+  &__bottom {
+    padding-top: $space-xl;
+    border-top: 1px solid rgba($color-neutral-light, 0.2);
+    text-align: center;
+    font-size: $fs-sm;
+    color: rgba($color-neutral-light, 0.7);
+
+    @include respond-to('md') {
+      @include flex-between;
+      text-align: left;
+    }
+  }
+
+  &__copyright {
+    margin-bottom: $space-md;
+
+    @include respond-to('md') {
+      margin-bottom: 0;
+    }
+  }
+
+  &__social {
+    @include flex-center;
+    gap: $space-md;
+    justify-content: center;
+
+    @include respond-to('md') {
+      justify-content: flex-end;
+    }
+
+    a {
+      width: 40px;
+      height: 40px;
+      @include flex-center;
+      border-radius: $radius-full;
+      background-color: rgba($color-neutral-light, 0.1);
+      color: $color-neutral-light;
+      @include transition(all);
+
+      &:hover {
+        background-color: $color-primary-light;
+        color: $color-primary-darker;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}

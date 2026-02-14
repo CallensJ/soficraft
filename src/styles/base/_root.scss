@@ -1,7 +1,112 @@
-// ==========================================================================
+// ════════════════════════════════════════════════════════════════════════════
 // ROOT - SOFICRAFT
-// ==========================================================================
-// Variables CSS :root (custom properties)
+// ════════════════════════════════════════════════════════════════════════════
+// Variables CSS custom properties
 
-// TODO: Define CSS custom properties
-// Example: :root { --color-primary: #...; }
+@use '../abstracts/variables' as *;
+
+:root {
+  // ══════════════════════════════════════════════════════════════════════════
+  // COLORS
+  // ══════════════════════════════════════════════════════════════════════════
+
+  // Primary Colors
+  --color-primary-light: #{$color-primary-light};
+  --color-primary-med: #{$color-primary-med};
+  --color-primary-dark: #{$color-primary-dark};
+  --color-primary-darker: #{$color-primary-darker};
+
+  // Secondary Colors
+  --color-secondary-green: #{$color-secondary-green};
+
+  // Neutral Colors
+  --color-neutral-dark: #{$color-neutral-dark};
+  --color-neutral-light: #{$color-neutral-light};
+  --color-neutral-bg: #{$color-neutral-bg};
+
+  // Utility Colors
+  --color-success: #{$color-success};
+  --color-error: #{$color-error};
+  --color-warning: #{$color-warning};
+  --color-info: #{$color-info};
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // TYPOGRAPHY
+  // ══════════════════════════════════════════════════════════════════════════
+
+  // Font Families
+  --font-primary: #{$font-primary};
+  --font-secondary: #{$font-secondary};
+
+  // Font Sizes
+  --fs-xs: #{$fs-xs};
+  --fs-sm: #{$fs-sm};
+  --fs-base: #{$fs-base};
+  --fs-md: #{$fs-md};
+  --fs-lg: #{$fs-lg};
+  --fs-xl: #{$fs-xl};
+  --fs-2xl: #{$fs-2xl};
+  --fs-3xl: #{$fs-3xl};
+  --fs-4xl: #{$fs-4xl};
+
+  // Font Weights
+  --fw-light: #{$fw-light};
+  --fw-normal: #{$fw-normal};
+  --fw-medium: #{$fw-medium};
+  --fw-semibold: #{$fw-semibold};
+  --fw-bold: #{$fw-bold};
+
+  // Line Heights
+  --lh-tight: #{$lh-tight};
+  --lh-normal: #{$lh-normal};
+  --lh-relaxed: #{$lh-relaxed};
+  --lh-loose: #{$lh-loose};
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // SPACING
+  // ══════════════════════════════════════════════════════════════════════════
+
+  --space-xs: #{$space-xs};
+  --space-sm: #{$space-sm};
+  --space-md: #{$space-md};
+  --space-lg: #{$space-lg};
+  --space-xl: #{$space-xl};
+  --space-2xl: #{$space-2xl};
+  --space-3xl: #{$space-3xl};
+  --space-4xl: #{$space-4xl};
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // BORDER RADIUS
+  // ══════════════════════════════════════════════════════════════════════════
+
+  --radius-sm: #{$radius-sm};
+  --radius-md: #{$radius-md};
+  --radius-lg: #{$radius-lg};
+  --radius-xl: #{$radius-xl};
+  --radius-full: #{$radius-full};
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // TRANSITIONS
+  // ══════════════════════════════════════════════════════════════════════════
+
+  --transition-fast: #{$transition-fast};
+  --transition-normal: #{$transition-normal};
+  --transition-slow: #{$transition-slow};
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // Z-INDEX
+  // ══════════════════════════════════════════════════════════════════════════
+
+  --z-dropdown: #{$z-dropdown};
+  --z-sticky: #{$z-sticky};
+  --z-modal-backdrop: #{$z-modal-backdrop};
+  --z-modal: #{$z-modal};
+  --z-tooltip: #{$z-tooltip};
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // CONTAINER
+  // ══════════════════════════════════════════════════════════════════════════
+
+  --container-max-width: #{$container-max-width};
+  --container-padding: #{$container-padding};
+}

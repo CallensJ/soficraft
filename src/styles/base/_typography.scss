@@ -1,7 +1,262 @@
-// ==========================================================================
+// ════════════════════════════════════════════════════════════════════════════
 // TYPOGRAPHY - SOFICRAFT
-// ==========================================================================
-// Styles de base des éléments typographiques (h1-h6, p, a, etc.)
+// ════════════════════════════════════════════════════════════════════════════
+// Styles de base des éléments typographiques
 
-// TODO: Define base typography styles
-// Example: h1, h2, h3, p, a, strong, em
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// BODY
+// ════════════════════════════════════════════════════════════════════════════
+
+body {
+  font-family: $font-primary;
+  font-size: $fs-base;
+  font-weight: $fw-normal;
+  line-height: $lh-normal;
+  color: $color-neutral-dark;
+  background-color: $color-neutral-bg;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// HEADINGS
+// ════════════════════════════════════════════════════════════════════════════
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-secondary;
+  font-weight: $fw-bold;
+  line-height: $lh-tight;
+  color: $color-neutral-dark;
+  margin-bottom: $space-md;
+}
+
+h1 {
+  font-size: $fs-4xl;
+  letter-spacing: $ls-tight;
+
+  @include respond-to('md') {
+    font-size: $fs-4xl * 1.2;
+  }
+}
+
+h2 {
+  font-size: $fs-3xl;
+  letter-spacing: $ls-tight;
+
+  @include respond-to('md') {
+    font-size: $fs-3xl * 1.15;
+  }
+}
+
+h3 {
+  font-size: $fs-2xl;
+
+  @include respond-to('md') {
+    font-size: $fs-2xl * 1.1;
+  }
+}
+
+h4 {
+  font-size: $fs-xl;
+}
+
+h5 {
+  font-size: $fs-lg;
+}
+
+h6 {
+  font-size: $fs-md;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// PARAGRAPHS
+// ════════════════════════════════════════════════════════════════════════════
+
+p {
+  margin-bottom: $space-md;
+  line-height: $lh-relaxed;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// LINKS
+// ════════════════════════════════════════════════════════════════════════════
+
+a {
+  color: $color-primary-dark;
+  text-decoration: none;
+  @include transition(color);
+
+  &:hover,
+  &:focus {
+    color: $color-primary-darker;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// TEXT STYLES
+// ════════════════════════════════════════════════════════════════════════════
+
+strong,
+b {
+  font-weight: $fw-bold;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+small {
+  font-size: $fs-sm;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// BLOCKQUOTE
+// ════════════════════════════════════════════════════════════════════════════
+
+blockquote {
+  padding: $space-lg;
+  margin: $space-xl 0;
+  border-left: 4px solid $color-primary-dark;
+  background-color: rgba($color-primary-light, 0.1);
+  font-style: italic;
+  color: $color-neutral-dark;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  cite {
+    display: block;
+    margin-top: $space-md;
+    font-size: $fs-sm;
+    font-style: normal;
+    color: $color-primary-dark;
+
+    &::before {
+      content: '— ';
+    }
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// CODE
+// ════════════════════════════════════════════════════════════════════════════
+
+code,
+pre {
+  font-family: 'Courier New', monospace;
+  background-color: rgba($color-neutral-dark, 0.05);
+  border-radius: $radius-sm;
+}
+
+code {
+  padding: 0.125rem 0.25rem;
+  font-size: 0.875em;
+}
+
+pre {
+  padding: $space-md;
+  margin: $space-md 0;
+  overflow-x: auto;
+
+  code {
+    padding: 0;
+    background-color: transparent;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// LISTS
+// ════════════════════════════════════════════════════════════════════════════
+
+ul,
+ol {
+  margin-bottom: $space-md;
+  padding-left: $space-xl;
+
+  li {
+    margin-bottom: $space-sm;
+    line-height: $lh-relaxed;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+ul {
+  list-style: disc;
+}
+
+ol {
+  list-style: decimal;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// HORIZONTAL RULE
+// ════════════════════════════════════════════════════════════════════════════
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: rgba($color-neutral-dark, 0.1);
+  margin: $space-2xl 0;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// MARK / HIGHLIGHT
+// ════════════════════════════════════════════════════════════════════════════
+
+mark {
+  background-color: rgba($color-warning, 0.3);
+  padding: 0.125rem 0.25rem;
+  border-radius: $radius-sm;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// UTILITY CLASSES
+// ════════════════════════════════════════════════════════════════════════════
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: $ls-wide;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.font-primary {
+  font-family: $font-primary;
+}
+
+.font-secondary {
+  font-family: $font-secondary;
+}

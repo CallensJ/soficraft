@@ -1,6 +1,104 @@
-// ==========================================================================
+// ════════════════════════════════════════════════════════════════════════════
 // FUNCTIONS - SOFICRAFT
-// ==========================================================================
-// Fonctions Sass custom (conversions, calculs, etc.)
+// ════════════════════════════════════════════════════════════════════════════
+// Fonctions Sass custom
 
-// TODO: Add custom Sass functions
+@use 'sass:math';
+@use 'sass:color';
+@use 'variables' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// COLOR FUNCTIONS
+// ════════════════════════════════════════════════════════════════════════════
+
+/// Get color from the $colors map
+/// @param {String} $color-name - Name of the color
+/// @return {Color} - Color value
+@function get-color($color-name) {
+  @if map-has-key($colors, $color-name) {
+    @return map-get($colors, $color-name);
+  } @else {
+    @warn "Color '#{$color-name}' not found in $colors map.";
+    @return null;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SPACING FUNCTIONS
+// ════════════════════════════════════════════════════════════════════════════
+
+/// Calculate spacing based on base unit
+/// @param {Number} $multiplier - Multiplier for base spacing
+/// @return {Number} - Calculated spacing
+@function spacing($multiplier) {
+  $base: 0.5rem; // 8px
+  @return $base * $multiplier;
+}
+
+// Usage: padding: spacing(2); // 16px
+
+// ════════════════════════════════════════════════════════════════════════════
+// FLUID TYPOGRAPHY
+// ════════════════════════════════════════════════════════════════════════════
+
+/// Calculate fluid typography using clamp()
+/// @param {Number} $min-size - Minimum font size
+/// @param {Number} $max-size - Maximum font size
+/// @param {Number} $min-viewport - Minimum viewport width (default: 320px)
+/// @param {Number} $max-viewport - Maximum viewport width (default: 1280px)
+/// @return {String} - clamp() value
+@function fluid-type(
+  $min-size,
+  $max-size,
+  $min-viewport: 320px,
+  $max-viewport: 1280px
+) {
+  $slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
+  $intercept: $min-size - $slope * $min-viewport;
+
+  @return clamp(
+    #{$min-size},
+    #{$intercept} + #{$slope * 100}vw,
+    #{$max-size}
+  );
+}
+
+// Usage: font-size: fluid-type(1rem, 2rem);
+
+// ════════════════════════════════════════════════════════════════════════════
+// UNIT CONVERSION
+// ════════════════════════════════════════════════════════════════════════════
+
+/// Convert px to rem
+/// @param {Number} $px - Pixel value
+/// @param {Number} $base - Base font size (default: 16px)
+/// @return {Number} - Value in rem
+@function px-to-rem($px, $base: 16px) {
+  @return math.div($px, $base) * 1rem;
+}
+
+// Usage: font-size: px-to-rem(18px); // 1.125rem
+
+// ════════════════════════════════════════════════════════════════════════════
+// STRING FUNCTIONS
+// ════════════════════════════════════════════════════════════════════════════
+
+/// Replace substring in a string
+/// @param {String} $string - Original string
+/// @param {String} $search - Substring to search for
+/// @param {String} $replace - Replacement substring
+/// @return {String} - Modified string
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        str-slice($string, $index + str-length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
+}

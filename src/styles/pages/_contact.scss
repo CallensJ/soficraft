@@ -1,6 +1,49 @@
-// ==========================================================================
+// ════════════════════════════════════════════════════════════════════════════
 // CONTACT PAGE - SOFICRAFT
-// ==========================================================================
+// ════════════════════════════════════════════════════════════════════════════
 // Styles spécifiques à la page contact
 
-// TODO: Add contact page specific styles
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// CONTACT PAGE
+// ════════════════════════════════════════════════════════════════════════════
+
+.contact-page {
+  padding: $space-3xl 0;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-3xl;
+
+    @include respond-to('lg') {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: $space-3xl;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $fs-4xl;
+    color: $color-neutral-dark;
+    margin-bottom: $space-md;
+  }
+
+  &__subtitle {
+    font-size: $fs-lg;
+    color: rgba($color-neutral-dark, 0.7);
+  }
+
+  &__info {
+    @include flex-column;
+    gap: $space-xl;
+  }
+}
+
+// Page-specific styles will be added here as needed

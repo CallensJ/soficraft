@@ -1,7 +1,169 @@
-// ==========================================================================
+// ════════════════════════════════════════════════════════════════════════════
 // NAVIGATION - SOFICRAFT
-// ==========================================================================
+// ════════════════════════════════════════════════════════════════════════════
 // Styles de la navigation principale
 
-// TODO: Add navigation styles
-// TODO: Add mobile menu styles
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════════════════════════════════════
+
+.nav {
+  &__list {
+    @include flex-center;
+    gap: $space-xl;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    position: relative;
+  }
+
+  &__link {
+    display: block;
+    padding: $space-sm $space-md;
+    font-family: $font-primary;
+    font-size: $fs-base;
+    font-weight: $fw-medium;
+    color: $color-neutral-dark;
+    text-decoration: none;
+    @include transition(color);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background-color: $color-primary-dark;
+      transform: translateX(-50%);
+      @include transition(width);
+    }
+
+    &:hover {
+      color: $color-primary-dark;
+
+      &::after {
+        width: 100%;
+      }
+    }
+
+    &--active {
+      color: $color-primary-darker;
+      font-weight: $fw-semibold;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // MOBILE NAVIGATION
+  // ══════════════════════════════════════════════════════════════════════════
+
+  &__toggle {
+    display: none;
+    @include button-reset;
+    width: 40px;
+    height: 40px;
+    @include flex-center;
+    flex-direction: column;
+    gap: 6px;
+    z-index: $z-modal + 1;
+
+    @include respond-to('md') {
+      display: none !important;
+    }
+
+    span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background-color: $color-neutral-dark;
+      @include transition(all);
+      transform-origin: center;
+    }
+
+    &--active {
+      span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+
+      span:nth-child(2) {
+        opacity: 0;
+      }
+
+      span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+    }
+  }
+
+  // Mobile menu styles
+  @media (max-width: $breakpoint-md - 1) {
+    &__toggle {
+      display: flex;
+    }
+
+    &__list {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      background-color: $color-neutral-bg;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: $space-4xl $space-xl;
+      gap: $space-lg;
+      box-shadow: -4px 0 20px rgba($color-neutral-dark, 0.1);
+      @include transition(right, $duration-normal, $easing-ease-out);
+      z-index: $z-modal;
+      overflow-y: auto;
+
+      &--active {
+        right: 0;
+      }
+    }
+
+    &__link {
+      width: 100%;
+      font-size: $fs-lg;
+      padding: $space-md 0;
+
+      &::after {
+        left: 0;
+        transform: translateX(0);
+      }
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // MOBILE OVERLAY
+  // ══════════════════════════════════════════════════════════════════════════
+
+  &__overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color-neutral-dark, 0.5);
+    z-index: $z-modal-backdrop;
+    opacity: 0;
+    @include transition(opacity);
+
+    &--active {
+      display: block;
+      opacity: 1;
+    }
+  }
+}
