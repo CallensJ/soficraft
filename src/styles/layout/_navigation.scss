@@ -54,9 +54,9 @@
 
     // ---- Logo ----
     &__logo {
-        font-family: $font-secondary; // Great Vibes (fallback pour Imperial Script)
+        font-family: $font-secondary;
         font-size: 1.8rem;
-        color: $color-neutral-white;
+        color: $color-neutral-light;
         text-decoration: none;
         letter-spacing: 0.02em;
         transition:
@@ -90,7 +90,7 @@
         font-family: $font-primary; // Cormorant Garamond
         font-size: $fs-base;
         font-weight: 500;
-        color: $color-neutral-white;
+        color: $color-neutral-light;
         text-decoration: none;
         letter-spacing: 0.06em;
         text-transform: uppercase;
@@ -153,7 +153,7 @@
             display: block;
             width: 24px;
             height: 2px;
-            background-color: $color-neutral-white;
+            background-color: $color-neutral-light;
             border-radius: 2px;
             transition:
                 transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
@@ -219,7 +219,7 @@
         font-family: $font-primary;
         font-size: $fs-xl;
         font-weight: 400;
-        color: $color-neutral-white;
+        color: $color-neutral-light;
         text-decoration: none;
         letter-spacing: 0.08em;
         text-transform: uppercase;

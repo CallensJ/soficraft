@@ -1,87 +1,41 @@
-// ════════════════════════════════════════════════════════════════════════════
-// HOME PAGE - SOFICRAFT
-// ════════════════════════════════════════════════════════════════════════════
-// Styles spécifiques à la page d'accueil
+// ============================================================
+// PAGE HOME — SOFICRAFT
+// Styles page-level pour la page d'accueil
+// ============================================================
 
-@use '../abstracts/variables' as *;
-@use '../abstracts/mixins' as *;
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
 
-// ════════════════════════════════════════════════════════════════════════════
-// HERO SECTION
-// ════════════════════════════════════════════════════════════════════════════
+// ----------------------------------------------------------
+// PAGE WRAPPER
+// ----------------------------------------------------------
+.page-home {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $color-neutral-dark;
+    color: $color-neutral-light;
+    overflow-x: hidden; // Empêche scroll horizontal accidentel
 
-.home-hero {
-  min-height: 100vh;
-  @include flex-center;
-  text-align: center;
-  background: linear-gradient(
-    135deg,
-    rgba($color-primary-light, 0.3) 0%,
-    rgba($color-neutral-bg, 1) 100%
-  );
-  position: relative;
-  overflow: hidden;
-
-  &__content {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-    padding: $space-xl;
-  }
-
-  &__title {
-    font-family: $font-secondary;
-    font-size: $fs-3xl;
-    font-weight: $fw-bold;
-    color: $color-neutral-dark;
-    margin-bottom: $space-lg;
-
-    @include respond-to('md') {
-      font-size: $fs-4xl * 1.3;
-    }
-  }
-
-  &__subtitle {
-    font-size: $fs-lg;
-    color: rgba($color-neutral-dark, 0.8);
-    margin-bottom: $space-2xl;
-    line-height: $lh-relaxed;
-
-    @include respond-to('md') {
-      font-size: $fs-xl;
-    }
-  }
-
-  &__actions {
-    @include flex-center;
-    gap: $space-lg;
-    flex-wrap: wrap;
-  }
+    // ----------------------------------------------------------
+    // Smooth scroll natif (complète GSAP ScrollSmoother si utilisé)
+    // ----------------------------------------------------------
+    scroll-behavior: smooth;
 }
 
-// ════════════════════════════════════════════════════════════════════════════
-// FEATURED SECTION
-// ════════════════════════════════════════════════════════════════════════════
-
-.home-featured {
-  padding: $space-4xl 0;
-
-  &__header {
-    text-align: center;
-    margin-bottom: $space-3xl;
-  }
-
-  &__title {
-    font-family: $font-secondary;
-    font-size: $fs-3xl;
-    color: $color-neutral-dark;
-    margin-bottom: $space-md;
-  }
-
-  &__subtitle {
-    font-size: $fs-lg;
-    color: rgba($color-neutral-dark, 0.7);
-  }
-}
-
-// Page-specific styles will be added here as needed
+// ----------------------------------------------------------
+// GOOGLE FONT : Imperial Script
+// À ajouter dans vendors/_fonts.scss ou dans <head> via next/font
+// ----------------------------------------------------------
+// @use url('https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap');
+//
+// NOTE POUR INTÉGRATION :
+// Dans le fichier vendors/_fonts.scss existant, ajouter :
+//
+// @font-face ou lien Google Fonts pour Imperial Script
+// Puis mettre à jour abstracts/_variables.scss :
+//   $font-display: 'Imperial Script', cursive;
+//   $font-secondary: 'Great Vibes', cursive; (fallback)
+//
+// Et dans le composant HeroSection, utiliser $font-display
+// pour le H1 au lieu de $font-secondary.
+// ----------------------------------------------------------
