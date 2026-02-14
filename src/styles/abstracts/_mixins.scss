@@ -3,6 +3,7 @@
 // ════════════════════════════════════════════════════════════════════════════
 // Mixins réutilisables (breakpoints, animations, flexbox, etc.)
 
+@use 'sass:color';
 @use 'variables' as *;
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -211,7 +212,7 @@
     border-radius: $radius-md;
 
     &:hover {
-      background: darken($thumb-color, 10%);
+      background: color.scale($thumb-color, $lightness: -10%);
     }
   }
 }

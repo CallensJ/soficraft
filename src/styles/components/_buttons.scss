@@ -3,6 +3,7 @@
 // ════════════════════════════════════════════════════════════════════════════
 // Styles des boutons réutilisables
 
+@use 'sass:color';
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
 
@@ -50,8 +51,8 @@
   border-color: $color-primary-darker;
 
   &:hover {
-    background-color: darken($color-primary-darker, 10%);
-    border-color: darken($color-primary-darker, 10%);
+    background-color: color.scale($color-primary-darker, $lightness: -10%);
+    border-color: color.scale($color-primary-darker, $lightness: -10%);
     transform: translateY(-2px);
     @include shadow-md;
   }
@@ -69,23 +70,6 @@
   &:hover {
     background-color: $color-primary-darker;
     color: $color-neutral-light;
-    transform: translateY(-2px);
-    @include shadow-md;
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-.btn-tertiary {
-  background-color: $color-secondary-green;
-  color: $color-neutral-light;
-  border-color: $color-secondary-green;
-
-  &:hover {
-    background-color: darken($color-secondary-green, 10%);
-    border-color: darken($color-secondary-green, 10%);
     transform: translateY(-2px);
     @include shadow-md;
   }
@@ -129,72 +113,4 @@
 .btn-lg {
   padding: $space-lg $space-2xl;
   font-size: $fs-lg;
-}
-
-.btn-xl {
-  padding: $space-xl $space-3xl;
-  font-size: $fs-xl;
-}
-
-// ════════════════════════════════════════════════════════════════════════════
-// BUTTON FULL WIDTH
-// ════════════════════════════════════════════════════════════════════════════
-
-.btn-block {
-  width: 100%;
-  display: flex;
-}
-
-// ════════════════════════════════════════════════════════════════════════════
-// BUTTON ICON
-// ════════════════════════════════════════════════════════════════════════════
-
-.btn-icon {
-  padding: $space-md;
-  width: 44px;
-  height: 44px;
-  border-radius: $radius-full;
-
-  &.btn-sm {
-    width: 36px;
-    height: 36px;
-    padding: $space-sm;
-  }
-
-  &.btn-lg {
-    width: 56px;
-    height: 56px;
-    padding: $space-lg;
-  }
-}
-
-// ════════════════════════════════════════════════════════════════════════════
-// BUTTON GROUP
-// ════════════════════════════════════════════════════════════════════════════
-
-.btn-group {
-  display: inline-flex;
-  gap: $space-sm;
-
-  &--attached {
-    gap: 0;
-
-    .btn {
-      border-radius: 0;
-
-      &:first-child {
-        border-top-left-radius: $radius-md;
-        border-bottom-left-radius: $radius-md;
-      }
-
-      &:last-child {
-        border-top-right-radius: $radius-md;
-        border-bottom-right-radius: $radius-md;
-      }
-
-      &:not(:last-child) {
-        border-right-width: 1px;
-      }
-    }
-  }
 }

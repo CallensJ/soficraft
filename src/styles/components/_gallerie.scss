@@ -3,6 +3,7 @@
 // ════════════════════════════════════════════════════════════════════════════
 // Styles de la galerie de bijoux
 
+@use 'sass:color';
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
 
@@ -242,8 +243,8 @@
       border-color: $color-primary-darker;
 
       &:hover {
-        background-color: darken($color-primary-darker, 10%);
-        border-color: darken($color-primary-darker, 10%);
+        background-color: color.scale($color-primary-darker, $lightness: -10%);
+        border-color: color.scale($color-primary-darker, $lightness: -10%);
       }
     }
   }

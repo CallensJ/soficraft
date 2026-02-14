@@ -4,6 +4,7 @@
 // Mobile-first responsive
 // ============================================================
 
+@use 'sass:color';
 @use "../../abstracts/variables" as *;
 @use "../../abstracts/mixins" as *;
 
@@ -47,10 +48,10 @@
             ),
             linear-gradient(
                 175deg,
-                darken($color-neutral-dark, 5%) 0%,
+                color.scale($color-neutral-dark, $lightness: -5%) 0%,
                 $color-neutral-dark 25%,
-                darken($color-primary-light, 30%) 50%,
-                darken($color-secondary-green, 20%) 75%,
+                color.scale($color-primary-light, $lightness: -30%) 50%,
+                color.scale($color-secondary-green, $lightness: -20%) 75%,
                 $color-neutral-dark 100%
             );
         background-size: cover;
