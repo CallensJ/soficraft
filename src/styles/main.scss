@@ -8,56 +8,56 @@
 // 1. ABSTRACTS
 // ==========================================================================
 // Configuration et helpers sans output CSS
-@use 'abstracts/variables';
-@use 'abstracts/functions';
-@use 'abstracts/mixins';
+@use "abstracts/variables";
+@use "abstracts/functions";
+@use "abstracts/mixins";
 
 // ==========================================================================
 // 2. VENDORS
 // ==========================================================================
 // CSS externes (normalize, fonts, librairies tierces)
-@use 'vendors/normalize';
-@use 'vendors/fonts';
+@use "vendors/normalize";
+@use "vendors/fonts";
 
 // ==========================================================================
 // 3. BASE
 // ==========================================================================
 // Styles de base et fondations
-@use 'base/reset';
-@use 'base/typography';
-@use 'base/root';
+@use "base/reset";
+@use "base/typography";
+@use "base/root";
 
 // ==========================================================================
 // 4. LAYOUT
 // ==========================================================================
 // Structures majeures du layout
-@use 'layout/header';
-@use 'layout/footer';
-@use 'layout/navigation';
-@use 'layout/container';
+@use "layout/header";
+@use "layout/footer";
+@use "layout/navigation";
+@use "layout/container";
 
 // ==========================================================================
 // 5. COMPONENTS
 // ==========================================================================
 // Composants réutilisables
-@use 'components/buttons';
-@use 'components/cards';
-@use 'components/gallery';
-@use 'components/form';
-@use 'components/modal';
+@use "components/buttons";
+@use "components/cards";
+@use "components/gallerie";
+@use "components/form";
+@use "components/modal";
 
 // ==========================================================================
 // 6. PAGES
 // ==========================================================================
 // Styles spécifiques aux pages
-@use 'pages/home';
-@use 'pages/gallery';
-@use 'pages/product';
-@use 'pages/contact';
+@use "pages/home";
+@use "pages/gallery";
+@use "pages/product";
+@use "pages/contact";
 
 // ==========================================================================
 // 7. THEMES
 // ==========================================================================
 // Thèmes et variations de couleurs
-@use 'themes/light';
+@use "themes/light";
 // @use 'themes/dark'; // Optionnel - décommenter pour activer le thème sombre
