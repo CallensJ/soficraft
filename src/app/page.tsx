@@ -5,6 +5,7 @@
 // ============================================================
 
 import HeroSection from "../components/homepage/HeroSection";
+import UniversSection from "../components/homepage/UniversSection";
 import Navbar from "../components/layout/Navbar";
 
 export default function HomePage() {
@@ -12,6 +13,7 @@ export default function HomePage() {
     <main className="page-home">
       <Navbar />
       <HeroSection />
+      <UniversSection />
 
       {/*
         PROCHAINES SECTIONS (Sprint 1 - à venir) :

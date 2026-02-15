@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -146,21 +147,18 @@ export default function HeroSection() {
     <section ref={sectionRef} className="hero" aria-label="Accueil SOFICRAFT">
       {/* ---- Background image + overlay ---- */}
       <div ref={backgroundRef} className="hero__background">
-        {/*
-          IMAGE PLACEHOLDER :
-          Remplacer par <Image> Next.js quand l'image sera fournie.
-          Ambiance : forêt enchantée, lumière dorée filtrée à travers les branches.
-
-          <Image
-            src="/images/hero-forest.jpg"
-            alt="Forêt enchantée baignée de lumière dorée"
-            fill
-            priority
-            quality={85}
-            sizes="100vw"
-            style={{ objectFit: 'cover' }}
-          />
-        */}
+        IMAGE PLACEHOLDER : maximilian-jaenicke https://unsplash.com/@maxican
+        Ambiance : forêt enchantée, lumière dorée filtrée à travers les
+        branches.
+        <Image
+          src="/images/hero-forest.jpg"
+          alt="Forêt enchantée baignée de lumière dorée"
+          fill
+          priority
+          quality={75}
+          sizes="100vw"
+          style={{ objectFit: "cover" }}
+        />
         <div className="hero__background-overlay" />
       </div>
 
