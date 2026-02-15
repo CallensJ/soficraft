@@ -4,6 +4,7 @@
 // Mixins réutilisables (breakpoints, animations, flexbox, etc.)
 
 @use 'sass:color';
+@use 'sass:map';
 @use 'variables' as *;
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -11,7 +12,7 @@
 // ════════════════════════════════════════════════════════════════════════════
 
 @mixin respond-to($breakpoint) {
-  @media (min-width: map-get($breakpoints, $breakpoint)) {
+  @media (min-width: map.get($breakpoints, $breakpoint)) {
     @content;
   }
 }
