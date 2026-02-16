@@ -4,7 +4,7 @@
 // Mobile-first responsive
 // ============================================================
 
-@use 'sass:color';
+@use "sass:color";
 @use "../../abstracts/variables" as *;
 @use "../../abstracts/mixins" as *;
 
@@ -137,7 +137,7 @@
     // Split Text (chaque mot est un <span>)
     // ----------------------------------------------------------
     &__title {
-        font-family: $font-secondary; // Great Vibes (fallback Imperial Script)
+        font-family: $font-secondary;
         font-weight: 400;
         color: $color-neutral-light;
         line-height: 1.2;

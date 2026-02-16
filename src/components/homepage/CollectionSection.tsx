@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -185,19 +186,17 @@ export default function CollectionsSection() {
             {/* Image placeholder */}
             <div className="collections__card-image">
               <div className="collections__card-image-inner">
-                {/*
-                  IMAGE PLACEHOLDER :
-                  Remplacer par <Image> Next.js quand disponible.
+                {/*IMAGE PLACEHOLDER :*/}
 
-                  <Image
-                    src={`/images/collections/${collection.id}.jpg`}
-                    alt={`Collection ${collection.title} SOFICRAFT`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    quality={80}
-                    style={{ objectFit: 'cover' }}
-                  />
-                */}
+                <Image
+                  src={`/images/collections/${collection.id}.webp`}
+                  alt={`Collection ${collection.title} SOFICRAFT`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  quality={75}
+                  style={{ objectFit: "cover" }}
+                />
+
                 <div className="collections__card-placeholder">
                   <span className="collections__card-ornament">
                     {collection.ornament}
