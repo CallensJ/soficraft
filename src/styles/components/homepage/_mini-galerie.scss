@@ -88,15 +88,53 @@
     }
 
     // ----------------------------------------------------------
-    // WRAPPER — Conteneur de scroll
+    // WRAPPER — Conteneur de scroll (prêt pour la boucle infinie)
     // ----------------------------------------------------------
     &__wrapper {
         position: relative;
-        z-index: 2; //
+        z-index: 2;
         width: 100%;
-        overflow: visible;
+        overflow: hidden; // Important pour cacher les éléments dupliqués
         cursor: grab;
         user-select: none;
+
+        // Masques de gradient pour fondus latéraux élégants
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 120px;
+            z-index: 10;
+            pointer-events: none;
+
+            @include respond-to("md") {
+                width: 180px;
+            }
+        }
+
+        &::before {
+            left: 0;
+            background: linear-gradient(
+                to right,
+                $color-neutral-bg 0%,
+                transparent 100%
+            );
+        }
+
+        &::after {
+            right: 0;
+            background: linear-gradient(
+                to left,
+                $color-neutral-bg 0%,
+                transparent 100%
+            );
+        }
+
+        &:active {
+            cursor: grabbing;
+        }
 
         @media (hover: none) {
             overflow-x: auto;
@@ -134,101 +172,85 @@
     }
 
     // ----------------------------------------------------------
-    // ITEM — Photo individuelle
+    // ITEM — Photo individuelle (Tailles fluides basées sur viewport)
     // ----------------------------------------------------------
     &__item {
         flex-shrink: 0;
         position: relative;
         overflow: hidden;
         border-radius: $radius-sm;
-        transition: transform $transition-slow;
+        transition:
+            transform $transition-slow,
+            box-shadow $transition-slow;
+        will-change: transform;
 
         &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba($color-neutral-dark, 0.15);
+
             .mini-galerie__item-info {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        // ---- Tailles variées ----
-        &--tall {
-            width: 220px;
-            height: 340px;
-            @include respond-to("md") {
-                width: 280px;
-                height: 420px;
-            }
-            @include respond-to("lg") {
-                width: 300px;
-                height: 460px;
+        // ---- Tailles variées (percentage-based) ----
+        // compact: ~27% viewport width - images compactes et élégantes
+        &--compact {
+            width: clamp(180px, 27vw, 340px);
+            height: clamp(260px, 38vw, 480px);
+            aspect-ratio: 0.71; // Portrait allongé
+        }
+
+        // medium: ~40% viewport width - équilibre visuel
+        &--medium {
+            width: clamp(240px, 40vw, 520px);
+            height: clamp(320px, 52vw, 650px);
+            aspect-ratio: 0.77; // Portrait
+        }
+
+        // expanded: ~55% viewport width - présence marquée
+        &--expanded {
+            width: clamp(320px, 55vw, 720px);
+            height: clamp(380px, 65vw, 850px);
+            aspect-ratio: 0.85; // Presque carré
+        }
+
+        // statement: ~60% viewport width - déclaration visuelle
+        &--statement {
+            width: clamp(360px, 60vw, 800px);
+            height: clamp(280px, 46vw, 620px);
+            aspect-ratio: 1.29; // Paysage
+        }
+
+        // hero: ~75% viewport width - IMAGE HERO dominante
+        &--hero {
+            width: clamp(440px, 75vw, 1000px);
+            height: clamp(560px, 95vw, 1260px);
+            aspect-ratio: 0.79; // Portrait dramatique
+            box-shadow: 0 16px 48px rgba($color-neutral-dark, 0.12);
+
+            &:hover {
+                transform: translateY(-8px) scale(1.01);
+                box-shadow: 0 20px 60px rgba($color-neutral-dark, 0.18);
             }
         }
 
-        &--wide {
-            width: 320px;
-            height: 220px;
-            @include respond-to("md") {
-                width: 400px;
-                height: 280px;
-            }
-            @include respond-to("lg") {
-                width: 440px;
-                height: 300px;
-            }
-        }
-
-        &--square {
-            width: 240px;
-            height: 240px;
-            @include respond-to("md") {
-                width: 300px;
-                height: 300px;
-            }
-            @include respond-to("lg") {
-                width: 340px;
-                height: 340px;
-            }
-        }
-
-        &--large {
-            width: 300px;
-            height: 380px;
-            @include respond-to("md") {
-                width: 380px;
-                height: 480px;
-            }
-            @include respond-to("lg") {
-                width: 420px;
-                height: 520px;
-            }
-        }
-
-        &--xlarge {
-            // Ajout de la taille xlarge
-            width: 340px;
-            height: 440px;
-            @include respond-to("md") {
-                width: 440px;
-                height: 560px;
-            }
-            @include respond-to("lg") {
-                width: 500px;
-                height: 640px;
-            }
-        }
-
-        // ---- Décalages verticaux ----
+        // ---- Décalages verticaux (améliorés) ----
         &--up {
             align-self: flex-start;
+            animation: floatUp 6s ease-in-out infinite;
         }
         &--down {
             align-self: flex-end;
+            animation: floatDown 7s ease-in-out infinite;
             @include respond-to("md") {
                 margin-top: $space-4xl;
             }
         }
         &--none {
             align-self: center;
+            animation: floatCenter 8s ease-in-out infinite;
         }
     }
 
@@ -252,41 +274,77 @@
         width: 100%;
         height: 100%;
         transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        position: relative;
 
-        .mini-galerie__item--tall & {
+        // Effet de grain subtil pour toutes les images
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+
+        // Gradients distincts par taille
+        .mini-galerie__item--compact & {
             background: linear-gradient(
-                170deg,
-                color.adjust($color-primary-med, $lightness: -5%) 0%,
+                165deg,
+                color.adjust($color-primary-med, $lightness: -8%) 0%,
                 $color-primary-light 100%
             );
         }
-        .mini-galerie__item--wide & {
-            background: linear-gradient(
-                120deg,
-                $color-primary-dark 0%,
-                color.adjust($color-primary-med, $lightness: 5%) 100%
-            );
-        }
-        .mini-galerie__item--square & {
-            background: linear-gradient(
-                145deg,
-                $color-secondary-green 0%,
-                color.adjust($color-primary-dark, $lightness: 5%) 100%
-            );
-        }
-        .mini-galerie__item--large & {
-            background: linear-gradient(
-                160deg,
-                color.adjust($color-primary-darker, $lightness: 5%) 0%,
-                $color-secondary-green 100%
-            );
-        }
-        .mini-galerie__item--xlarge & {
+
+        .mini-galerie__item--medium & {
             background: linear-gradient(
                 135deg,
-                color.adjust($color-primary-med, $lightness: -10%) 0%,
-                color.adjust($color-secondary-green, $lightness: 10%) 100%
+                $color-primary-dark 0%,
+                color.adjust($color-secondary-green, $lightness: 15%) 100%
             );
+        }
+
+        .mini-galerie__item--expanded & {
+            background: linear-gradient(
+                145deg,
+                color.adjust($color-primary-darker, $lightness: 8%) 0%,
+                color.adjust($color-primary-med, $lightness: 12%) 100%
+            );
+        }
+
+        .mini-galerie__item--statement & {
+            background: linear-gradient(
+                120deg,
+                $color-secondary-green 0%,
+                color.adjust($color-primary-light, $lightness: 5%) 100%
+            );
+        }
+
+        .mini-galerie__item--hero & {
+            background: linear-gradient(
+                155deg,
+                color.adjust($color-primary-darker, $lightness: 5%) 0%,
+                color.adjust($color-secondary-green, $lightness: 8%) 50%,
+                color.adjust($color-primary-med, $lightness: 10%) 100%
+            );
+            // Effet de brillance subtil pour l'image hero
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    135deg,
+                    transparent 0%,
+                    rgba(white, 0.05) 50%,
+                    transparent 100%
+                );
+                opacity: 0;
+                transition: opacity 0.6s ease;
+            }
+        }
+
+        .mini-galerie__item--hero:hover &::before {
+            opacity: 1;
         }
 
         .mini-galerie__item:hover & {
@@ -414,9 +472,13 @@
         opacity: 0.4;
         letter-spacing: 0.1em;
         text-transform: uppercase;
+        animation: fadeInOut 3s ease-in-out infinite;
     }
 }
 
+// ----------------------------------------------------------
+// ANIMATIONS
+// ----------------------------------------------------------
 @keyframes scrollHintPulse {
     0%,
     100% {
@@ -426,5 +488,49 @@
     50% {
         width: 60px;
         opacity: 0.5;
+    }
+}
+
+// Animations de flottement subtiles pour les images
+@keyframes floatUp {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes floatDown {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(12px);
+    }
+}
+
+@keyframes floatCenter {
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+    33% {
+        transform: translateY(-8px) scale(1.005);
+    }
+    66% {
+        transform: translateY(8px) scale(0.995);
+    }
+}
+
+@keyframes fadeInOut {
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.7;
     }
 }

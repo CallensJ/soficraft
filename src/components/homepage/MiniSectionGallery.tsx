@@ -16,7 +16,7 @@ interface GalleryItem {
   id: string;
   title: string;
   category: string;
-  size: "tall" | "wide" | "square" | "large" | "xlarge"; // Ajout de xlarge
+  size: "compact" | "medium" | "expanded" | "hero" | "statement"; // Nouvelles tailles fluides
   offset: "up" | "down" | "none";
 }
 
@@ -25,42 +25,42 @@ const galleryItems: GalleryItem[] = [
     id: "creation-01",
     title: "Couronne Sylvestre",
     category: "Bague",
-    size: "tall",
+    size: "medium", // ~40% width
     offset: "down",
   },
   {
     id: "creation-02",
     title: "Murmure Celtique",
     category: "Collier",
-    size: "wide",
+    size: "compact", // ~27% width
     offset: "up",
   },
   {
     id: "creation-03",
     title: "Rosée Lunaire",
     category: "Boucles d'oreille",
-    size: "xlarge", // Utilisation de la nouvelle taille
+    size: "hero", // ~75% width - IMAGE HERO
     offset: "none",
   },
   {
     id: "creation-04",
     title: "Lierre Enchanté",
     category: "Bracelet",
-    size: "large",
+    size: "expanded", // ~55% width
     offset: "up",
   },
   {
     id: "creation-05",
     title: "Rêve de Fae",
     category: "Bague",
-    size: "tall",
+    size: "compact", // ~27% width
     offset: "down",
   },
   {
     id: "creation-06",
     title: "Souffle d'Automne",
     category: "Collier",
-    size: "wide",
+    size: "statement", // ~60% width
     offset: "none",
   },
 ];
@@ -98,10 +98,10 @@ export default function MiniGalerieSection() {
 
       const photos = track.querySelectorAll(".mini-galerie__item");
       gsap.from(photos, {
-        x: 80,
+        y: 60,
         opacity: 0,
-        stagger: 0.08,
-        duration: 0.7,
+        stagger: 0.06,
+        duration: 1,
         ease: "power3.out",
         scrollTrigger: {
           trigger: wrapper,
@@ -110,100 +110,97 @@ export default function MiniGalerieSection() {
       });
 
       // -------------------------------------------------------
-      // 2. Calcul des limites de défilement
+      // 2. Boucle infinie continue (Infinite Loop)
       // -------------------------------------------------------
-      const getBounds = () => track.scrollWidth - wrapper.offsetWidth;
-      let maxScroll = getBounds();
+      // Pour une boucle sans couture, on duplique le contenu
+      // La largeur d'un set = la moitié du scrollWidth total
+      const getLoopWidth = () => track.scrollWidth / 2;
 
-      // -------------------------------------------------------
-      // 3. Défilement automatique (Auto-scroll)
-      // -------------------------------------------------------
-      const autoScrollTween = gsap.to(track, {
-        x: () => -getBounds(), // Valeur dynamique recalculée au besoin
+      // Animation infinie qui revient au début de manière transparente
+      const infiniteLoop = gsap.to(track, {
+        x: () => -getLoopWidth(),
+        duration: 40, // Durée pour parcourir un set complet (ajustable)
         ease: "none",
-        duration: 25, // Ajuste cette durée pour modifier la vitesse
-        paused: true,
+        repeat: -1, // Répétition infinie
+        modifiers: {
+          x: (x) => {
+            // Reset seamless quand on atteint la fin du premier set
+            const loopWidth = getLoopWidth();
+            const parsedX = parseFloat(x);
+            return `${((parsedX % loopWidth) + loopWidth) % loopWidth - loopWidth}px`;
+          },
+        },
       });
 
+      // Pause/resume basé sur la visibilité
+      let isPaused = false;
       ScrollTrigger.create({
         trigger: wrapper,
-        start: "top 60%", // Démarre quand la galerie est bien visible
-        onEnter: () => autoScrollTween.play(),
-        onLeave: () => autoScrollTween.pause(),
-        onEnterBack: () => autoScrollTween.play(),
-        onLeaveBack: () => autoScrollTween.pause(),
+        start: "top bottom",
+        end: "bottom top",
+        onEnter: () => {
+          if (isPaused) {
+            infiniteLoop.play();
+            isPaused = false;
+          }
+        },
+        onLeave: () => {
+          infiniteLoop.pause();
+          isPaused = true;
+        },
+        onEnterBack: () => {
+          if (isPaused) {
+            infiniteLoop.play();
+            isPaused = false;
+          }
+        },
+        onLeaveBack: () => {
+          infiniteLoop.pause();
+          isPaused = true;
+        },
       });
 
       // -------------------------------------------------------
-      // 4. Drag-to-scroll via GSAP Draggable
+      // 3. Interaction : Drag-to-explore (optionnel)
       // -------------------------------------------------------
-      Draggable.create(track, {
+      let dragTimeout: NodeJS.Timeout;
+      const draggable = Draggable.create(track, {
         type: "x",
-        bounds: { minX: -maxScroll, maxX: 0 },
-        edgeResistance: 0.65,
         inertia: true,
         cursor: "grab",
         activeCursor: "grabbing",
         onPress: () => {
-          // L'utilisateur interagit : on arrête le défilement auto
-          autoScrollTween.kill();
+          // Pause temporaire de la boucle pendant le drag
+          infiniteLoop.pause();
+          clearTimeout(dragTimeout);
+        },
+        onRelease: () => {
+          // Reprend la boucle après 2 secondes d'inactivité
+          dragTimeout = setTimeout(() => {
+            if (!isPaused) {
+              infiniteLoop.play();
+            }
+          }, 2000);
         },
         onClick: function () {
-          // Permet de cliquer sur les liens à l'intérieur
+          // Permet de cliquer sur les liens
         },
       });
 
       // -------------------------------------------------------
-      // 5. Scroll horizontal à la molette (Wheel event)
-      // -------------------------------------------------------
-      const handleWheel = (e: WheelEvent) => {
-        const currentX = gsap.getProperty(track, "x") as number;
-        const currentMax = getBounds();
-
-        if (
-          (e.deltaY > 0 && currentX > -currentMax) ||
-          (e.deltaY < 0 && currentX < 0)
-        ) {
-          e.preventDefault();
-
-          // L'utilisateur utilise la molette : on arrête le défilement auto
-          autoScrollTween.kill();
-
-          const newX = Math.max(
-            -currentMax,
-            Math.min(0, currentX - e.deltaY * 1.5),
-          );
-
-          gsap.to(track, {
-            x: newX,
-            duration: 0.5,
-            ease: "power2.out",
-            overwrite: "auto", // Évite les conflits de tweens
-          });
-        }
-      };
-
-      wrapper.addEventListener("wheel", handleWheel, { passive: false });
-
-      // -------------------------------------------------------
-      // 6. Gestion du redimensionnement (Resize)
+      // 4. Gestion du redimensionnement
       // -------------------------------------------------------
       const handleResize = () => {
-        maxScroll = getBounds();
-        Draggable.get(track)?.applyBounds({ minX: -maxScroll, maxX: 0 });
-
-        // Si l'animation automatique tourne encore, on force le recalcul de sa destination
-        if (autoScrollTween.isActive()) {
-          autoScrollTween.invalidate();
-        }
+        infiniteLoop.invalidate();
+        draggable[0]?.update();
       };
 
       window.addEventListener("resize", handleResize);
 
-      // Nettoyage des événements
+      // Nettoyage
       return () => {
         window.removeEventListener("resize", handleResize);
-        wrapper.removeEventListener("wheel", handleWheel);
+        clearTimeout(dragTimeout);
       };
     }, section);
 
@@ -236,6 +233,7 @@ export default function MiniGalerieSection() {
 
       <div ref={wrapperRef} className="mini-galerie__wrapper">
         <div ref={trackRef} className="mini-galerie__track">
+          {/* Premier set d'images */}
           {galleryItems.map((item) => (
             <div
               key={item.id}
@@ -255,6 +253,50 @@ export default function MiniGalerieSection() {
 
           <div className="mini-galerie__cta-card">
             <Link href="/galerie" className="mini-galerie__cta">
+              <span className="mini-galerie__cta-text">
+                Explorer la
+                <br />
+                galerie complète
+              </span>
+              <svg
+                className="mini-galerie__cta-arrow"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </Link>
+          </div>
+
+          {/* Duplication pour la boucle infinie seamless */}
+          {galleryItems.map((item) => (
+            <div
+              key={`${item.id}-duplicate`}
+              className={`mini-galerie__item mini-galerie__item--${item.size} mini-galerie__item--${item.offset}`}
+              aria-hidden="true"
+            >
+              <div className="mini-galerie__item-image">
+                <div className="mini-galerie__item-placeholder" />
+              </div>
+              <div className="mini-galerie__item-info">
+                <span className="mini-galerie__item-category">
+                  {item.category}
+                </span>
+                <span className="mini-galerie__item-title">{item.title}</span>
+              </div>
+            </div>
+          ))}
+
+          <div className="mini-galerie__cta-card" aria-hidden="true">
+            <Link href="/galerie" className="mini-galerie__cta" tabIndex={-1}>
               <span className="mini-galerie__cta-text">
                 Explorer la
                 <br />
