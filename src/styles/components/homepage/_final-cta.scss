@@ -1,0 +1,174 @@
+@use "sass:color";
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.final-cta {
+    position: relative;
+    padding: 120px 0;
+    background: linear-gradient(
+        135deg,
+        rgba($color-secondary-green, 0.08) 0%,
+        rgba($color-secondary-green, 0.05) 50%,
+        rgba($color-neutral-light, 1) 100%
+    );
+    overflow: hidden;
+
+    @include respond-to("sm") {
+        padding: 80px 0;
+    }
+
+    // Effet de fond subtil (forêt enchantée)
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("/images/forest-subtle-pattern.png");
+        background-size: cover;
+        background-position: center;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    &__container {
+        position: relative;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 $space-md;
+        text-align: center;
+        z-index: 1;
+
+        @include respond-to("sm") {
+            padding: 0 $space-sm;
+        }
+    }
+
+    &__title {
+        font-family: $font-secondary;
+        font-size: 3.5rem;
+        font-weight: 400;
+        color: $color-neutral-dark;
+        margin-bottom: 40px;
+        line-height: 1.2;
+        letter-spacing: 0.02em;
+
+        @include respond-to("md") {
+            font-size: 3rem;
+            margin-bottom: 32px;
+        }
+
+        @include respond-to("sm") {
+            font-size: 2.2rem;
+            margin-bottom: 24px;
+        }
+    }
+
+    &__content {
+        margin-bottom: 50px;
+
+        @include respond-to("sm") {
+            margin-bottom: 40px;
+        }
+    }
+
+    &__paragraph {
+        font-family: $font-primary;
+        font-size: 1.25rem;
+        line-height: 1.8;
+        color: $color-neutral-dark;
+        margin-bottom: 24px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+
+        @include respond-to("md") {
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+
+        @include respond-to("sm") {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        @include respond-to("sm") {
+            flex-direction: column;
+            gap: 16px;
+        }
+    }
+
+    &__btn {
+        display: inline-block;
+        padding: 18px 40px;
+        font-family: $font-primary;
+        font-size: 1.125rem;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+
+        @include respond-to("md") {
+            padding: 16px 36px;
+            font-size: 1rem;
+        }
+
+        @include respond-to("sm") {
+            width: 100%;
+            padding: 16px 32px;
+            font-size: 1rem;
+        }
+
+        // Bouton primaire (Commander)
+        &--primary {
+            background-color: $color-secondary-green;
+            color: $color-neutral-light;
+            border: 2px solid $color-secondary-green;
+
+            &:hover {
+                background-color: color.adjust($color-secondary-green, $lightness: -8%);
+                border-color: color.adjust($color-secondary-green, $lightness: -8%);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba($color-secondary-green, 0.3);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+
+        // Bouton secondaire (Parcourir)
+        &--secondary {
+            background-color: transparent;
+            color: $color-secondary-green;
+            border: 2px solid $color-secondary-green;
+
+            &:hover {
+                background-color: $color-secondary-green;
+                color: $color-neutral-light;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba($color-secondary-green, 0.2);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+    }
+}
