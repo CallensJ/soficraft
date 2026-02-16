@@ -99,7 +99,7 @@ export default function CollectionsSection() {
         scrollTrigger: {
           trigger: header,
           start: "top 80%",
-          toggleActions: "play none none none",
+          toggleActions: "play reverse play reverse",
         },
       });
 
@@ -117,7 +117,7 @@ export default function CollectionsSection() {
         scrollTrigger: {
           trigger: cardsContainer,
           start: "top 75%",
-          toggleActions: "play none none none",
+          toggleActions: "play reverse play reverse",
         },
       });
 
