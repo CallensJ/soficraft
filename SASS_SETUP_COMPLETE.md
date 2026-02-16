@@ -19,7 +19,7 @@ src/styles/
 │
 ├── vendors/                        ✅ External libraries
 │   ├── _normalize.scss             ✅ Cross-browser normalization
-│   └── _fonts.scss                 ✅ Google Fonts (Cormorant Garamond, Great Vibes)
+│   └── _fonts.scss                 ✅ Google Fonts (Cormorant Garamond, Imperial Script)
 │
 ├── base/                           ✅ Foundation styles
 │   ├── _reset.scss                 ✅ Modern CSS reset
@@ -55,26 +55,26 @@ src/styles/
 ## 🎨 SOFICRAFT Color Palette
 
 ### Primary Colors (Natural Earth Tones)
-- **Beige Clair**: `#D4AF9F` - Accents
-- **Beige Moyen**: `#C9A77C` - Transitions
-- **Marron Moyen**: `#8B6F47` - Secondary text
-- **Marron Foncé**: `#6B4423` - CTA buttons
+- **Beige Sable** (`$color-primary-light`): `#d4b896` - Sable Doré - Light accents
+- **Beige Taupe** (`$color-primary-med`): `#b8ab8f` - Taupe Enchantée - Medium tones
+- **Brun Caramel** (`$color-primary-dark`): `#8b6b47` - Caramel Artisanal - Dark elements
+- **Kaki Olive** (`$color-primary-darker`): `#6b6b3d` - Mousse Ancienne - CTA buttons
 
 ### Secondary Colors
-- **Vert Forêt**: `#5C7A3C` - Nature accents
+- **Vert Forêt** (`$color-secondary-green`): `#4d6b3d` - Forêt Enchantée - Nature accents
 
 ### Neutral Colors
-- **Noir Profond**: `#1A1A1A` - Primary text
-- **Blanc Pur**: `#FFFFFF` - White
-- **Beige Clair**: `#F5E6D3` - Background
+- **Noir Charbon** (`$color-neutral-dark`): `#2b2b2b` - Charbon Mystique - Primary text
+- **Mist** (`$color-neutral-light`): `#e8eae3` - Light backgrounds
+- **Off-White** (`$color-neutral-bg`): `#e8eae3` - Brume Elfique - Main background
 
 ---
 
 ## 📝 Typography
 
 ### Font Families
-- **Primary**: `Cormorant Garamond, serif` - Body text
-- **Secondary**: `Great Vibes, cursive` - Elegant headings
+- **Primary** (`$font-primary`): `Cormorant Garamond, serif` - Body text
+- **Secondary** (`$font-secondary`): `Imperial Script, cursive` - Elegant headings
 
 ### Font Sizes
 - `$fs-xs`: 0.75rem (12px)
@@ -159,7 +159,8 @@ src/styles/
 
 ### Color
 ```scss
-color: get-color('primary-dark');
+color: get-color('primary-dark'); // Returns #8b6b47
+background: get-color('secondary-green'); // Returns #4d6b3d
 ```
 
 ### Spacing
@@ -204,12 +205,13 @@ font-size: px-to-rem(18px); // 1.125rem
 
 ```scss
 // Import variables and mixins in component files
-@use '@/styles/abstracts/variables' as *;
-@use '@/styles/abstracts/mixins' as *;
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
 
 .my-component {
   padding: $space-lg;
-  background-color: $color-primary-light;
+  background-color: $color-primary-light; // #d4b896
+  color: $color-neutral-dark; // #2b2b2b
   @include shadow-md;
 
   @include respond-to('md') {
