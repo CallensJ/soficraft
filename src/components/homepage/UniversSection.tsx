@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -130,7 +131,7 @@ export default function UniversSection() {
           opacity: 1,
           duration: 0.4,
         },
-        "-=1.2"
+        "-=1.2",
       );
 
       // ═══════════════════════════════════════════════════════════
@@ -228,15 +229,14 @@ export default function UniversSection() {
           ease: "expo.inOut",
         })
         .from(
-          imageInner.querySelector(".univers__image-placeholder") ||
-            imageInner,
+          imageInner.querySelector(".univers__image-placeholder") || imageInner,
           {
             scale: 1.3,
             rotation: 3,
             duration: 1.6,
             ease: "expo.out",
           },
-          "-=1.2"
+          "-=1.2",
         );
 
       // Image caption fade in
@@ -300,8 +300,7 @@ export default function UniversSection() {
       // 10. FLOATING ORNAMENTS — Magical atmosphere
       // Parallax floating elements for depth
       // ═══════════════════════════════════════════════════════════
-      const ornamentElements =
-        ornaments.querySelectorAll(".univers__ornament");
+      const ornamentElements = ornaments.querySelectorAll(".univers__ornament");
 
       ornamentElements.forEach((ornament, index) => {
         // Continuous float animation
@@ -522,22 +521,18 @@ export default function UniversSection() {
         {/* ============================================= */}
         <div ref={imageColumnRef} className="univers__image">
           <div ref={imageInnerRef} className="univers__image-inner">
-            {/*
-              IMAGE PLACEHOLDER :
-              Remplacer par <Image> Next.js quand disponible.
-              Option 1 : Photo de Sophie au travail dans son atelier
-              Option 2 : Création phare en gros plan (bijou féerique)
+            {/*IMAGE:*/}
 
-              <Image
-                src="/images/sophie-atelier.jpg"
-                alt="Sophie dans son atelier, façonnant un bijou féerique"
-                width={600}
-                height={750}
-                quality={85}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                style={{ objectFit: 'cover' }}
-              />
-            */}
+            <Image
+              src="/images/about-profile-picture.webp"
+              alt="Sophie dans son atelier, façonnant un bijou féerique"
+              width={600}
+              height={750}
+              quality={85}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              style={{ objectFit: "cover" }}
+            />
+
             <div className="univers__image-placeholder" aria-hidden="true">
               {/* Ornement décoratif dans le placeholder */}
               <span className="univers__image-ornament">✦</span>
