@@ -1,0 +1,41 @@
+// ============================================================
+// PAGE HOME — SOFICRAFT
+// Styles page-level pour la page d'accueil
+// ============================================================
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// ----------------------------------------------------------
+// PAGE WRAPPER
+// ----------------------------------------------------------
+.page-home {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $color-neutral-dark;
+    color: $color-neutral-light;
+    overflow-x: hidden; // Empêche scroll horizontal accidentel
+
+    // ----------------------------------------------------------
+    // Smooth scroll natif (complète GSAP ScrollSmoother si utilisé)
+    // ----------------------------------------------------------
+    scroll-behavior: smooth;
+}
+
+// ----------------------------------------------------------
+// GOOGLE FONT : Imperial Script
+// À ajouter dans vendors/_fonts.scss ou dans <head> via next/font
+// ----------------------------------------------------------
+// @use url('https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap');
+//
+// NOTE POUR INTÉGRATION :
+// Dans le fichier vendors/_fonts.scss existant, ajouter :
+//
+// @font-face ou lien Google Fonts pour Imperial Script
+// Puis mettre à jour abstracts/_variables.scss :
+//   $font-display: 'Imperial Script', cursive;
+//   $font-secondary: 'Great Vibes', cursive; (fallback)
+//
+// Et dans le composant HeroSection, utiliser $font-display
+// pour le H1 au lieu de $font-secondary.
+// ----------------------------------------------------------

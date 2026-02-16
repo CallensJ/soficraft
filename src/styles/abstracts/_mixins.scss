@@ -1,0 +1,232 @@
+// ════════════════════════════════════════════════════════════════════════════
+// MIXINS - SOFICRAFT
+// ════════════════════════════════════════════════════════════════════════════
+// Mixins réutilisables (breakpoints, animations, flexbox, etc.)
+
+@use 'sass:color';
+@use 'sass:map';
+@use 'variables' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// RESPONSIVE DESIGN - Mobile-first
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin respond-to($breakpoint) {
+  @media (min-width: map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+// Usage: @include respond-to('md') { ... }
+
+// ════════════════════════════════════════════════════════════════════════════
+// FLEXBOX HELPERS
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// GRID HELPERS
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin grid-auto($min-width: 250px, $gap: $space-lg) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: $gap;
+}
+
+@mixin grid-cols($cols: 12, $gap: $space-lg) {
+  display: grid;
+  grid-template-columns: repeat($cols, 1fr);
+  gap: $gap;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// TRANSITIONS & ANIMATIONS
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin transition(
+  $props: all,
+  $duration: $duration-normal,
+  $easing: $easing-ease-in-out
+) {
+  transition: $props $duration $easing;
+}
+
+@mixin smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// TEXT UTILITIES
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-clamp($lines: 3) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// POSITIONING
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin absolute-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// FOCUS STATE (Accessibility)
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin focus-ring($color: $color-primary-dark) {
+  outline: 2px solid $color;
+  outline-offset: 2px;
+}
+
+@mixin focus-visible {
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SHADOW UTILITIES
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+@mixin shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@mixin shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+}
+
+@mixin shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// BUTTON RESET
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// VISUALLY HIDDEN (Accessibility)
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// ASPECT RATIO
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin aspect-ratio($width: 16, $height: 9) {
+  aspect-ratio: #{$width} / #{$height};
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SCROLLBAR STYLING
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin custom-scrollbar(
+  $thumb-color: $color-primary-dark,
+  $track-color: $color-neutral-bg
+) {
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: $radius-md;
+
+    &:hover {
+      background: color.scale($thumb-color, $lightness: -10%);
+    }
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// CONTAINER
+// ════════════════════════════════════════════════════════════════════════════
+
+@mixin container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}

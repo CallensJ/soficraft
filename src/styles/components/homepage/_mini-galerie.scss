@@ -1,0 +1,536 @@
+// ============================================================
+// SECTION MINI GALERIE — SOFICRAFT
+// Strip horizontal scrollable avec photos tailles variées
+// Certaines images chevauchent le texte d'intro
+// Chemin : styles/components/homepage/_mini-galerie.scss
+// ============================================================
+
+@use "sass:color";
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+// ----------------------------------------------------------
+// SECTION WRAPPER
+// ----------------------------------------------------------
+.mini-galerie {
+    position: relative;
+    width: 100%;
+    background-color: $color-neutral-bg; // Beige Très Clair #F5E6D3
+    padding-top: $space-3xl;
+    padding-bottom: $space-2xl;
+    overflow: hidden;
+
+    @include respond-to("md") {
+        padding-top: $space-4xl;
+        padding-bottom: $space-3xl;
+    }
+
+    @include respond-to("lg") {
+        padding-top: 7rem;
+        padding-bottom: $space-4xl;
+    }
+
+    // ----------------------------------------------------------
+    // HEADER — z-index bas pour permettre le chevauchement
+    // ----------------------------------------------------------
+    &__header {
+        @include container;
+        position: relative;
+        z-index: 1; //
+        margin-bottom: $space-lg;
+
+        @include respond-to("md") {
+            margin-bottom: $space-md;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @include respond-to("lg") {
+            max-width: 550px;
+            margin-left: $container-padding;
+            margin-right: auto;
+            text-align: left;
+        }
+    }
+
+    &__pretitle {
+        display: inline-block;
+        font-family: $font-primary;
+        font-size: $fs-sm;
+        font-weight: $fw-semibold;
+        color: $color-secondary-green;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: $space-md;
+    }
+
+    &__title {
+        font-family: $font-secondary; // Imperial Script
+        font-weight: $fw-normal;
+        color: $color-neutral-dark;
+        line-height: $lh-tight;
+        margin: 0 0 $space-lg 0;
+        font-size: clamp(1.8rem, 5vw, 2.4rem);
+
+        @include respond-to("md") {
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+        }
+    }
+
+    &__intro {
+        font-family: $font-primary;
+        font-size: $fs-md;
+        font-weight: $fw-normal;
+        color: $color-primary-dark;
+        line-height: $lh-relaxed;
+        font-style: italic;
+    }
+
+    // ----------------------------------------------------------
+    // WRAPPER — Conteneur de scroll (prêt pour la boucle infinie)
+    // ----------------------------------------------------------
+    &__wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        overflow: hidden; // Important pour cacher les éléments dupliqués
+        cursor: grab;
+        user-select: none;
+
+        // Masques de gradient pour fondus latéraux élégants
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 120px;
+            z-index: 10;
+            pointer-events: none;
+
+            @include respond-to("md") {
+                width: 180px;
+            }
+        }
+
+        &::before {
+            left: 0;
+            background: linear-gradient(
+                to right,
+                $color-neutral-bg 0%,
+                transparent 100%
+            );
+        }
+
+        &::after {
+            right: 0;
+            background: linear-gradient(
+                to left,
+                $color-neutral-bg 0%,
+                transparent 100%
+            );
+        }
+
+        &:active {
+            cursor: grabbing;
+        }
+
+        @media (hover: none) {
+            overflow-x: auto;
+            overflow-y: visible;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+
+    // ----------------------------------------------------------
+    // TRACK — Piste des photos
+    // ----------------------------------------------------------
+    &__track {
+        display: flex;
+        align-items: center;
+        gap: $space-lg;
+        padding-left: $container-padding;
+        padding-right: $space-3xl;
+        will-change: transform;
+        margin-top: -$space-xl;
+
+        @include respond-to("md") {
+            gap: $space-xl;
+            margin-top: -$space-3xl;
+            padding-left: $space-3xl;
+        }
+
+        @include respond-to("lg") {
+            margin-top: -$space-4xl;
+            padding-left: 35%;
+        }
+    }
+
+    // ----------------------------------------------------------
+    // ITEM — Photo individuelle (Tailles fluides basées sur viewport)
+    // ----------------------------------------------------------
+    &__item {
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+        border-radius: $radius-sm;
+        transition:
+            transform $transition-slow,
+            box-shadow $transition-slow;
+        will-change: transform;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba($color-neutral-dark, 0.15);
+
+            .mini-galerie__item-info {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        // ---- Tailles variées (percentage-based) ----
+        // compact: ~27% viewport width - images compactes et élégantes
+        &--compact {
+            width: clamp(180px, 27vw, 340px);
+            height: clamp(260px, 38vw, 480px);
+            aspect-ratio: 0.71; // Portrait allongé
+        }
+
+        // medium: ~40% viewport width - équilibre visuel
+        &--medium {
+            width: clamp(240px, 40vw, 520px);
+            height: clamp(320px, 52vw, 650px);
+            aspect-ratio: 0.77; // Portrait
+        }
+
+        // expanded: ~55% viewport width - présence marquée
+        &--expanded {
+            width: clamp(320px, 55vw, 720px);
+            height: clamp(380px, 65vw, 850px);
+            aspect-ratio: 0.85; // Presque carré
+        }
+
+        // statement: ~60% viewport width - déclaration visuelle
+        &--statement {
+            width: clamp(360px, 60vw, 800px);
+            height: clamp(280px, 46vw, 620px);
+            aspect-ratio: 1.29; // Paysage
+        }
+
+        // hero: ~75% viewport width - IMAGE HERO dominante
+        &--hero {
+            width: clamp(440px, 75vw, 1000px);
+            height: clamp(560px, 95vw, 1260px);
+            aspect-ratio: 0.79; // Portrait dramatique
+            box-shadow: 0 16px 48px rgba($color-neutral-dark, 0.12);
+
+            &:hover {
+                transform: translateY(-8px) scale(1.01);
+                box-shadow: 0 20px 60px rgba($color-neutral-dark, 0.18);
+            }
+        }
+
+        // ---- Décalages verticaux (améliorés) ----
+        &--up {
+            align-self: flex-start;
+            animation: floatUp 6s ease-in-out infinite;
+        }
+        &--down {
+            align-self: flex-end;
+            animation: floatDown 7s ease-in-out infinite;
+            @include respond-to("md") {
+                margin-top: $space-4xl;
+            }
+        }
+        &--none {
+            align-self: center;
+            animation: floatCenter 8s ease-in-out infinite;
+        }
+    }
+
+    // ---- Image & Placeholders ----
+    &__item-image {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .mini-galerie__item:hover & img {
+            transform: scale(1.05);
+        }
+    }
+
+    &__item-placeholder {
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        position: relative;
+
+        // Effet de grain subtil pour toutes les images
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+
+        // Gradients distincts par taille
+        .mini-galerie__item--compact & {
+            background: linear-gradient(
+                165deg,
+                color.adjust($color-primary-med, $lightness: -8%) 0%,
+                $color-primary-light 100%
+            );
+        }
+
+        .mini-galerie__item--medium & {
+            background: linear-gradient(
+                135deg,
+                $color-primary-dark 0%,
+                color.adjust($color-secondary-green, $lightness: 15%) 100%
+            );
+        }
+
+        .mini-galerie__item--expanded & {
+            background: linear-gradient(
+                145deg,
+                color.adjust($color-primary-darker, $lightness: 8%) 0%,
+                color.adjust($color-primary-med, $lightness: 12%) 100%
+            );
+        }
+
+        .mini-galerie__item--statement & {
+            background: linear-gradient(
+                120deg,
+                $color-secondary-green 0%,
+                color.adjust($color-primary-light, $lightness: 5%) 100%
+            );
+        }
+
+        .mini-galerie__item--hero & {
+            background: linear-gradient(
+                155deg,
+                color.adjust($color-primary-darker, $lightness: 5%) 0%,
+                color.adjust($color-secondary-green, $lightness: 8%) 50%,
+                color.adjust($color-primary-med, $lightness: 10%) 100%
+            );
+            // Effet de brillance subtil pour l'image hero
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    135deg,
+                    transparent 0%,
+                    rgba(white, 0.05) 50%,
+                    transparent 100%
+                );
+                opacity: 0;
+                transition: opacity 0.6s ease;
+            }
+        }
+
+        .mini-galerie__item--hero:hover &::before {
+            opacity: 1;
+        }
+
+        .mini-galerie__item:hover & {
+            transform: scale(1.05);
+        }
+    }
+
+    // ---- Info hover ----
+    &__item-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: $space-lg;
+        background: linear-gradient(
+            to top,
+            rgba($color-neutral-dark, 0.7) 0%,
+            transparent 100%
+        );
+        display: flex;
+        flex-direction: column;
+        gap: $space-xs;
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+            opacity $transition-normal,
+            transform $transition-normal;
+        pointer-events: none;
+    }
+
+    &__item-category {
+        font-family: $font-primary;
+        font-size: $fs-xs;
+        font-weight: $fw-semibold;
+        color: $color-primary-light;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+
+    &__item-title {
+        font-family: $font-secondary;
+        font-size: $fs-lg;
+        color: $color-neutral-light;
+    }
+
+    // ----------------------------------------------------------
+    // CTA CARD & SCROLL HINT
+    // ----------------------------------------------------------
+    &__cta-card {
+        flex-shrink: 0;
+        width: 200px;
+        height: 280px;
+        @include flex-center;
+        @include respond-to("md") {
+            width: 260px;
+            height: 360px;
+        }
+    }
+
+    &__cta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $space-lg;
+        text-decoration: none;
+        color: $color-primary-dark;
+        &:hover {
+            color: $color-secondary-green;
+            .mini-galerie__cta-arrow {
+                transform: translateX(6px);
+            }
+            .mini-galerie__cta-text::after {
+                width: 100%;
+            }
+        }
+    }
+
+    &__cta-text {
+        font-family: $font-primary;
+        font-size: $fs-md;
+        font-weight: $fw-semibold;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        position: relative;
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: $color-secondary-green;
+            transition: width $transition-slow;
+        }
+    }
+
+    &__scroll-hint {
+        display: flex;
+        align-items: center;
+        gap: $space-md;
+        justify-content: center;
+        margin-top: $space-xl;
+        @include respond-to("md") {
+            margin-top: $space-2xl;
+        }
+        @include respond-to("xl") {
+            opacity: 0.5;
+        }
+    }
+
+    &__scroll-hint-line {
+        display: block;
+        width: 40px;
+        height: 1px;
+        background-color: $color-primary-dark;
+        opacity: 0.3;
+        animation: scrollHintPulse 2s ease-in-out infinite;
+    }
+
+    &__scroll-hint-text {
+        font-family: $font-primary;
+        font-size: $fs-xs;
+        color: $color-primary-dark;
+        opacity: 0.4;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        animation: fadeInOut 3s ease-in-out infinite;
+    }
+}
+
+// ----------------------------------------------------------
+// ANIMATIONS
+// ----------------------------------------------------------
+@keyframes scrollHintPulse {
+    0%,
+    100% {
+        width: 40px;
+        opacity: 0.3;
+    }
+    50% {
+        width: 60px;
+        opacity: 0.5;
+    }
+}
+
+// Animations de flottement subtiles pour les images
+@keyframes floatUp {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes floatDown {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(12px);
+    }
+}
+
+@keyframes floatCenter {
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+    33% {
+        transform: translateY(-8px) scale(1.005);
+    }
+    66% {
+        transform: translateY(8px) scale(0.995);
+    }
+}
+
+@keyframes fadeInOut {
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}

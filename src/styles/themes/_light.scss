@@ -1,0 +1,34 @@
+// ════════════════════════════════════════════════════════════════════════════
+// LIGHT THEME - SOFICRAFT
+// ════════════════════════════════════════════════════════════════════════════
+// Thème clair (défaut)
+
+@use '../abstracts/variables' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// LIGHT THEME VARIABLES
+// ════════════════════════════════════════════════════════════════════════════
+
+[data-theme='light'],
+:root {
+  // Colors are already defined in base/_root.scss
+  // This file can be used for light-theme specific overrides
+  // or additional styling that only applies to light mode
+
+  // Example: light theme specific shadows
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  // Example: light theme specific backgrounds
+  --bg-primary: #{$color-neutral-bg};
+  --bg-secondary: #{$color-neutral-light};
+
+  // Example: light theme specific text
+  --text-primary: #{$color-neutral-dark};
+  --text-secondary: rgba(#{$color-neutral-dark}, 0.7);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// LIGHT THEME SPECIFIC STYLES
+// ════════════════════════════════════════════════════════════════════════════
+
+// Add any light-theme specific component overrides here

@@ -1,0 +1,107 @@
+{
+  "name": "SOFICRAFT",
+  "description": "Fantasy jewelry e-commerce showcase with Next.js, GSAP animations, and Sass styling",
+  "version": "0.1.0",
+  "framework": "nextjs",
+  "language": "typescript",
+  "nodeVersion": "18+",
+  
+  "project": {
+    "owner": "Sophie (jewelry artisan)",
+    "manager": "Johan",
+    "purpose": "Showcase custom fantasy/fairy-themed jewelry with immersive animations",
+    "targetAudience": "Young adults interested in fantasy/cosplay, gift buyers",
+    "targetRegion": "Perpignan (local), international via Instagram"
+  },
+
+  "dependencies": {
+    "main": ["next@16.1.6", "react@19.2.3", "react-dom@19.2.3"],
+    "animations": ["gsap@^3.14.2"],
+    "styling": ["sass@^1.97.3"],
+    "utilities": ["clsx@^2.1.1", "lenis@^1.3.17"]
+  },
+
+  "devDependencies": ["typescript@^5", "@types/node@^20", "@types/react@^19", "@types/react-dom@^19", "eslint@^9", "eslint-config-next@16.1.6"],
+
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+
+  "projectStructure": {
+    "root": {
+      "src/app": "Next.js App Router - main application code",
+      "public": "Static assets (images, fonts, icons)",
+      "package.json": "Dependencies and npm scripts",
+      "tsconfig.json": "TypeScript configuration",
+      "next.config.ts": "Next.js configuration",
+      ".gitignore": "Git ignore patterns (node_modules, .next, etc)",
+      "README.md": "Project documentation"
+    },
+    "srcApp": {
+      "layout.tsx": "Root layout component (metadata, structure)",
+      "page.tsx": "Home page component",
+      "page.module.css": "Home page styles (CSS Module)",
+      "globals.css": "Global CSS styles",
+      "favicon.ico": "Site favicon"
+    }
+  },
+
+  "codePatterns": {
+    "styling": "CSS Modules (.module.css files) + Global CSS",
+    "components": "React functional components with TypeScript (.tsx)",
+    "animations": "GSAP for smooth animations - import gsap from 'gsap'",
+    "responsive": "Mobile-first design approach",
+    "metadata": "Next.js Metadata API in layout.tsx for SEO"
+  },
+
+  "gitWorkflow": {
+    "main": "Production stable branch - merged after testing",
+    "develop": "Integration branch - active development",
+    "feature": "Feature branches from develop - feature/xxx pattern",
+    "currentBranch": "develop",
+    "rules": [
+      "Never commit node_modules/ (managed by .gitignore)",
+      "Never commit .next/ (build artifacts)",
+      "Use conventional commits: feat:, fix:, docs:, style:, etc",
+      "Create Pull Request develop→main before production merge"
+    ]
+  },
+
+  "animationGuidelines": {
+    "framework": "GSAP (GreenSock Animation Platform)",
+    "usage": "import gsap from 'gsap'",
+    "patterns": [
+      "Use GSAP timelines for complex sequences",
+      "Optimize animations for performance (use transforms/opacity)",
+      "Test animations on mobile",
+      "Consider accessibility (prefers-reduced-motion)"
+    ],
+    "lenis": "Smooth scroll library (lenis@^1.3.17) - for smooth scrolling UX"
+  },
+
+  "developmentWorkflow": {
+    "startServer": "npm run dev → http://localhost:3000",
+    "editFiles": "Modify src/app/* files (auto-refresh)",
+    "testing": "npm run build to test production build",
+    "linting": "npm run lint to check code quality",
+    "commits": "git add, commit, push to origin/develop"
+  },
+
+  "keyConstraints": {
+    "availability": "Sophie is a nurse - limited development time (passion project)",
+    "scope": "Few orders per month target - not high-volume e-commerce",
+    "focus": "Customer immersion and artistic passion - not aggressive sales",
+    "updates": "Regular maintenance and feature updates via Claude Code"
+  },
+
+  "modelPreferences": {
+    "recommended": "claude-sonnet-4-5-20250929",
+    "reason": "Best balance for GSAP animations, TypeScript, and Next.js"
+  },
+
+  "lastUpdated": "2026-02-13",
+  "status": "Development - Ready for features"
+}

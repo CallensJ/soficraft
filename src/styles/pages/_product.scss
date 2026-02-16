@@ -1,0 +1,54 @@
+// ════════════════════════════════════════════════════════════════════════════
+// PRODUCT PAGE - SOFICRAFT
+// ════════════════════════════════════════════════════════════════════════════
+// Styles spécifiques à la page produit
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// PRODUCT PAGE
+// ════════════════════════════════════════════════════════════════════════════
+
+.product-page {
+  padding: $space-3xl 0;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-3xl;
+
+    @include respond-to('lg') {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__images {
+    position: relative;
+  }
+
+  &__info {
+    @include flex-column;
+    gap: $space-xl;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $fs-3xl;
+    color: $color-neutral-dark;
+  }
+
+  &__price {
+    font-size: $fs-2xl;
+    font-weight: $fw-bold;
+    color: $color-primary-darker;
+  }
+
+  &__description {
+    font-size: $fs-base;
+    line-height: $lh-relaxed;
+    color: rgba($color-neutral-dark, 0.8);
+  }
+}
+
+// Page-specific styles will be added here as needed

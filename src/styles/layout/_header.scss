@@ -1,0 +1,50 @@
+// ════════════════════════════════════════════════════════════════════════════
+// HEADER - SOFICRAFT
+// ════════════════════════════════════════════════════════════════════════════
+// Styles du header principal
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// HEADER
+// ════════════════════════════════════════════════════════════════════════════
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  background-color: rgba($color-neutral-bg, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba($color-neutral-dark, 0.1);
+  @include transition(all);
+
+  &__container {
+    @include container;
+    @include flex-between;
+    padding-top: $space-lg;
+    padding-bottom: $space-lg;
+  }
+
+  &__logo {
+    font-family: $font-secondary;
+    font-size: $fs-xl;
+    color: $color-primary-darker;
+    font-weight: $fw-bold;
+    @include transition(color);
+
+    &:hover {
+      color: $color-primary-dark;
+    }
+  }
+
+  &__actions {
+    @include flex-center;
+    gap: $space-md;
+  }
+
+  // Scrolled state
+  &--scrolled {
+    box-shadow: 0 2px 8px rgba($color-neutral-dark, 0.08);
+  }
+}

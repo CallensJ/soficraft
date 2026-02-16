@@ -1,0 +1,427 @@
+// ============================================================
+// SECTION UNIVERS — SOFICRAFT
+// Mini À Propos (teaser) — 2 colonnes
+// Mobile-first : 1 colonne → 2 colonnes desktop
+// Background : Off-White #E8EAE3
+// ============================================================
+
+@use 'sass:color';
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+// ----------------------------------------------------------
+// SECTION WRAPPER
+// ----------------------------------------------------------
+.univers {
+    position: relative;
+    width: 100%;
+    background-color: $color-neutral-bg; // Off-White (Beige très clair)
+    padding-block: $space-3xl;
+    overflow: hidden;
+
+    @include respond-to("md") {
+        padding-block: $space-4xl;
+    }
+
+    @include respond-to("lg") {
+        padding-block: 7rem;
+    }
+
+    // ----------------------------------------------------------
+    // FLOATING ORNAMENTS — Atmospheric magic
+    // ----------------------------------------------------------
+    &__ornaments {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    &__ornament {
+        position: absolute;
+        font-size: clamp(1.2rem, 2vw, 2rem);
+        color: rgba($color-secondary-green, 0.15);
+        will-change: transform, opacity;
+        filter: blur(0.5px);
+
+        // Position each ornament uniquely
+        &--1 {
+            top: 10%;
+            left: 8%;
+            font-size: 1.8rem;
+            color: rgba($color-primary-light, 0.2);
+        }
+
+        &--2 {
+            top: 25%;
+            right: 12%;
+            font-size: 1.4rem;
+            color: rgba($color-secondary-green, 0.12);
+        }
+
+        &--3 {
+            bottom: 30%;
+            left: 15%;
+            font-size: 2.2rem;
+            color: rgba($color-primary-med, 0.18);
+        }
+
+        &--4 {
+            bottom: 15%;
+            right: 20%;
+            font-size: 1.6rem;
+            color: rgba($color-secondary-green, 0.15);
+        }
+
+        @include respond-to("md") {
+            &--1 {
+                font-size: 2.4rem;
+            }
+
+            &--2 {
+                font-size: 1.8rem;
+            }
+
+            &--3 {
+                font-size: 3rem;
+            }
+
+            &--4 {
+                font-size: 2rem;
+            }
+        }
+    }
+
+    // ----------------------------------------------------------
+    // CONTAINER — Grid 2 colonnes
+    // ----------------------------------------------------------
+    &__container {
+        @include container;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $space-2xl;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+        will-change: opacity;
+
+        @include respond-to("md") {
+            grid-template-columns: 1fr 1fr;
+            gap: $space-3xl;
+        }
+
+        @include respond-to("lg") {
+            grid-template-columns: 55% 1fr; // Texte légèrement plus large
+            gap: $space-4xl;
+        }
+    }
+
+    // ----------------------------------------------------------
+    // COLONNE TEXTE (gauche)
+    // ----------------------------------------------------------
+    &__text {
+        order: 2; // Image d'abord sur mobile
+
+        @include respond-to("md") {
+            order: 1; // Texte à gauche sur desktop
+        }
+    }
+
+    // ---- Pré-titre ----
+    &__pretitle {
+        display: inline-block;
+        font-family: $font-primary; // Cormorant Garamond
+        font-size: $fs-sm;
+        font-weight: 600;
+        color: $color-secondary-green; // Vert Forêt
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: $space-md;
+        will-change: opacity, letter-spacing;
+
+        @include respond-to("md") {
+            font-size: $fs-base;
+        }
+    }
+
+    // ---- Titre H2 ----
+    &__title {
+        font-family: $font-secondary; // Great Vibes (fallback Imperial Script)
+        font-weight: 400;
+        color: $color-neutral-dark; // Noir Charbon
+        line-height: 1.15;
+        margin: 0 0 $space-lg 0;
+        perspective: 1000px;
+
+        font-size: clamp(1.8rem, 5vw, 2.2rem);
+
+        @include respond-to("md") {
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            line-height: 1.2;
+        }
+
+        @include respond-to("lg") {
+            font-size: clamp(2.5rem, 3vw, 3.2rem);
+        }
+    }
+
+    &__title-word {
+        display: inline-block;
+        transform-origin: bottom center;
+        will-change: transform, opacity;
+    }
+
+    // ---- Ligne décorative ----
+    &__decor-line {
+        display: block;
+        width: 50px;
+        height: 2px;
+        background: linear-gradient(
+            90deg,
+            $color-secondary-green,
+            // Vert Forêt
+            $color-primary-darker // Brun Caramel
+        );
+        margin-bottom: $space-xl;
+        transform-origin: left center;
+        will-change: transform, opacity;
+
+        @include respond-to("md") {
+            width: 70px;
+        }
+    }
+
+    // ---- Paragraphes storytelling ----
+    &__paragraph {
+        font-family: $font-primary; // Cormorant Garamond
+        font-size: $fs-md; // 18px
+        font-weight: 400;
+        color: $color-primary-dark; // Marron Moyen #8B6B47 — lisible sur Off-White
+        line-height: 1.8;
+        margin: 0 0 $space-lg 0;
+        will-change: clip-path, transform, opacity;
+
+        @include respond-to("md") {
+            font-size: $fs-md;
+            line-height: 1.85;
+        }
+
+        @include respond-to("lg") {
+            font-size: 1.15rem;
+        }
+
+        em {
+            font-style: italic;
+            color: $color-neutral-dark;
+            font-weight: 500;
+        }
+    }
+
+    // ---- Citation mise en avant ----
+    &__quote {
+        font-family: $font-secondary; // Great Vibes / Imperial Script
+        font-size: clamp(1.4rem, 3vw, 1.8rem);
+        font-weight: 400;
+        color: $color-neutral-dark;
+        line-height: 1.4;
+        margin: 0 0 $space-xl 0;
+        padding-left: $space-lg;
+        position: relative;
+        will-change: clip-path, transform, opacity;
+        --quote-bar-height: 100%;
+
+        // Barre verticale décorative à gauche
+        &::before {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 0;
+            width: 3px;
+            height: calc(var(--quote-bar-height, 100%) - 8px);
+            background: linear-gradient(
+                to bottom,
+                $color-secondary-green,
+                $color-primary-light
+            );
+            border-radius: 2px;
+            transform-origin: top center;
+        }
+
+        @include respond-to("md") {
+            padding-left: $space-xl;
+        }
+    }
+
+    // ----------------------------------------------------------
+    // CTA — Lien vers /a-propos (avec effet magnétique)
+    // ----------------------------------------------------------
+    &__cta {
+        display: inline-flex;
+        align-items: center;
+        gap: $space-sm;
+        font-family: $font-primary;
+        font-size: $fs-base;
+        font-weight: 600;
+        color: $color-secondary-green; // Vert Forêt
+        text-decoration: none;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding-block: $space-sm;
+        margin-top: $space-md;
+        position: relative;
+        cursor: pointer;
+        will-change: transform;
+        transition:
+            color 0.3s ease,
+            gap 0.3s ease;
+
+        // Underline animée
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: $color-secondary-green;
+            transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        &:hover {
+            color: $color-primary-darker; // Brun Caramel
+            gap: $space-md;
+
+            &::after {
+                width: 100%;
+                background-color: $color-primary-darker;
+            }
+        }
+
+        // Enhanced focus state for accessibility
+        &:focus-visible {
+            outline: 2px solid $color-secondary-green;
+            outline-offset: 4px;
+            border-radius: 2px;
+        }
+    }
+
+    &__cta-text {
+        position: relative;
+        z-index: 1;
+    }
+
+    &__cta-arrow {
+        transition: transform 0.3s ease;
+        will-change: transform;
+
+        .univers__cta:hover & {
+            transform: translateX(4px);
+        }
+    }
+
+    // ----------------------------------------------------------
+    // COLONNE IMAGE (droite)
+    // ----------------------------------------------------------
+    &__image {
+        order: 1; // Image d'abord sur mobile
+
+        @include respond-to("md") {
+            order: 2; // Image à droite sur desktop
+        }
+    }
+
+    &__image-inner {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 4px;
+        will-change: transform, clip-path; // Performance pour parallax GSAP + reveal
+
+        // Ratio d'aspect : portrait (4:5)
+        aspect-ratio: 4 / 5;
+
+        @include respond-to("md") {
+            aspect-ratio: 3 / 4;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            will-change: transform;
+        }
+
+        // Bordure décorative subtile
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba($color-primary-darker, 0.15);
+            border-radius: 4px;
+            pointer-events: none;
+            z-index: 2;
+        }
+    }
+
+    // ---- Placeholder (en attendant l'image réelle) ----
+    &__image-placeholder {
+        width: 100%;
+        height: 100%;
+        background:
+            radial-gradient(
+                ellipse at 40% 30%,
+                rgba($color-secondary-green, 0.08) 0%,
+                transparent 60%
+            ),
+            linear-gradient(
+                160deg,
+                color.scale($color-neutral-bg, $lightness: 2%) 0%,
+                $color-primary-light 40%,
+                $color-primary-med 70%,
+                $color-primary-light 100%
+            );
+        @include flex-center;
+        will-change: transform;
+        transform-origin: center center;
+    }
+
+    &__image-ornament {
+        font-size: 2rem;
+        color: rgba($color-primary-darker, 0.2);
+        animation: floatOrnament 4s ease-in-out infinite;
+    }
+
+    // ---- Légende image ----
+    &__image-caption {
+        display: block;
+        font-family: $font-primary;
+        font-size: $fs-xs;
+        font-style: italic;
+        color: $color-primary-dark;
+        opacity: 0.7;
+        margin-top: $space-sm;
+        letter-spacing: 0.02em;
+        will-change: opacity, transform;
+
+        @include respond-to("md") {
+            font-size: $fs-sm;
+            margin-top: $space-md;
+        }
+    }
+}
+
+// ----------------------------------------------------------
+// KEYFRAMES
+// ----------------------------------------------------------
+@keyframes floatOrnament {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.2;
+    }
+    50% {
+        transform: translateY(-8px) rotate(10deg);
+        opacity: 0.35;
+    }
+}

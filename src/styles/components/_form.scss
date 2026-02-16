@@ -1,0 +1,243 @@
+// ════════════════════════════════════════════════════════════════════════════
+// FORM - SOFICRAFT
+// ════════════════════════════════════════════════════════════════════════════
+// Styles des formulaires (contact, commande custom)
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// FORM
+// ════════════════════════════════════════════════════════════════════════════
+
+.form {
+  width: 100%;
+  max-width: 600px;
+
+  &__group {
+    margin-bottom: $space-lg;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: $space-sm;
+    font-size: $fs-base;
+    font-weight: $fw-medium;
+    color: $color-neutral-dark;
+
+    &--required::after {
+      content: ' *';
+      color: $color-error;
+    }
+  }
+
+  &__input,
+  &__textarea,
+  &__select {
+    width: 100%;
+    padding: $space-md;
+    font-family: $font-primary;
+    font-size: $fs-base;
+    color: $color-neutral-dark;
+    background-color: $color-neutral-light;
+    border: 2px solid rgba($color-neutral-dark, 0.2);
+    border-radius: $radius-md;
+    @include transition(all);
+
+    &::placeholder {
+      color: rgba($color-neutral-dark, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary-dark;
+      background-color: $color-neutral-light;
+    }
+
+    &:disabled {
+      background-color: rgba($color-neutral-dark, 0.05);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  &__textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+  }
+
+  &__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231a1a1a' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right $space-md center;
+    padding-right: $space-3xl;
+  }
+
+  &__help {
+    display: block;
+    margin-top: $space-xs;
+    font-size: $fs-sm;
+    color: rgba($color-neutral-dark, 0.6);
+  }
+
+  &__error {
+    display: block;
+    margin-top: $space-xs;
+    font-size: $fs-sm;
+    color: $color-error;
+  }
+
+  &__success {
+    display: block;
+    margin-top: $space-xs;
+    font-size: $fs-sm;
+    color: $color-success;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// VALIDATION STATES
+// ════════════════════════════════════════════════════════════════════════════
+
+.form__input--error,
+.form__textarea--error,
+.form__select--error {
+  border-color: $color-error;
+
+  &:focus {
+    border-color: $color-error;
+  }
+}
+
+.form__input--success,
+.form__textarea--success,
+.form__select--success {
+  border-color: $color-success;
+
+  &:focus {
+    border-color: $color-success;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// CHECKBOX & RADIO
+// ════════════════════════════════════════════════════════════════════════════
+
+.form__checkbox,
+.form__radio {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-md;
+  cursor: pointer;
+
+  input {
+    margin-top: 0.25em;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: $color-primary-dark;
+  }
+
+  label {
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// FORM ACTIONS
+// ════════════════════════════════════════════════════════════════════════════
+
+.form__actions {
+  display: flex;
+  gap: $space-md;
+  margin-top: $space-xl;
+  justify-content: flex-start;
+
+  @include respond-to('sm') {
+    justify-content: flex-end;
+  }
+
+  &--center {
+    justify-content: center;
+  }
+
+  &--block {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// FORM INLINE
+// ════════════════════════════════════════════════════════════════════════════
+
+.form--inline {
+  display: flex;
+  gap: $space-md;
+  align-items: flex-end;
+
+  .form__group {
+    flex: 1;
+    margin-bottom: 0;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// FORM GRID
+// ════════════════════════════════════════════════════════════════════════════
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-lg;
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &--thirds {
+    @include respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// FILE INPUT
+// ════════════════════════════════════════════════════════════════════════════
+
+.form__file {
+  position: relative;
+  display: inline-block;
+
+  input[type='file'] {
+    @include visually-hidden;
+  }
+
+  &-label {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-sm;
+    padding: $space-md $space-xl;
+    background-color: $color-neutral-light;
+    border: 2px dashed rgba($color-neutral-dark, 0.3);
+    border-radius: $radius-md;
+    cursor: pointer;
+    @include transition(all);
+
+    &:hover {
+      border-color: $color-primary-dark;
+      background-color: rgba($color-primary-light, 0.1);
+    }
+  }
+}

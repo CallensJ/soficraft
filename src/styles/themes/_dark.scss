@@ -1,0 +1,70 @@
+// ════════════════════════════════════════════════════════════════════════════
+// DARK THEME - SOFICRAFT
+// ════════════════════════════════════════════════════════════════════════════
+// Thème sombre (optionnel)
+
+@use '../abstracts/variables' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// DARK THEME VARIABLES
+// ════════════════════════════════════════════════════════════════════════════
+
+[data-theme='dark'] {
+  // ══════════════════════════════════════════════════════════════════════════
+  // COLORS - DARK MODE INVERSIONS
+  // ══════════════════════════════════════════════════════════════════════════
+
+  // Background colors
+  --color-neutral-bg: #0f0f0f;
+  --color-neutral-light: #1a1a1a;
+  --color-neutral-dark: #f5f5f5;
+
+  // Primary colors (slightly adjusted for dark mode)
+  --color-primary-light: #e5c4b4;
+  --color-primary-med: #d9b78c;
+
+  // Shadows
+  --shadow-color: rgba(0, 0, 0, 0.5);
+
+  // Text
+  --text-primary: #f5f5f5;
+  --text-secondary: rgba(245, 245, 245, 0.7);
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // COMPONENT OVERRIDES FOR DARK MODE
+  // ══════════════════════════════════════════════════════════════════════════
+
+  // Cards
+  .card {
+    background-color: var(--color-neutral-light);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  // Forms
+  .form__input,
+  .form__textarea,
+  .form__select {
+    background-color: var(--color-neutral-light);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+
+    &::placeholder {
+      color: rgba(245, 245, 245, 0.5);
+    }
+  }
+
+  // Header
+  .header {
+    background-color: rgba(15, 15, 15, 0.95);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  // Footer is already dark, so minimal changes needed
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// DARK MODE UTILITIES
+// ════════════════════════════════════════════════════════════════════════════
+
+// Note: Dark mode is optional for SOFICRAFT
+// Uncomment the @use directive in main.scss to enable dark theme

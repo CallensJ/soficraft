@@ -1,0 +1,64 @@
+// ════════════════════════════════════════════════════════════════════════════
+// CONTAINER - SOFICRAFT
+// ════════════════════════════════════════════════════════════════════════════
+// Container wrapper pour le layout
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// MAIN CONTAINER
+// ════════════════════════════════════════════════════════════════════════════
+
+.container {
+  @include container;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// CONTAINER VARIATIONS
+// ════════════════════════════════════════════════════════════════════════════
+
+.container-narrow {
+  @include container;
+  max-width: 960px;
+}
+
+.container-wide {
+  @include container;
+  max-width: 1536px;
+}
+
+.container-full {
+  width: 100%;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION WRAPPER
+// ════════════════════════════════════════════════════════════════════════════
+
+.section {
+  padding-top: $space-4xl;
+  padding-bottom: $space-4xl;
+
+  @include respond-to('md') {
+    padding-top: calc($space-4xl * 1.5);
+    padding-bottom: calc($space-4xl * 1.5);
+  }
+
+  &--small {
+    padding-top: $space-3xl;
+    padding-bottom: $space-3xl;
+  }
+
+  &--large {
+    padding-top: calc($space-4xl * 1.5);
+    padding-bottom: calc($space-4xl * 1.5);
+
+    @include respond-to('md') {
+      padding-top: calc($space-4xl * 2);
+      padding-bottom: calc($space-4xl * 2);
+    }
+  }
+}
