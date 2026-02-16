@@ -16,9 +16,9 @@
 
 .footer {
     position: relative;
-    background-color: get-color("beige-sable");
+    background-color: get-color("primary-light");
     padding: spacing(10) spacing(6);
-    border-top: 1px solid get-color("beige-taupe");
+    border-top: 1px solid get-color("primary-med");
 
     @include respond-to("md") {
         padding: spacing(12) spacing(8);
@@ -83,11 +83,11 @@
 
 .footer__title {
     font-family: $font-primary;
-    font-weight: $font-weight-bold;
+    font-weight: $fw-bold;
     font-size: px-to-rem(16);
     line-height: 1.4;
     letter-spacing: 0.5px;
-    color: get-color("noir-charbon");
+    color: get-color("neutral-dark");
     text-transform: uppercase;
     margin-bottom: spacing(2);
 
@@ -115,10 +115,10 @@
 
 .footer__link {
     font-family: $font-primary;
-    font-weight: $font-weight-regular;
+    font-weight: $fw-normal;
     font-size: px-to-rem(14);
     line-height: 1.6;
-    color: get-color("noir-charbon");
+    color: get-color("neutral-dark");
     text-decoration: none;
     position: relative;
     display: inline-block;
@@ -136,12 +136,12 @@
         left: 0;
         width: 0;
         height: 1px;
-        background-color: get-color("brun-caramel");
+        background-color: get-color("primary-dark");
         transition: width 0.4s ease;
     }
 
     &:hover {
-        color: get-color("brun-caramel");
+        color: get-color("primary-dark");
 
         &::after {
             width: 100%;
@@ -149,7 +149,7 @@
     }
 
     &:focus-visible {
-        outline: 2px solid get-color("vert-foret");
+        outline: 2px solid get-color("secondary-green");
         outline-offset: 4px;
         border-radius: 2px;
     }
@@ -178,10 +178,10 @@
     align-items: center;
     gap: spacing(2);
     font-family: $font-primary;
-    font-weight: $font-weight-regular;
+    font-weight: $fw-normal;
     font-size: px-to-rem(14);
     line-height: 1.6;
-    color: get-color("noir-charbon");
+    color: get-color("neutral-dark");
     text-decoration: none;
     transition: color 0.3s ease;
 
@@ -196,15 +196,15 @@
     margin: spacing(-2); // Compensate padding for visual alignment
 
     &:hover {
-        color: get-color("vert-foret");
+        color: get-color("secondary-green");
 
         .footer__social-icon {
-            color: get-color("vert-foret");
+            color: get-color("secondary-green");
         }
     }
 
     &:focus-visible {
-        outline: 2px solid get-color("vert-foret");
+        outline: 2px solid get-color("secondary-green");
         outline-offset: 4px;
         border-radius: 4px;
     }
@@ -216,7 +216,7 @@
 .footer__social-icon {
     width: 24px;
     height: 24px;
-    color: get-color("noir-charbon");
+    color: get-color("neutral-dark");
     transition: color 0.3s ease;
     flex-shrink: 0;
 
@@ -233,10 +233,10 @@
 
 .footer__email {
     font-family: $font-primary;
-    font-weight: $font-weight-regular;
+    font-weight: $fw-normal;
     font-size: px-to-rem(14);
     line-height: 1.6;
-    color: get-color("noir-charbon");
+    color: get-color("neutral-dark");
     text-decoration: none;
     margin-top: spacing(2);
     display: inline-block;
@@ -247,12 +247,12 @@
     }
 
     &:hover {
-        color: get-color("brun-caramel");
+        color: get-color("primary-dark");
         text-decoration: underline;
     }
 
     &:focus-visible {
-        outline: 2px solid get-color("vert-foret");
+        outline: 2px solid get-color("secondary-green");
         outline-offset: 4px;
         border-radius: 2px;
     }
@@ -265,7 +265,7 @@
 .footer__copyright {
     margin-top: spacing(10);
     padding-top: spacing(6);
-    border-top: 1px solid rgba(get-color("noir-charbon"), 0.15);
+    border-top: 1px solid rgba(get-color("neutral-dark"), 0.15);
     text-align: center;
 
     @include respond-to("md") {
@@ -280,10 +280,10 @@
 
 .footer__copyright-text {
     font-family: $font-primary;
-    font-weight: $font-weight-light;
+    font-weight: $fw-light;
     font-size: px-to-rem(12);
     line-height: 1.6;
-    color: rgba(get-color("noir-charbon"), 0.7);
+    color: rgba(get-color("neutral-dark"), 0.7);
     margin: 0 0 spacing(1) 0;
 
     @include respond-to("lg") {
@@ -293,10 +293,10 @@
 
 .footer__copyright-subtitle {
     font-family: $font-primary;
-    font-weight: $font-weight-light;
+    font-weight: $fw-light;
     font-size: px-to-rem(11);
     line-height: 1.6;
-    color: rgba(get-color("noir-charbon"), 0.6);
+    color: rgba(get-color("neutral-dark"), 0.6);
     margin: 0;
     font-style: italic;
 
