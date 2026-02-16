@@ -4,6 +4,7 @@
 // Sprint 1 — Navbar + HeroSection
 // ============================================================
 
+import CollectionsSection from "../components/homepage/CollectionSection";
 import HeroSection from "../components/homepage/HeroSection";
 import UniversSection from "../components/homepage/UniversSection";
 import Navbar from "../components/layout/Navbar";
@@ -14,16 +15,7 @@ export default function HomePage() {
       <Navbar />
       <HeroSection />
       <UniversSection />
-
-      {/*
-        PROCHAINES SECTIONS (Sprint 1 - à venir) :
-        - <UniversSection />      → Section 2 : Univers SOFICRAFT
-        - <ProcessSection />      → Section 3 : Processus de création
-        - <FeaturedSection />     → Section 4 : Créations phares
-        - <TestimonialsSection /> → Section 5 : Témoignages
-        - <CTASection />          → Section 6 : Appel à l'action final
-        - <Footer />              → Footer global
-      */}
+      <CollectionsSection />
     </main>
   );
 }
