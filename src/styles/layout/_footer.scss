@@ -1,111 +1,343 @@
-// ════════════════════════════════════════════════════════════════════════════
+// ============================================================================
 // FOOTER - SOFICRAFT
-// ════════════════════════════════════════════════════════════════════════════
-// Styles du footer
+// ============================================================================
+// Styles pour le footer avec design "L'Éveil de la Nature"
+// Mobile-first responsive design
+// Animations GSAP intégrées
+// ============================================================================
 
-@use '../abstracts/variables' as *;
-@use '../abstracts/mixins' as *;
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/functions" as *;
 
-// ════════════════════════════════════════════════════════════════════════════
-// FOOTER
-// ════════════════════════════════════════════════════════════════════════════
+// ============================================================================
+// FOOTER CONTAINER
+// ============================================================================
 
 .footer {
-  background-color: $color-primary-darker;
-  color: $color-neutral-light;
-  padding-top: $space-4xl;
-  padding-bottom: $space-xl;
+    position: relative;
+    background-color: get-color("primary-light");
+    padding: spacing(10) spacing(6);
+    border-top: 1px solid get-color("primary-med");
 
-  &__container {
-    @include container;
-  }
+    @include respond-to("md") {
+        padding: spacing(12) spacing(8);
+    }
 
-  &__content {
+    @include respond-to("lg") {
+        padding: spacing(20) spacing(16);
+    }
+
+    // Animation initial state (GSAP will animate from this)
+    opacity: 1;
+    transform: translateY(0);
+}
+
+// ============================================================================
+// FOOTER MAIN CONTAINER
+// ============================================================================
+
+.footer__container {
+    max-width: $container-max-width;
+    margin: 0 auto;
     display: grid;
+    gap: spacing(8);
     grid-template-columns: 1fr;
-    gap: $space-3xl;
-    margin-bottom: $space-3xl;
 
-    @include respond-to('md') {
-      grid-template-columns: repeat(2, 1fr);
+    @include respond-to("md") {
+        grid-template-columns: repeat(3, 1fr);
+        gap: spacing(8);
     }
 
-    @include respond-to('lg') {
-      grid-template-columns: repeat(4, 1fr);
+    @include respond-to("lg") {
+        gap: spacing(16);
     }
-  }
+}
 
-  &__section {
-    h3 {
-      font-family: $font-secondary;
-      font-size: $fs-lg;
-      color: $color-primary-light;
-      margin-bottom: $space-lg;
-    }
+// ============================================================================
+// FOOTER COLUMNS
+// ============================================================================
 
-    ul {
-      list-style: none;
-      padding: 0;
+.footer__column {
+    display: flex;
+    flex-direction: column;
+    gap: spacing(4);
 
-      li {
-        margin-bottom: $space-sm;
-      }
-    }
-
-    a {
-      color: $color-neutral-light;
-      @include transition(color);
-
-      &:hover {
-        color: $color-primary-light;
-      }
-    }
-  }
-
-  &__bottom {
-    padding-top: $space-xl;
-    border-top: 1px solid rgba($color-neutral-light, 0.2);
+    // Mobile: centré
+    align-items: center;
     text-align: center;
-    font-size: $fs-sm;
-    color: rgba($color-neutral-light, 0.7);
 
-    @include respond-to('md') {
-      @include flex-between;
-      text-align: left;
-    }
-  }
-
-  &__copyright {
-    margin-bottom: $space-md;
-
-    @include respond-to('md') {
-      margin-bottom: 0;
-    }
-  }
-
-  &__social {
-    @include flex-center;
-    gap: $space-md;
-    justify-content: center;
-
-    @include respond-to('md') {
-      justify-content: flex-end;
+    @include respond-to("md") {
+        align-items: flex-start;
+        text-align: left;
     }
 
-    a {
-      width: 40px;
-      height: 40px;
-      @include flex-center;
-      border-radius: $radius-full;
-      background-color: rgba($color-neutral-light, 0.1);
-      color: $color-neutral-light;
-      @include transition(all);
+    // Animation initial state (GSAP stagger)
+    opacity: 1;
+    transform: translateY(0);
+}
 
-      &:hover {
-        background-color: $color-primary-light;
-        color: $color-primary-darker;
-        transform: translateY(-2px);
-      }
+// ============================================================================
+// FOOTER TITLES
+// ============================================================================
+
+.footer__title {
+    font-family: $font-primary;
+    font-weight: $fw-bold;
+    font-size: px-to-rem(16);
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+    color: get-color("neutral-dark");
+    text-transform: uppercase;
+    margin-bottom: spacing(2);
+
+    @include respond-to("lg") {
+        font-size: px-to-rem(18);
     }
-  }
+}
+
+// ============================================================================
+// FOOTER LISTS (Navigation & Legal)
+// ============================================================================
+
+.footer__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: spacing(3);
+}
+
+.footer__item {
+    position: relative;
+}
+
+.footer__link {
+    font-family: $font-primary;
+    font-weight: $fw-normal;
+    font-size: px-to-rem(14);
+    line-height: 1.6;
+    color: get-color("neutral-dark");
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
+
+    @include respond-to("lg") {
+        font-size: px-to-rem(16);
+    }
+
+    // Underline animation on hover
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: get-color("primary-dark");
+        transition: width 0.4s ease;
+    }
+
+    &:hover {
+        color: get-color("primary-dark");
+
+        &::after {
+            width: 100%;
+        }
+    }
+
+    &:focus-visible {
+        outline: 2px solid get-color("secondary-green");
+        outline-offset: 4px;
+        border-radius: 2px;
+    }
+
+    // GSAP will animate translateX on hover
+    transform: translateX(0);
+}
+
+// ============================================================================
+// SOCIAL MEDIA SECTION
+// ============================================================================
+
+.footer__social {
+    display: flex;
+    flex-direction: column;
+    gap: spacing(3);
+    align-items: center;
+
+    @include respond-to("md") {
+        align-items: flex-start;
+    }
+}
+
+.footer__social-link {
+    display: flex;
+    align-items: center;
+    gap: spacing(2);
+    font-family: $font-primary;
+    font-weight: $fw-normal;
+    font-size: px-to-rem(14);
+    line-height: 1.6;
+    color: get-color("neutral-dark");
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    @include respond-to("lg") {
+        font-size: px-to-rem(16);
+    }
+
+    // Minimum touch target size (mobile)
+    min-height: 44px;
+    min-width: 44px;
+    padding: spacing(2);
+    margin: spacing(-2); // Compensate padding for visual alignment
+
+    &:hover {
+        color: get-color("secondary-green");
+
+        .footer__social-icon {
+            color: get-color("secondary-green");
+        }
+    }
+
+    &:focus-visible {
+        outline: 2px solid get-color("secondary-green");
+        outline-offset: 4px;
+        border-radius: 4px;
+    }
+
+    // GSAP will animate scale on hover
+    transform: scale(1);
+}
+
+.footer__social-icon {
+    width: 24px;
+    height: 24px;
+    color: get-color("neutral-dark");
+    transition: color 0.3s ease;
+    flex-shrink: 0;
+
+    @include respond-to("lg") {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+.footer__social-text {
+    // Text is visible for accessibility
+    display: inline;
+}
+
+.footer__email {
+    font-family: $font-primary;
+    font-weight: $fw-normal;
+    font-size: px-to-rem(14);
+    line-height: 1.6;
+    color: get-color("neutral-dark");
+    text-decoration: none;
+    margin-top: spacing(2);
+    display: inline-block;
+    transition: color 0.3s ease;
+
+    @include respond-to("lg") {
+        font-size: px-to-rem(16);
+    }
+
+    &:hover {
+        color: get-color("primary-dark");
+        text-decoration: underline;
+    }
+
+    &:focus-visible {
+        outline: 2px solid get-color("secondary-green");
+        outline-offset: 4px;
+        border-radius: 2px;
+    }
+}
+
+// ============================================================================
+// COPYRIGHT SECTION
+// ============================================================================
+
+.footer__copyright {
+    margin-top: spacing(10);
+    padding-top: spacing(6);
+    border-top: 1px solid rgba(get-color("neutral-dark"), 0.15);
+    text-align: center;
+
+    @include respond-to("md") {
+        margin-top: spacing(12);
+        padding-top: spacing(8);
+    }
+
+    // Animation initial state (GSAP)
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.footer__copyright-text {
+    font-family: $font-primary;
+    font-weight: $fw-light;
+    font-size: px-to-rem(12);
+    line-height: 1.6;
+    color: rgba(get-color("neutral-dark"), 0.7);
+    margin: 0 0 spacing(1) 0;
+
+    @include respond-to("lg") {
+        font-size: px-to-rem(14);
+    }
+}
+
+.footer__copyright-subtitle {
+    font-family: $font-primary;
+    font-weight: $fw-light;
+    font-size: px-to-rem(11);
+    line-height: 1.6;
+    color: rgba(get-color("neutral-dark"), 0.6);
+    margin: 0;
+    font-style: italic;
+
+    @include respond-to("lg") {
+        font-size: px-to-rem(13);
+    }
+}
+
+// ============================================================================
+// ACCESSIBILITY - REDUCED MOTION
+// ============================================================================
+
+@media (prefers-reduced-motion: reduce) {
+    .footer,
+    .footer__column,
+    .footer__link,
+    .footer__social-link,
+    .footer__copyright {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+// ============================================================================
+// PRINT STYLES
+// ============================================================================
+
+@media print {
+    .footer {
+        background-color: transparent;
+        border-top: 1px solid #000;
+        padding: spacing(4);
+    }
+
+    .footer__social-link,
+    .footer__link {
+        color: #000;
+        text-decoration: underline;
+    }
+
+    .footer__social-icon {
+        display: none;
+    }
 }

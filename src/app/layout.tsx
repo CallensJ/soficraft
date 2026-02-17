@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/main.scss";
 import SmoothScroll from "../components/SmoothScroll";
+import Footer from "../components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "SOFICRAFT - Bijoux Fantasy Artisanaux",
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
+        <Navbar />
         <SmoothScroll>{children}</SmoothScroll>
+        <Footer />
       </body>
     </html>
   );

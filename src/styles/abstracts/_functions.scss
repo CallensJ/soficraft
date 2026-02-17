@@ -4,6 +4,7 @@
 // Fonctions Sass custom
 
 @use 'sass:math';
+@use 'sass:map';
 @use 'sass:color';
 @use 'variables' as *;
 
@@ -15,8 +16,8 @@
 /// @param {String} $color-name - Name of the color
 /// @return {Color} - Color value
 @function get-color($color-name) {
-  @if map-has-key($colors, $color-name) {
-    @return map-get($colors, $color-name);
+  @if map.has-key($colors, $color-name) {
+    @return map.get($colors, $color-name);
   } @else {
     @warn "Color '#{$color-name}' not found in $colors map.";
     @return null;

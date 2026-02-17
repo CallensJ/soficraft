@@ -2,24 +2,22 @@
 // VARIABLES - SOFICRAFT
 // ════════════════════════════════════════════════════════════════════════════
 // Couleurs, typographies, espacements, breakpoints
-
 // ════════════════════════════════════════════════════════════════════════════
 // COLORS - SOFICRAFT PALETTE
 // ════════════════════════════════════════════════════════════════════════════
-
 // Primary Colors - Tons terreux naturels
-$color-primary-light: #d4af9f; // Beige clair (accents)
-$color-primary-med: #c9a77c; // Beige moyen (transitions)
-$color-primary-dark: #8b6f47; // Marron moyen (texte secondaire)
-$color-primary-darker: #6b4423; // Marron foncé (CTA)
+$color-primary-light: #d4b896; // Beige Sable (Sable Doré) - Charte officielle
+$color-primary-med: #b8ab8f; // Beige Taupe (Taupe Enchantée) - Charte officielle
+$color-primary-dark: #8b6b47; // Brun Caramel (Caramel Artisanal) - Charte officielle
+$color-primary-darker: #6b6b3d; // Kaki Olive (Mousse Ancienne) - Charte officielle (CTA)
 
 // Secondary Colors - Accents nature
-$color-secondary-green: #5c7a3c; // Vert forêt (accents nature)
+$color-secondary-green: #4d6b3d; // Vert Forêt (Forêt Enchantée) - Charte officielle
 
 // Neutral Colors
-$color-neutral-dark: #1a1a1a; // Noir profond (texte)
-$color-neutral-light: #ffffff; // Blanc pur
-$color-neutral-bg: #f5e6d3; // Beige très clair (fond)
+$color-neutral-dark: #2b2b2b; // Noir Charbon (Charbon Mystique) - Charte officielle
+$color-neutral-light: #e8eae3; // Mist
+$color-neutral-bg: #e8eae3; // Off-White (Brume Elfique) - Charte officielle
 
 // Utility Colors
 $color-success: #4caf50;
@@ -29,25 +27,24 @@ $color-info: #2196f3;
 
 // Map de couleurs pour accès facile
 $colors: (
-  'primary-light': $color-primary-light,
-  'primary-med': $color-primary-med,
-  'primary-dark': $color-primary-dark,
-  'primary-darker': $color-primary-darker,
-  'secondary-green': $color-secondary-green,
-  'neutral-dark': $color-neutral-dark,
-  'neutral-light': $color-neutral-light,
-  'neutral-bg': $color-neutral-bg,
+    "primary-light": $color-primary-light,
+    "primary-med": $color-primary-med,
+    "primary-dark": $color-primary-dark,
+    "primary-darker": $color-primary-darker,
+    "secondary-green": $color-secondary-green,
+    "neutral-dark": $color-neutral-dark,
+    "neutral-light": $color-neutral-light,
+    "neutral-bg": $color-neutral-bg,
 );
-
 // ════════════════════════════════════════════════════════════════════════════
 // TYPOGRAPHY - FONTS SOFICRAFT
 // ════════════════════════════════════════════════════════════════════════════
 
 // Font Families
-$font-primary: 'Cormorant Garamond', serif; // Corps principal
-$font-secondary: 'Imperial Script', cursive; // Titres élégants
-$font-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-  sans-serif;
+$font-primary: "Cormorant Garamond", serif; // Corps principal
+$font-secondary: "Imperial Script", cursive; // Titres élégants
+$font-fallback:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
 // Font Sizes
 $fs-xs: 0.75rem; // 12px
@@ -102,11 +99,11 @@ $breakpoint-xl: 1280px; // Large desktops
 $breakpoint-2xl: 1536px; // Extra large
 
 $breakpoints: (
-  'sm': $breakpoint-sm,
-  'md': $breakpoint-md,
-  'lg': $breakpoint-lg,
-  'xl': $breakpoint-xl,
-  '2xl': $breakpoint-2xl,
+    "sm": $breakpoint-sm,
+    "md": $breakpoint-md,
+    "lg": $breakpoint-lg,
+    "xl": $breakpoint-xl,
+    "2xl": $breakpoint-2xl,
 );
 
 // ════════════════════════════════════════════════════════════════════════════

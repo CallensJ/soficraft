@@ -1,0 +1,415 @@
+@use "sass:color";
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+// ========================================
+// FINAL CTA - "PORTAIL ENCHANTÉ"
+// Design immersif avec effet de portail magique
+// ========================================
+
+// Variables locales pour le thème cuivre/or
+$copper-primary: #c9a574;
+$copper-dark: #8b6f47;
+$copper-light: #e6d5b8;
+$glow-gold: rgba(201, 165, 116, 0.4);
+
+.final-cta {
+    position: relative;
+    padding: 140px 0;
+    overflow: hidden;
+
+    // Background optimisé avec image + overlay "Portail magique"
+    background:
+        // Overlay dégradé radial cuivre/or pour effet magique
+        radial-gradient(
+            ellipse at center,
+            rgba($copper-light, 0.4) 0%,
+            rgba($copper-primary, 0.25) 35%,
+            rgba($color-neutral-light, 0.85) 70%,
+            rgba($color-neutral-light, 0.95) 100%
+        ),
+        // Image de fond
+        url('/images/cta_background.jpg') center/cover no-repeat;
+
+    background-attachment: scroll; // 'fixed' pour effet parallax, 'scroll' pour meilleures performances
+
+    @include respond-to("md") {
+        padding: 100px 0;
+    }
+
+    @include respond-to("sm") {
+        padding: 80px 0;
+        // Ajuster l'overlay sur mobile si nécessaire
+        background-size: cover;
+    }
+
+    // Effet de particules lumineuses (optimisé - 1 gradient au lieu de 3)
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            ellipse 800px 600px at 50% 50%,
+            rgba($copper-primary, 0.12) 0%,
+            transparent 70%
+        );
+        opacity: 0.5;
+        pointer-events: none;
+        z-index: 0;
+        // Animation désactivée pour meilleures performances
+        // Réactiver si nécessaire: animation: particlesFloat 20s ease-in-out infinite alternate;
+    }
+
+    // Texture subtile (simplifiée)
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba($copper-dark, 0.01) 2px,
+            rgba($copper-dark, 0.01) 3px
+        );
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    &__container {
+        position: relative;
+        max-width: 950px;
+        margin: 0 auto;
+        padding: 0 $space-md;
+        z-index: 1;
+
+        @include respond-to("sm") {
+            padding: 0 $space-sm;
+        }
+    }
+
+    // Carte flottante centrale avec effet de portail (optimisée)
+    &__card {
+        position: relative;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px); // Réduit de 20px à 12px pour meilleures performances
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 70px 60px;
+        text-align: center;
+
+        // Shadow simplifiée (2 layers au lieu de 3)
+        box-shadow:
+            0 20px 60px rgba($copper-dark, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+        // Bordure délicate cuivre/or avec effet glow
+        border: 1px solid rgba($copper-primary, 0.25);
+
+        @include respond-to("md") {
+            padding: 60px 50px;
+            border-radius: 12px;
+        }
+
+        @include respond-to("sm") {
+            padding: 50px 30px;
+            border-radius: 10px;
+        }
+
+        // Effet glow subtil autour de la carte (optimisé)
+        &::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(
+                135deg,
+                rgba($copper-light, 0.3) 0%,
+                rgba($copper-primary, 0.25) 50%,
+                rgba($copper-light, 0.3) 100%
+            );
+            border-radius: 17px;
+            z-index: -1;
+            opacity: 0.4; // Réduit de 0.5 à 0.4
+            filter: blur(6px); // Réduit de 8px à 6px pour meilleures performances
+
+            @include respond-to("md") {
+                border-radius: 13px;
+            }
+
+            @include respond-to("sm") {
+                border-radius: 11px;
+            }
+        }
+
+        // Motifs organiques décoratifs dans les coins (branches stylisées)
+        &::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba($copper-primary, 0.15) 0%,
+                    transparent 50%
+                ),
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba($copper-primary, 0.12) 0%,
+                    transparent 50%
+                );
+            border-radius: 50% 0 50% 0;
+            opacity: 0.6;
+            pointer-events: none;
+
+            @include respond-to("sm") {
+                width: 40px;
+                height: 40px;
+                top: 15px;
+                left: 15px;
+            }
+        }
+    }
+
+    // Motif décoratif coin bas droit
+    &__decoration {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background:
+            radial-gradient(
+                circle at 90% 90%,
+                rgba($copper-primary, 0.15) 0%,
+                transparent 50%
+            ),
+            radial-gradient(
+                circle at 10% 90%,
+                rgba($copper-primary, 0.12) 0%,
+                transparent 50%
+            );
+        border-radius: 0 50% 0 50%;
+        opacity: 0.6;
+        pointer-events: none;
+
+        @include respond-to("sm") {
+            width: 40px;
+            height: 40px;
+            bottom: 15px;
+            right: 15px;
+        }
+    }
+
+    &__title {
+        font-family: $font-secondary; // Imperial Script
+        font-size: 4rem;
+        font-weight: 400;
+        color: $copper-dark;
+        margin-bottom: 45px;
+        line-height: 1.15;
+        letter-spacing: 0.01em;
+        text-shadow: 0 2px 8px rgba($copper-primary, 0.15);
+
+        @include respond-to("md") {
+            font-size: 3.2rem;
+            margin-bottom: 38px;
+        }
+
+        @include respond-to("sm") {
+            font-size: 2.4rem;
+            margin-bottom: 30px;
+        }
+    }
+
+    &__content {
+        margin-bottom: 55px;
+
+        @include respond-to("sm") {
+            margin-bottom: 45px;
+        }
+    }
+
+    &__paragraph {
+        font-family: $font-primary;
+        font-size: 1.25rem;
+        line-height: 1.9;
+        color: rgba($color-neutral-dark, 0.9);
+        margin-bottom: 28px;
+        max-width: 750px;
+        margin-left: auto;
+        margin-right: auto;
+
+        @include respond-to("md") {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        @include respond-to("sm") {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            margin-bottom: 22px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        @include respond-to("sm") {
+            flex-direction: column;
+            gap: 18px;
+        }
+    }
+
+    // Modificateur "Gemme précieuse" pour les boutons globaux
+    // Applique le thème cuivre/or sur les boutons .btn standard
+    &__btn-gem {
+        position: relative;
+        padding: 20px 45px;
+        font-size: 1.125rem;
+        letter-spacing: 0.03em;
+        overflow: hidden;
+
+        @include respond-to("md") {
+            padding: 18px 40px;
+            font-size: 1.05rem;
+        }
+
+        @include respond-to("sm") {
+            width: 100%;
+            padding: 18px 36px;
+            font-size: 1.05rem;
+        }
+
+        // Effet shimmer au hover
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                transparent 100%
+            );
+            transition: left 0.6s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        &:hover::before {
+            left: 100%;
+        }
+
+        // Style primaire - Gemme dorée
+        &.btn-primary {
+            background: linear-gradient(
+                135deg,
+                $copper-primary 0%,
+                color.adjust($copper-primary, $lightness: 8%) 50%,
+                $copper-primary 100%
+            );
+            color: #ffffff;
+            border: 2px solid color.adjust($copper-primary, $lightness: 12%);
+            box-shadow:
+                0 4px 15px rgba($copper-primary, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba($copper-dark, 0.2);
+
+            &:hover {
+                background: linear-gradient(
+                    135deg,
+                    color.adjust($copper-primary, $lightness: 5%) 0%,
+                    color.adjust($copper-primary, $lightness: 12%) 50%,
+                    color.adjust($copper-primary, $lightness: 5%) 100%
+                );
+                border-color: color.adjust($copper-primary, $lightness: 15%);
+                transform: translateY(-3px);
+                box-shadow:
+                    0 8px 25px rgba($copper-primary, 0.45),
+                    0 0 20px rgba($copper-primary, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                    inset 0 -1px 0 rgba($copper-dark, 0.2);
+            }
+
+            &:active {
+                transform: translateY(-1px);
+                box-shadow:
+                    0 4px 12px rgba($copper-primary, 0.35),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        // Style secondaire - Gemme transparente (modifier supplémentaire)
+        &--secondary.btn-secondary {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            color: $copper-dark;
+            border: 2px solid $copper-primary;
+            box-shadow:
+                0 4px 15px rgba($copper-primary, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
+            &:hover {
+                background: linear-gradient(
+                    135deg,
+                    $copper-primary 0%,
+                    color.adjust($copper-primary, $lightness: 8%) 50%,
+                    $copper-primary 100%
+                );
+                color: #ffffff;
+                border-color: color.adjust($copper-primary, $lightness: 12%);
+                transform: translateY(-3px);
+                box-shadow:
+                    0 8px 25px rgba($copper-primary, 0.35),
+                    0 0 15px rgba($copper-primary, 0.25),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+
+            &:active {
+                transform: translateY(-1px);
+                box-shadow:
+                    0 4px 12px rgba($copper-primary, 0.25),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+}
+
+// ========================================
+// ANIMATIONS KEYFRAMES
+// ========================================
+
+// Animation désactivée par défaut pour meilleures performances
+// Décommenter dans &::before pour réactiver l'effet de particules flottantes
+@keyframes particlesFloat {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
