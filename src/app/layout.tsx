@@ -17,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
+        <Navbar />
         <SmoothScroll>{children}</SmoothScroll>
         <Footer />
       </body>

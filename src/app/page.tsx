@@ -14,7 +14,6 @@ import Navbar from "../components/layout/Navbar";
 export default function HomePage() {
   return (
     <main className="page-home">
-      <Navbar />
       <HeroSection />
       <UniversSection />
       <CollectionsSection />
