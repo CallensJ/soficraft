@@ -17,10 +17,15 @@ gsap.registerPlugin(ScrollTrigger);
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
+  const slidesRef = useRef<HTMLDivElement[]>([]);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaContainerRef = useRef<HTMLDivElement>(null);
   const decorLineRef = useRef<HTMLSpanElement>(null);
+
+  const setSlideRef = (el: HTMLDivElement | null, index: number) => {
+    if (el) slidesRef.current[index] = el;
+  };
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -147,18 +152,27 @@ export default function HeroSection() {
     <section ref={sectionRef} className="hero" aria-label="Accueil SOFICRAFT">
       {/* ---- Background image + overlay ---- */}
       <div ref={backgroundRef} className="hero__background">
-        IMAGE PLACEHOLDER : maximilian-jaenicke https://unsplash.com/@maxican
-        Ambiance : forêt enchantée, lumière dorée filtrée à travers les
-        branches.
-        <Image
-          src="/images/hero-forest.jpg"
-          alt="Forêt enchantée baignée de lumière dorée"
-          fill
-          priority
-          quality={75}
-          sizes="100vw"
-          style={{ objectFit: "cover" }}
-        />
+        {[
+          { src: "/images/Hero-background/hero-forest.jpg",   alt: "Forêt enchantée baignée de lumière dorée" },
+          { src: "/images/Hero-background/Bracelet-hand.webp", alt: "Bracelet artisanal en main" },
+          { src: "/images/Hero-background/workshop.webp",      alt: "Atelier de création de bijoux" },
+        ].map((slide, i) => (
+          <div
+            key={slide.src}
+            ref={(el) => setSlideRef(el, i)}
+            className="hero__background-slide"
+          >
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              fill
+              priority={i === 0}
+              quality={75}
+              sizes="100vw"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+        ))}
         <div className="hero__background-overlay" />
       </div>
 
