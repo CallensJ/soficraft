@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -23,9 +23,9 @@ export default function HeroSection() {
   const ctaContainerRef = useRef<HTMLDivElement>(null);
   const decorLineRef = useRef<HTMLSpanElement>(null);
 
-  const setSlideRef = (el: HTMLDivElement | null, index: number) => {
+  const setSlideRef = useCallback((el: HTMLDivElement | null, index: number) => {
     if (el) slidesRef.current[index] = el;
-  };
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -35,10 +35,14 @@ export default function HeroSection() {
     const ctaContainer = ctaContainerRef.current;
     const decorLine = decorLineRef.current;
 
-    if (!section || !bg || !title || !subtitle || !ctaContainer || !decorLine)
-      return;
+    if (!section || !bg || !title || !subtitle || !ctaContainer || !decorLine) return;
+
+    let carouselInterval: ReturnType<typeof setInterval> | null = null;
 
     const ctx = gsap.context(() => {
+      // Initialise: first slide visible, others hidden
+      gsap.set(slidesRef.current[0], { opacity: 1 });
+
       // -------------------------------------------------------
       // GSAP Timeline : Entrée initiale (page load)
       // -------------------------------------------------------
@@ -106,6 +110,21 @@ export default function HeroSection() {
       );
 
       // -------------------------------------------------------
+      // CAROUSEL — crossfade every 5 seconds (starts after entry)
+      // -------------------------------------------------------
+      let currentIndex = 0;
+      tl.then(() => {
+        carouselInterval = setInterval(() => {
+          const slides = slidesRef.current;
+          if (!slides.length) return;
+          const nextIndex = (currentIndex + 1) % slides.length;
+          gsap.to(slides[currentIndex], { opacity: 0, duration: 1.2, ease: "power2.inOut" });
+          gsap.to(slides[nextIndex],    { opacity: 1, duration: 1.2, ease: "power2.inOut" });
+          currentIndex = nextIndex;
+        }, 5000);
+      });
+
+      // -------------------------------------------------------
       // GSAP : Parallax background au scroll
       // -------------------------------------------------------
       gsap.to(bg, {
@@ -135,7 +154,10 @@ export default function HeroSection() {
       });
     }, section);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      if (carouselInterval) clearInterval(carouselInterval);
+    };
   }, []);
 
   // ----------------------------------------------------------
