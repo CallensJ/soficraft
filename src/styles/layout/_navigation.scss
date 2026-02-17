@@ -16,6 +16,7 @@
     left: 0;
     width: 100%;
     z-index: 1000;
+    background: transparent; // Transparent before scroll — JS adds --scrolled class
     transition:
         background-color 0.4s ease,
         padding 0.4s ease,
