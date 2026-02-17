@@ -41,7 +41,9 @@ export default function HeroSection() {
 
     const ctx = gsap.context(() => {
       // Initialise: first slide visible, others hidden
-      gsap.set(slidesRef.current[0], { opacity: 1 });
+      if (slidesRef.current[0]) {
+        gsap.set(slidesRef.current[0], { opacity: 1 });
+      }
 
       // -------------------------------------------------------
       // GSAP Timeline : Entrée initiale (page load)
