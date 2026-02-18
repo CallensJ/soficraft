@@ -12,22 +12,29 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 interface CollectionSectionProps {
   collection: Collection;
   layout?: "default" | "reversed" | "fullwidth";
+  // index de la section dans le stack (0, 1, 2)
+  stackIndex: number;
+  totalSections: number;
 }
 
 export default function CollectionSection({
   collection,
   layout = "default",
+  stackIndex,
+  totalSections,
 }: CollectionSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
+    const overlay = overlayRef.current;
     const title = titleRef.current;
     const tagline = taglineRef.current;
 
-    if (!section || !title || !tagline) return;
+    if (!section || !overlay || !title || !tagline) return;
 
     const ctx = gsap.context(() => {
       // ── 1. Titre collection — SplitText char par char
@@ -56,16 +63,52 @@ export default function CollectionSection({
           start: "top 85%",
         },
       });
+
+      // ── 3. Effet "recouvert" — uniquement sur les sections qui ont une suivante
+      //    La section scale down + s'assombrit pendant que la suivante monte
+      if (stackIndex < totalSections - 1) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "bottom bottom",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+
+        tl.to(
+          section,
+          {
+            scale: 0.94,
+            transformOrigin: "center top",
+            ease: "none",
+          },
+          0,
+        );
+
+        tl.to(
+          overlay,
+          {
+            opacity: 0.55,
+            ease: "none",
+          },
+          0,
+        );
+      }
     }, section);
 
     return () => ctx.revert();
-  }, []);
+  }, [stackIndex, totalSections]);
 
   return (
     <section
       ref={sectionRef}
       className={`collectionSection collectionSection--${collection.id} collectionSection--${layout}`}
+      style={{ zIndex: stackIndex + 1 }}
     >
+      {/* ── Overlay d'assombrissement (invisible par défaut, animé par GSAP) ── */}
+      <div ref={overlayRef} className="collectionSection__darkOverlay" />
+
       <div className="collectionSection__inner">
         {/* ── En-tête collection ── */}
         <header className="collectionSection__header">

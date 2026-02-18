@@ -1,12 +1,34 @@
 // ════════════════════════════════════════════════════════════════════════════
 // COLLECTION SECTION — SOFICRAFT
-// Section thématique réutilisée 3 fois (Celtique / Lunaire / Élémentaire)
+// Stacked panels : chaque section est sticky et se fait recouvrir
+// par la suivante qui glisse par le bas
 // ════════════════════════════════════════════════════════════════════════════
 @use "../../abstracts/variables" as *;
 @use "../../abstracts/mixins" as *;
 @use "../../abstracts/functions" as *;
 
+// ════════════════════════════════════════════════════════════════════════════
+// WRAPPER — à appliquer dans page.tsx sur le div parent des 3 sections
+// ════════════════════════════════════════════════════════════════════════════
+
+.collectionsStack {
+    position: relative;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION COLLECTION
+// ════════════════════════════════════════════════════════════════════════════
+
 .collectionSection {
+    position: sticky;
+    top: 0;
+    // Hauteur min pour que la section occupe au moins tout le viewport
+    min-height: 100vh;
+    overflow: hidden;
+
+    // will-change pour que le navigateur prépare la couche GPU
+    will-change: transform;
+
     padding: spacing(16) spacing(6);
 
     @include respond-to("md") {
@@ -17,7 +39,7 @@
         padding: spacing(24) spacing(10);
     }
 
-    // ── Couleurs de fond alternées selon la collection
+    // ── Couleurs de fond par collection
     &--celtique {
         background-color: get-color("neutral-light");
     }
@@ -25,7 +47,6 @@
     &--lunaire {
         background-color: get-color("neutral-bg");
 
-        // Légère différenciation : teinte plus froide pour l'univers nocturne
         .collectionSection__title {
             color: get-color("primary-darker");
         }
@@ -39,8 +60,22 @@
         }
     }
 
-    // ── Conteneur centré
+    // ── Overlay sombre — positionné au dessus du fond, sous le contenu
+    // Opacité 0 par défaut, GSAP anime vers 0.55 au scroll
+    &__darkOverlay {
+        position: absolute;
+        inset: 0;
+        background-color: get-color("neutral-dark");
+        opacity: 0;
+        pointer-events: none; // ne bloque pas les interactions
+        z-index: 1;
+        will-change: opacity;
+    }
+
+    // ── Contenu au dessus de l'overlay
     &__inner {
+        position: relative;
+        z-index: 2; // au dessus du darkOverlay
         max-width: $container-max-width;
         margin: 0 auto;
     }
@@ -55,7 +90,7 @@
         }
     }
 
-    // ── Titre collection — Imperial Script grand format
+    // ── Titre collection — Imperial Script
     &__title {
         font-family: $font-secondary;
         font-size: $fs-2xl;
@@ -63,9 +98,7 @@
         color: get-color("primary-dark");
         line-height: $lh-tight;
         margin-bottom: spacing(4);
-
-        // Overflow caché nécessaire pour le SplitText chars
-        overflow: hidden;
+        overflow: hidden; // requis pour SplitText chars
 
         @include respond-to("md") {
             font-size: $fs-3xl;
@@ -86,13 +119,11 @@
         }
     }
 
-    // ── Liste des créations
-    // Séparation visuelle légère entre chaque item via border-bottom
+    // ── Liste créations
     &__creations {
         display: flex;
         flex-direction: column;
 
-        // Ligne de séparation entre chaque CreationItem
         > * + * {
             border-top: 1px solid rgba(get-color("primary-med"), 0.4);
         }
