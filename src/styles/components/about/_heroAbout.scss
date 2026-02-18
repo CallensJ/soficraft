@@ -1,0 +1,182 @@
+// =============================================================================
+// HERO ABOUT — _hero-about.scss
+// Section Hero de la page À Propos (70vh)
+// Conventions : get-color(), spacing(), respond-to(), $font-*, $fw-*, BEM
+// =============================================================================
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/functions" as *;
+@use "../abstracts/mixins" as *;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BLOC : .hero-about
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+
+    // Centrage du contenu
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    @include respond-to("md") {
+        align-items: center;
+        min-height: 560px;
+    }
+
+    @include respond-to("lg") {
+        min-height: 640px;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : image wrapper (position absolute pour fill Next.js Image)
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__image-wrapper {
+    position: absolute;
+    inset: 0;
+    // Légère marge pour absorber le parallax GSAP sans blanc visible
+    top: -8%;
+    bottom: -8%;
+    will-change: transform;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : image Next.js (géré via style inline objectFit dans le TSX)
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__image {
+    // next/image avec fill gère le positionnement
+    // objectFit et objectPosition définis dans le TSX via style prop
+    filter: brightness(0.75) saturate(0.9);
+    transition: filter $transition-slow;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : overlay gradient semi-transparent
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(get-color("neutral-dark"), 0.85) 0%,
+        rgba(get-color("neutral-dark"), 0.45) 40%,
+        rgba(get-color("neutral-dark"), 0.15) 70%,
+        transparent 100%
+    );
+
+    @include respond-to("md") {
+        background: linear-gradient(
+            to top,
+            rgba(get-color("neutral-dark"), 0.8) 0%,
+            rgba(get-color("neutral-dark"), 0.35) 50%,
+            transparent 100%
+        );
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : contenu (H1 + citation)
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: $container-max-width;
+    padding: spacing(6) $container-padding spacing(10);
+
+    display: flex;
+    flex-direction: column;
+    gap: spacing(4);
+
+    @include respond-to("md") {
+        padding: spacing(8) spacing(10) spacing(12);
+        gap: spacing(5);
+    }
+
+    @include respond-to("lg") {
+        padding: spacing(10) spacing(16) spacing(14);
+        gap: spacing(6);
+        max-width: 900px;
+        margin: 0 auto;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : H1
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__title {
+    font-family: $font-primary;
+    font-weight: $fw-light;
+    font-size: $fs-2xl;
+    line-height: $lh-tight;
+    letter-spacing: $ls-wide;
+    color: get-color("neutral-bg");
+
+    // Opacité initiale à 0 — GSAP anime l'entrée
+    opacity: 0;
+    will-change: opacity, transform;
+
+    @include respond-to("md") {
+        font-size: $fs-3xl;
+    }
+
+    @include respond-to("lg") {
+        font-size: $fs-4xl;
+        letter-spacing: 0.04em;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : citation overlay
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__citation {
+    margin: 0;
+    padding: 0;
+    border: none;
+
+    // Opacité initiale à 0 — GSAP anime l'entrée au scroll
+    opacity: 0;
+    will-change: opacity, transform;
+
+    p {
+        font-family: $font-secondary;
+        font-style: italic;
+        font-size: 1.3rem;
+        line-height: $lh-relaxed;
+        color: get-color("primary-light");
+
+        // Légère ombre pour lisibilité sur l'image
+        text-shadow:
+            0 2px 12px rgba(get-color("neutral-dark"), 0.5),
+            0 1px 3px rgba(get-color("neutral-dark"), 0.3);
+
+        @include respond-to("md") {
+            font-size: 1.6rem;
+        }
+
+        @include respond-to("lg") {
+            font-size: 1.875rem;
+        }
+    }
+
+    // Séparateur décoratif avant la citation
+    &::before {
+        content: "";
+        display: block;
+        width: 48px;
+        height: 1px;
+        background-color: get-color("primary-light");
+        margin-bottom: spacing(3);
+        opacity: 0.7;
+
+        @include respond-to("md") {
+            width: 64px;
+            margin-bottom: spacing(4);
+        }
+    }
+}

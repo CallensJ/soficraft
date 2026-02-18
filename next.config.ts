@@ -5,6 +5,14 @@ const nextConfig: NextConfig = {
   // IMAGE OPTIMIZATION
   // ============================================================
   images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
     // Qualités supportées pour les images Next.js Image
     // Permet l'utilisation de quality="85" dans les composants Image
     qualities: [75, 85],
@@ -34,10 +42,7 @@ const nextConfig: NextConfig = {
   // ============================================================
   // WEBPACK CUSTOMIZATION (optionnel)
   // ============================================================
-  webpack: (config) => {
-    // Vos configurations webpack custom ici si nécessaire
-    return config;
-  },
+  webpack: (config) => {},
 
   // ============================================================
   // REDIRECTS (optionnel)
