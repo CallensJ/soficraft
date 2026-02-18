@@ -1,0 +1,369 @@
+// =============================================================================
+// VALEURS SECTION — _valeurs.scss
+// Scroll horizontal pinné (effet livre/parchemin)
+// Conventions : get-color(), spacing(), respond-to(), $font-*, $fw-*, BEM
+// =============================================================================
+
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/functions" as *;
+@use "../../abstracts/mixins" as *;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BLOC : .valeurs
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs {
+    position: relative;
+    // La hauteur est gérée dynamiquement par GSAP pin
+    // On définit juste une hauteur minimale pour le mobile
+    background-color: get-color("neutral-bg");
+    overflow: hidden;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : header
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__header {
+    text-align: center;
+    padding: spacing(16) $container-padding spacing(10);
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: spacing(4);
+
+    @include respond-to("md") {
+        padding: spacing(20) spacing(10) spacing(12);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : H2
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__title {
+    font-family: $font-primary;
+    font-weight: $fw-light;
+    font-size: $fs-xl;
+    line-height: $lh-tight;
+    letter-spacing: $ls-wide;
+    color: get-color("neutral-dark");
+    will-change: opacity, transform;
+
+    @include respond-to("md") {
+        font-size: $fs-2xl;
+    }
+
+    @include respond-to("lg") {
+        font-size: $fs-3xl;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : intro
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__intro {
+    font-family: $font-secondary;
+    font-style: italic;
+    font-size: $fs-md;
+    line-height: $lh-relaxed;
+    color: get-color("primary-darker");
+    will-change: opacity, transform;
+
+    @include respond-to("md") {
+        font-size: $fs-lg;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : viewport (fenêtre du scroll horizontal)
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__viewport {
+    width: 100%;
+    overflow: hidden; // Cache les panneaux hors écran
+
+    // Mobile : height auto, scroll vertical
+    @include respond-to("md") {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : track (conteneur des panneaux, déplacé par GSAP)
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__track {
+    display: flex;
+    flex-direction: column; // Mobile : vertical
+    gap: spacing(6);
+    padding: 0 $container-padding spacing(16);
+    will-change: transform;
+
+    @include respond-to("md") {
+        flex-direction: row; // Desktop : horizontal
+        gap: 0;
+        padding: 0;
+        width: 300vw; // 3 panneaux × 100vw
+        height: 100%;
+        align-items: stretch;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : panneau (une valeur = un "écran")
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__panneau {
+    will-change: transform;
+
+    // Mobile : pleine largeur, padding vertical
+    border-radius: $radius-xl;
+    overflow: hidden;
+
+    @include respond-to("md") {
+        flex-shrink: 0;
+        width: 100vw;
+        height: 100%;
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    // ── Variantes de fond ──────────────────────────────────────────────────
+    &--sable {
+        background-color: get-color("primary-light");
+
+        .valeurs__icon {
+            color: get-color("primary-dark");
+        }
+
+        .valeurs__numero {
+            color: rgba(get-color("primary-dark"), 0.15);
+        }
+
+        .valeurs__panneau-sous-titre {
+            color: get-color("primary-dark");
+            border-color: rgba(get-color("primary-dark"), 0.2);
+        }
+    }
+
+    &--taupe {
+        background-color: get-color("primary-med");
+
+        .valeurs__icon {
+            color: get-color("neutral-dark");
+        }
+
+        .valeurs__numero {
+            color: rgba(get-color("neutral-dark"), 0.12);
+        }
+
+        .valeurs__panneau-sous-titre {
+            color: get-color("neutral-dark");
+            border-color: rgba(get-color("neutral-dark"), 0.2);
+        }
+    }
+
+    &--foret {
+        background-color: get-color("secondary-green");
+
+        .valeurs__panneau-titre,
+        .valeurs__panneau-texte {
+            color: get-color("neutral-bg");
+        }
+
+        .valeurs__icon {
+            color: get-color("neutral-bg");
+        }
+
+        .valeurs__numero {
+            color: rgba(get-color("neutral-bg"), 0.12);
+        }
+
+        .valeurs__panneau-sous-titre {
+            color: get-color("primary-light");
+            border-color: rgba(get-color("neutral-bg"), 0.25);
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : inner du panneau (contenu centré)
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__panneau-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: spacing(5);
+    padding: spacing(10) spacing(6);
+    position: relative;
+
+    @include respond-to("md") {
+        max-width: 560px;
+        padding: spacing(12) spacing(8);
+        gap: spacing(6);
+    }
+
+    @include respond-to("lg") {
+        max-width: 640px;
+        padding: spacing(16) spacing(12);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : numéro décoratif
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__numero {
+    position: absolute;
+    top: spacing(6);
+    right: spacing(6);
+    font-family: $font-primary;
+    font-weight: $fw-bold;
+    font-size: 5rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    pointer-events: none;
+    will-change: opacity, transform;
+
+    @include respond-to("lg") {
+        font-size: 7rem;
+        top: spacing(8);
+        right: spacing(8);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : wrapper icône
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__icon-wrapper {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include respond-to("lg") {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : icône SVG
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__icon {
+    width: 100%;
+    height: 100%;
+
+    path,
+    circle {
+        will-change: stroke-dashoffset;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : titre H3
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__panneau-titre {
+    font-family: $font-primary;
+    font-weight: $fw-semibold;
+    font-size: $fs-xl;
+    line-height: $lh-tight;
+    color: get-color("neutral-dark");
+    letter-spacing: $ls-normal;
+    will-change: opacity, transform;
+
+    @include respond-to("lg") {
+        font-size: $fs-2xl;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : texte paragraphe
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__panneau-texte {
+    font-family: $font-primary;
+    font-weight: $fw-normal;
+    font-size: $fs-base;
+    line-height: $lh-relaxed;
+    color: get-color("neutral-dark");
+    max-width: 480px;
+    will-change: opacity, transform;
+
+    @include respond-to("lg") {
+        font-size: $fs-md;
+        line-height: 1.85;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : sous-titre italique
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__panneau-sous-titre {
+    font-family: $font-secondary;
+    font-style: italic;
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    padding-top: spacing(4);
+    border-top: 1px solid;
+    width: 100%;
+    will-change: opacity, transform;
+
+    @include respond-to("lg") {
+        font-size: $fs-lg;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : dots de progression
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__dots {
+    display: none; // Caché sur mobile
+
+    @include respond-to("md") {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: spacing(3);
+        position: absolute;
+        bottom: spacing(8);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+}
+
+.valeurs__dot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: $radius-full;
+    background-color: get-color("neutral-dark");
+    opacity: 0.35;
+    will-change: transform, opacity;
+
+    &:first-child {
+        opacity: 1;
+        transform: scale(1.6);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : hint scroll
+// ─────────────────────────────────────────────────────────────────────────────
+.valeurs__hint {
+    display: none;
+
+    @include respond-to("md") {
+        display: block;
+        position: absolute;
+        bottom: spacing(6);
+        right: spacing(8);
+        font-family: $font-primary;
+        font-size: $fs-sm;
+        color: get-color("primary-darker");
+        letter-spacing: $ls-wide;
+        opacity: 0.6;
+        z-index: 10;
+    }
+}

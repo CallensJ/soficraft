@@ -1,0 +1,281 @@
+// =============================================================================
+// STORYTELLING SECTION — _storytelling.scss
+// Section récit chronologique de la page À Propos
+// Conventions : get-color(), spacing(), respond-to(), $font-*, $fw-*, BEM
+// =============================================================================
+
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/functions" as *;
+@use "../../abstracts/mixins" as *;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BLOC : .storytelling
+// ─────────────────────────────────────────────────────────────────────────────
+.storytelling {
+    position: relative;
+    background-color: get-color("neutral-bg");
+    padding: spacing(16) 0 spacing(20);
+    overflow: hidden;
+
+    // Transition background subtile gérée par GSAP
+    transition: background-color 1.2s ease;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : ligne verticale narrative
+// ─────────────────────────────────────────────────────────────────────────────
+.storytelling__line {
+    position: absolute;
+    left: spacing(6);
+    top: spacing(20);
+    bottom: spacing(20);
+    width: 1px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        get-color("primary-med") 10%,
+        get-color("primary-med") 90%,
+        transparent 100%
+    );
+    transform-origin: top center;
+    // scaleY animé par GSAP (part de 0)
+    will-change: transform;
+
+    @include respond-to("md") {
+        left: spacing(8);
+    }
+
+    @include respond-to("lg") {
+        left: calc((100vw - #{$container-max-width}) / 2 - spacing(8));
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : container
+// ─────────────────────────────────────────────────────────────────────────────
+.storytelling__container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $container-padding;
+
+    @include respond-to("md") {
+        padding: 0 spacing(10);
+    }
+
+    @include respond-to("lg") {
+        padding: 0 spacing(16);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : H2 titre de section
+// ─────────────────────────────────────────────────────────────────────────────
+.storytelling__title {
+    font-family: $font-primary;
+    font-weight: $fw-light;
+    font-size: $fs-xl;
+    line-height: $lh-tight;
+    letter-spacing: $ls-wide;
+    color: get-color("neutral-dark");
+    text-align: center;
+    margin-bottom: spacing(16);
+
+    // GSAP anime l'entrée (opacity: 0 initial géré par GSAP)
+    will-change: opacity, transform;
+
+    @include respond-to("md") {
+        font-size: $fs-2xl;
+        margin-bottom: spacing(20);
+    }
+
+    @include respond-to("lg") {
+        font-size: $fs-3xl;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : partie (bloc texte + image)
+// ─────────────────────────────────────────────────────────────────────────────
+.storytelling__part {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: spacing(8);
+    margin-bottom: spacing(20);
+
+    @include respond-to("lg") {
+        grid-template-columns: 1fr 1fr;
+        gap: spacing(12);
+        align-items: center;
+        margin-bottom: spacing(24);
+    }
+
+    // Partie avec image à droite (défaut)
+    &--right {
+        .storytelling__image-wrapper {
+            order: -1; // image en premier sur mobile
+
+            @include respond-to("lg") {
+                order: 2; // image à droite sur desktop
+            }
+        }
+
+        .storytelling__text {
+            @include respond-to("lg") {
+                order: 1;
+            }
+        }
+    }
+
+    // Partie avec image à gauche
+    &--left {
+        .storytelling__image-wrapper {
+            order: -1; // image en premier sur mobile
+
+            @include respond-to("lg") {
+                order: 1; // image à gauche sur desktop
+            }
+        }
+
+        .storytelling__text {
+            @include respond-to("lg") {
+                order: 2;
+            }
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : wrapper image (clip-path animé par GSAP)
+// ─────────────────────────────────────────────────────────────────────────────
+.storytelling__image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: $radius-lg;
+
+    // clip-path initial géré par GSAP
+    will-change: clip-path;
+
+    // Légère ombre pour profondeur
+    box-shadow:
+        0 4px 24px rgba(get-color("neutral-dark"), 0.1),
+        0 1px 6px rgba(get-color("neutral-dark"), 0.06);
+
+    @include respond-to("lg") {
+        aspect-ratio: 3 / 4;
+        border-radius: $radius-xl;
+    }
+
+    img {
+        // Parallax géré via GSAP yPercent
+        // Légère sur-hauteur pour absorber le mouvement sans blanc visible
+        height: 120% !important;
+        top: -10% !important;
+        will-change: transform;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : bloc texte
+// ─────────────────────────────────────────────────────────────────────────────
+.storytelling__text {
+    display: flex;
+    flex-direction: column;
+    gap: spacing(5);
+
+    h3 {
+        font-family: $font-primary;
+        font-weight: $fw-semibold;
+        font-size: $fs-lg;
+        line-height: $lh-tight;
+        color: get-color("primary-dark");
+        letter-spacing: $ls-normal;
+        will-change: opacity, transform;
+
+        @include respond-to("md") {
+            font-size: $fs-xl;
+        }
+
+        // Accent décoratif sous le H3
+        &::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: get-color("secondary-green");
+            margin-top: spacing(3);
+            border-radius: $radius-full;
+        }
+    }
+
+    p {
+        font-family: $font-primary;
+        font-weight: $fw-normal;
+        font-size: $fs-base;
+        line-height: $lh-loose;
+        color: get-color("neutral-dark");
+        will-change: opacity, transform;
+
+        @include respond-to("md") {
+            font-size: $fs-md;
+            line-height: 1.85;
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : texte de transition "Mais il y avait un secret..."
+// ─────────────────────────────────────────────────────────────────────────────
+.storytelling__transition {
+    text-align: center;
+    font-family: $font-secondary;
+    font-style: italic;
+    font-size: $fs-lg;
+    color: get-color("primary-darker");
+    letter-spacing: $ls-wide;
+    margin: spacing(4) auto spacing(20);
+    max-width: 480px;
+    will-change: opacity, transform;
+
+    // Séparateurs décoratifs avant/après
+    &::before,
+    &::after {
+        content: "— ";
+        color: get-color("primary-med");
+        font-style: normal;
+    }
+
+    &::after {
+        content: " —";
+    }
+
+    @include respond-to("md") {
+        font-size: $fs-xl;
+        margin-bottom: spacing(24);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : conclusion finale
+// ─────────────────────────────────────────────────────────────────────────────
+.storytelling__conclusion {
+    max-width: 680px;
+    margin: spacing(8) auto 0;
+    text-align: center;
+    font-family: $font-primary;
+    font-weight: $fw-light;
+    font-style: italic;
+    font-size: $fs-md;
+    line-height: $lh-relaxed;
+    color: get-color("primary-darker");
+    padding: spacing(8) spacing(6);
+    border-top: 1px solid get-color("primary-light");
+    border-bottom: 1px solid get-color("primary-light");
+    will-change: opacity, transform;
+
+    @include respond-to("md") {
+        font-size: $fs-lg;
+        padding: spacing(10) spacing(8);
+    }
+}
