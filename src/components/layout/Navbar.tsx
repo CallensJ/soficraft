@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -21,6 +22,10 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  // Pages where the initial hero background is light (cream) — links need dark color
+  const hasLightHero = ["/a-propos"].includes(pathname);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const menuOverlayRef = useRef<HTMLDivElement>(null);
@@ -124,7 +129,10 @@ export default function Navbar() {
   // RENDER
   // ----------------------------------------------------------
   return (
-    <header ref={headerRef} className="header">
+    <header
+      ref={headerRef}
+      className={`header${hasLightHero ? " header--light-hero" : ""}`}
+    >
       <nav className="nav" aria-label="Navigation principale">
         <div className="nav__container">
           {/* ---- Logo ---- */}
