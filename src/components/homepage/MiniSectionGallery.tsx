@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,8 +17,9 @@ interface GalleryItem {
   id: string;
   title: string;
   category: string;
-  size: "compact" | "medium" | "expanded" | "hero" | "statement"; // Nouvelles tailles fluides
+  size: "compact" | "medium" | "expanded" | "hero" | "statement"; // Tailles d'images
   offset: "up" | "down" | "none";
+  image: string; // Nom du fichier webp
 }
 
 const galleryItems: GalleryItem[] = [
@@ -25,43 +27,49 @@ const galleryItems: GalleryItem[] = [
     id: "creation-01",
     title: "Couronne Sylvestre",
     category: "Bague",
-    size: "medium", // ~40% width
+    size: "medium",
     offset: "down",
+    image: "bagues.webp",
   },
   {
     id: "creation-02",
     title: "Murmure Celtique",
     category: "Collier",
-    size: "compact", // ~27% width
+    size: "compact",
     offset: "up",
+    image: "collier.webp",
   },
   {
     id: "creation-03",
     title: "Rosée Lunaire",
     category: "Boucles d'oreille",
-    size: "hero", // ~75% width - IMAGE HERO
+    size: "hero",
     offset: "none",
+    image: "earrings.webp",
   },
-  {
-    id: "creation-04",
-    title: "Lierre Enchanté",
-    category: "Bracelet",
-    size: "expanded", // ~55% width
-    offset: "up",
-  },
+  // {
+  //   id: "creation-04",
+  //   title: "Lierre Enchanté",
+  //   category: "Bracelet",
+  //   size: "expanded",
+  //   offset: "up",
+  //   image: "bracelet.webp", // À ajouter plus tard
+  // },
   {
     id: "creation-05",
     title: "Rêve de Fae",
     category: "Bague",
-    size: "compact", // ~27% width
+    size: "compact",
     offset: "down",
+    image: "bague.webp", // Réutilisation de boucle d'orreile.webp
   },
   {
     id: "creation-06",
     title: "Souffle d'Automne",
     category: "Collier",
-    size: "statement", // ~60% width
+    size: "statement",
     offset: "none",
+    image: "necklace.webp", // Réutilisation de collier.webp
   },
 ];
 
@@ -127,7 +135,7 @@ export default function MiniGalerieSection() {
             // Reset seamless quand on atteint la fin du premier set
             const loopWidth = getLoopWidth();
             const parsedX = parseFloat(x);
-            return `${((parsedX % loopWidth) + loopWidth) % loopWidth - loopWidth}px`;
+            return `${(((parsedX % loopWidth) + loopWidth) % loopWidth) - loopWidth}px`;
           },
         },
       });
@@ -225,7 +233,7 @@ export default function MiniGalerieSection() {
         </h2>
         <p className="mini-galerie__intro mini-galerie__animate">
           Voici un aperçu de mes créations les plus emblématiques. Chacune de
-          ces pièces raconte une histoire particulière&nbsp;— celle de
+          ces pièces raconte une histoire particulière&nbsp;– celle de
           quelqu&apos;un qui a osé croire à la magie et qui a confié son rêve à
           mes mains.
         </p>
@@ -240,7 +248,15 @@ export default function MiniGalerieSection() {
               className={`mini-galerie__item mini-galerie__item--${item.size} mini-galerie__item--${item.offset}`}
             >
               <div className="mini-galerie__item-image">
-                <div className="mini-galerie__item-placeholder" />
+                <Image
+                  src={`/images/gallery/${item.image}`}
+                  alt={`${item.title} - ${item.category}`}
+                  fill
+                  className="mini-galerie__item-img"
+                  sizes="(max-width: 640px) 27vw, (max-width: 1024px) 40vw, 75vw"
+                  priority={item.size === "hero"}
+                  quality={75}
+                />
               </div>
               <div className="mini-galerie__item-info">
                 <span className="mini-galerie__item-category">
@@ -284,7 +300,16 @@ export default function MiniGalerieSection() {
               aria-hidden="true"
             >
               <div className="mini-galerie__item-image">
-                <div className="mini-galerie__item-placeholder" />
+                <Image
+                  src={`/images/gallery/${item.image}`}
+                  alt={`${item.title} - ${item.category}`}
+                  fill
+                  className="mini-galerie__item-img"
+                  sizes="(max-width: 640px) 27vw, (max-width: 1024px) 40vw, 75vw"
+                  priority={item.size === "hero"}
+                  quality={85}
+                  aria-hidden="true"
+                />
               </div>
               <div className="mini-galerie__item-info">
                 <span className="mini-galerie__item-category">

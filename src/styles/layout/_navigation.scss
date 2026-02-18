@@ -41,6 +41,36 @@
 }
 
 // ----------------------------------------------------------
+// HEADER — Variante fond clair (ex. page /a-propos)
+// Actif uniquement avant le scroll (le --scrolled reprend le dessus)
+// ----------------------------------------------------------
+.header--light-hero:not(.header--scrolled) {
+    .nav__logo {
+        color: $color-neutral-dark;
+
+        &:hover {
+            color: $color-primary-dark;
+        }
+    }
+
+    .nav__link {
+        color: $color-neutral-dark;
+
+        &::after {
+            background-color: $color-primary-dark;
+        }
+
+        &:hover {
+            color: $color-primary-dark;
+        }
+    }
+
+    .nav__hamburger-line {
+        background-color: $color-neutral-dark;
+    }
+}
+
+// ----------------------------------------------------------
 // NAV — Container principal
 // ----------------------------------------------------------
 .nav {

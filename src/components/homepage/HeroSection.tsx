@@ -23,9 +23,12 @@ export default function HeroSection() {
   const ctaContainerRef = useRef<HTMLDivElement>(null);
   const decorLineRef = useRef<HTMLSpanElement>(null);
 
-  const setSlideRef = useCallback((el: HTMLDivElement | null, index: number) => {
-    if (el) slidesRef.current[index] = el;
-  }, []);
+  const setSlideRef = useCallback(
+    (el: HTMLDivElement | null, index: number) => {
+      if (el) slidesRef.current[index] = el;
+    },
+    [],
+  );
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -35,7 +38,8 @@ export default function HeroSection() {
     const ctaContainer = ctaContainerRef.current;
     const decorLine = decorLineRef.current;
 
-    if (!section || !bg || !title || !subtitle || !ctaContainer || !decorLine) return;
+    if (!section || !bg || !title || !subtitle || !ctaContainer || !decorLine)
+      return;
 
     let carouselInterval: ReturnType<typeof setInterval> | null = null;
 
@@ -120,8 +124,16 @@ export default function HeroSection() {
           const slides = slidesRef.current;
           if (!slides.length) return;
           const nextIndex = (currentIndex + 1) % slides.length;
-          gsap.to(slides[currentIndex], { opacity: 0, duration: 1.2, ease: "power2.inOut" });
-          gsap.to(slides[nextIndex],    { opacity: 1, duration: 1.2, ease: "power2.inOut" });
+          gsap.to(slides[currentIndex], {
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.inOut",
+          });
+          gsap.to(slides[nextIndex], {
+            opacity: 1,
+            duration: 1.2,
+            ease: "power2.inOut",
+          });
           currentIndex = nextIndex;
         }, 5000);
       });
@@ -177,9 +189,18 @@ export default function HeroSection() {
       {/* ---- Background image + overlay ---- */}
       <div ref={backgroundRef} className="hero__background">
         {[
-          { src: "/images/Hero-background/hero-forest.jpg",   alt: "Forêt enchantée baignée de lumière dorée" },
-          { src: "/images/Hero-background/Bracelet-hand.webp", alt: "Bracelet artisanal en main" },
-          { src: "/images/Hero-background/workshop.webp",      alt: "Atelier de création de bijoux" },
+          {
+            src: "/images/Hero-background/hero-forest.jpg",
+            alt: "Forêt enchantée baignée de lumière dorée",
+          },
+          {
+            src: "/images/Hero-background/Bracelet-hand.webp",
+            alt: "Bracelet artisanal en main",
+          },
+          {
+            src: "/images/Hero-background/workshop.webp",
+            alt: "Atelier de création de bijoux",
+          },
         ].map((slide, i) => (
           <div
             key={slide.src}
@@ -231,8 +252,23 @@ export default function HeroSection() {
 
         {/* CTAs */}
         <div ref={ctaContainerRef} className="hero__cta-container">
-          <Link href="/galerie" className="hero__cta btn btn-primary btn-lg">
+          <Link href="/galerie" className="hero__cta hero__cta--primary">
             Découvrir la Galerie
+            <svg
+              className="hero__cta-arrow"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
           </Link>
           <Link href="/commande" className="hero__cta hero__cta--secondary">
             Commander sur-mesure

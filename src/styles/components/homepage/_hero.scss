@@ -237,9 +237,46 @@
     }
 
     &__cta {
-        // Le bouton primaire utilise .btn .btn-primary du design system
+        // Variante primaire — lien texte avec flèche, ton beige doré
+        &--primary {
+            font-family: $font-primary;
+            font-size: $fs-md; // Légèrement plus grand = hiérarchie visuelle
+            font-weight: 500;
+            color: $color-primary-light; // Beige sable doré — chaleureux, invitant
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: $space-sm;
+            padding-block: $space-sm;
+            position: relative;
+            transition:
+                color 0.3s ease,
+                gap 0.3s ease;
 
-        // Variante secondaire — lien texte avec flèche
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background-color: rgba($color-primary-light, 0.35);
+                transition: background-color 0.3s ease;
+            }
+
+            &:hover {
+                color: $color-neutral-light; // S'éclaircit au hover
+                gap: $space-md;
+
+                &::after {
+                    background-color: $color-neutral-light;
+                }
+            }
+        }
+
+        // Variante secondaire — lien texte avec flèche, ton brume
         &--secondary {
             font-family: $font-primary;
             font-size: $fs-base;
@@ -282,6 +319,7 @@
     &__cta-arrow {
         transition: transform 0.3s ease;
 
+        .hero__cta--primary:hover &,
         .hero__cta--secondary:hover & {
             transform: translateX(4px);
         }

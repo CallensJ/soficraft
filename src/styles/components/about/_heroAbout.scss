@@ -1,0 +1,175 @@
+// =============================================================================
+// HERO ABOUT — _heroAbout.scss
+// Layout éditorial : panneau texte (gauche) + portrait plein cadre (droite)
+// Conventions : get-color(), spacing(), respond-to(), $font-*, $fw-*, BEM
+// =============================================================================
+@use "sass:color";
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/functions" as *;
+@use "../../abstracts/mixins" as *;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BLOC : .hero-about — grille 2 colonnes sur md+
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about {
+    width: 100%;
+    display: grid;
+
+    // Mobile : image en haut (hauteur fixe), panneau texte en dessous
+    grid-template-columns: 1fr;
+    grid-template-rows: 50vh auto;
+
+    @include respond-to("md") {
+        // Desktop : texte à gauche (45%), image à droite (55%)
+        grid-template-columns: 45% 55%;
+        grid-template-rows: 1fr;
+        min-height: 88vh;
+    }
+
+    @include respond-to("lg") {
+        min-height: 90vh;
+        grid-template-columns: 42% 58%;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : panneau texte éditorial
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__panel {
+    order: 2; // Mobile : en bas, sous l'image
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: spacing(10) spacing(6) spacing(12);
+    background-color: get-color("neutral-bg");
+
+    // Ligne verticale décorative sur le bord droit (desktop seulement)
+    @include respond-to("md") {
+        order: 1; // Desktop : colonne gauche
+        padding: spacing(14) spacing(10) spacing(14) spacing(10);
+
+        &::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 15%;
+            bottom: 15%;
+            width: 1px;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(get-color("primary-dark"), 0.25) 30%,
+                rgba(get-color("primary-dark"), 0.25) 70%,
+                transparent
+            );
+        }
+    }
+
+    @include respond-to("lg") {
+        padding: spacing(16) spacing(14) spacing(16) spacing(16);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : label catégorie (ex. "À propos")
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__label {
+    display: flex;
+    align-items: center;
+    gap: spacing(3);
+    margin-bottom: spacing(6);
+
+    font-family: $font-primary;
+    font-size: $fs-xs;
+    font-weight: $fw-normal;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: get-color("primary-dark");
+
+    // Tiret décoratif avant le label
+    &::before {
+        content: "";
+        display: block;
+        flex-shrink: 0;
+        width: 28px;
+        height: 1px;
+        background-color: get-color("primary-dark");
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : H1
+// Pas d'opacity: 0 ici — GSAP gère l'état initial pour éviter le bug
+// d'invisibilité après splitH1.revert()
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__title {
+    font-family: $font-primary;
+    font-weight: $fw-light;
+    font-size: $fs-2xl;
+    line-height: $lh-tight;
+    letter-spacing: $ls-wide;
+    color: get-color("neutral-dark");
+    will-change: opacity, transform;
+
+    @include respond-to("md") {
+        font-size: $fs-3xl;
+    }
+
+    @include respond-to("lg") {
+        font-size: $fs-4xl;
+        letter-spacing: 0.04em;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : citation
+// Pas d'opacity: 0 ici — même raison que le titre ci-dessus
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__citation {
+    margin: spacing(8) 0 0;
+    padding: spacing(7) 0 0;
+    border: none;
+    border-top: 1px solid rgba(get-color("primary-dark"), 0.2);
+    will-change: opacity, transform;
+
+    p {
+        font-family: $font-secondary;
+        font-style: italic;
+        font-size: 1.4rem;
+        line-height: $lh-relaxed;
+        color: get-color("primary-dark");
+
+        @include respond-to("md") {
+            font-size: 1.65rem;
+        }
+
+        @include respond-to("lg") {
+            font-size: 1.9rem;
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : image wrapper (droite sur desktop)
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__image-wrapper {
+    order: 1; // Mobile : en haut
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+
+    @include respond-to("md") {
+        order: 2; // Desktop : colonne droite
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : image Next.js (fill — objectFit défini en inline style dans TSX)
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-about__image {
+    filter: brightness(0.92) saturate(0.95);
+    transition: filter $transition-slow;
+}
