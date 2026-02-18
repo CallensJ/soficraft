@@ -238,7 +238,7 @@ export default function ValeursSection() {
           scrollTrigger: {
             trigger: header,
             start: "top 85%",
-            toggleActions: "play none none none",
+            toggleActions: "play reverse play reverse",
           },
         });
       }
@@ -256,7 +256,7 @@ export default function ValeursSection() {
             scrollTrigger: {
               trigger: panneau,
               start: "top 85%",
-              toggleActions: "play none none none",
+              toggleActions: "play reverse play reverse",
             },
           });
         });
@@ -361,12 +361,8 @@ export default function ValeursSection() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="valeurs"
-      aria-labelledby="valeurs-title"
-    >
-      {/* ── Header au dessus du scroll horizontal ───────────────────── */}
+    <>
+      {/* ── Header EN DEHORS de la section pinnée ─────────────────── */}
       <div className="valeurs__header">
         <h2 id="valeurs-title" className="valeurs__title">
           Ce en quoi je crois profondément
@@ -376,48 +372,50 @@ export default function ValeursSection() {
         </p>
       </div>
 
-      {/* ── Viewport + Track horizontal ───────────────────────────── */}
-      <div className="valeurs__viewport">
-        <div ref={trackRef} className="valeurs__track">
-          {VALEURS.map(
-            ({ id, numero, Icon, titre, paragraphe, sousTitre, bgClass }) => (
-              <div key={id} className={`valeurs__panneau ${bgClass}`}>
-                <div className="valeurs__panneau-inner">
-                  <span className="valeurs__numero" aria-hidden="true">
-                    {numero}
-                  </span>
-
-                  <div className="valeurs__icon-wrapper" aria-hidden="true">
-                    <Icon />
+      {/* ── Section pinnée — uniquement viewport + dots + hint ────── */}
+      <section
+        ref={sectionRef}
+        className="valeurs"
+        aria-labelledby="valeurs-title"
+      >
+        <div className="valeurs__viewport">
+          <div ref={trackRef} className="valeurs__track">
+            {VALEURS.map(
+              ({ id, numero, Icon, titre, paragraphe, sousTitre, bgClass }) => (
+                <div key={id} className={`valeurs__panneau ${bgClass}`}>
+                  <div className="valeurs__panneau-inner">
+                    <span className="valeurs__numero" aria-hidden="true">
+                      {numero}
+                    </span>
+                    <div className="valeurs__icon-wrapper" aria-hidden="true">
+                      <Icon />
+                    </div>
+                    <h3 className="valeurs__panneau-titre">{titre}</h3>
+                    <p className="valeurs__panneau-texte">{paragraphe}</p>
+                    <p className="valeurs__panneau-sous-titre">{sousTitre}</p>
                   </div>
-
-                  <h3 className="valeurs__panneau-titre">{titre}</h3>
-                  <p className="valeurs__panneau-texte">{paragraphe}</p>
-                  <p className="valeurs__panneau-sous-titre">{sousTitre}</p>
                 </div>
-              </div>
-            ),
-          )}
+              ),
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* ── Dots de progression ───────────────────────────────────── */}
-      <div className="valeurs__dots" aria-hidden="true">
-        {VALEURS.map((v, i) => (
-          <span
-            key={v.id}
-            ref={(el) => {
-              dotsRef.current[i] = el;
-            }}
-            className="valeurs__dot"
-          />
-        ))}
-      </div>
+        <div className="valeurs__dots" aria-hidden="true">
+          {VALEURS.map((v, i) => (
+            <span
+              key={v.id}
+              ref={(el) => {
+                dotsRef.current[i] = el;
+              }}
+              className="valeurs__dot"
+            />
+          ))}
+        </div>
 
-      {/* ── Hint scroll ───────────────────────────────────────────── */}
-      <p className="valeurs__hint" aria-hidden="true">
-        Faites défiler pour découvrir ↓
-      </p>
-    </section>
+        <p className="valeurs__hint" aria-hidden="true">
+          Faites défiler pour découvrir ↓
+        </p>
+      </section>
+    </>
   );
 }
