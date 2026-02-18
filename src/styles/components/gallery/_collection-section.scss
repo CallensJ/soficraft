@@ -1,0 +1,100 @@
+// ════════════════════════════════════════════════════════════════════════════
+// COLLECTION SECTION — SOFICRAFT
+// Section thématique réutilisée 3 fois (Celtique / Lunaire / Élémentaire)
+// ════════════════════════════════════════════════════════════════════════════
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+@use "../../abstracts/functions" as *;
+
+.collectionSection {
+    padding: spacing(16) spacing(6);
+
+    @include respond-to("md") {
+        padding: spacing(20) spacing(8);
+    }
+
+    @include respond-to("lg") {
+        padding: spacing(24) spacing(10);
+    }
+
+    // ── Couleurs de fond alternées selon la collection
+    &--celtique {
+        background-color: get-color("neutral-light");
+    }
+
+    &--lunaire {
+        background-color: get-color("neutral-bg");
+
+        // Légère différenciation : teinte plus froide pour l'univers nocturne
+        .collectionSection__title {
+            color: get-color("primary-darker");
+        }
+    }
+
+    &--elementaire {
+        background-color: get-color("primary-light");
+
+        .collectionSection__title {
+            color: get-color("neutral-dark");
+        }
+    }
+
+    // ── Conteneur centré
+    &__inner {
+        max-width: $container-max-width;
+        margin: 0 auto;
+    }
+
+    // ── En-tête collection
+    &__header {
+        text-align: center;
+        margin-bottom: spacing(12);
+
+        @include respond-to("lg") {
+            margin-bottom: spacing(16);
+        }
+    }
+
+    // ── Titre collection — Imperial Script grand format
+    &__title {
+        font-family: $font-secondary;
+        font-size: $fs-2xl;
+        font-weight: $fw-normal;
+        color: get-color("primary-dark");
+        line-height: $lh-tight;
+        margin-bottom: spacing(4);
+
+        // Overflow caché nécessaire pour le SplitText chars
+        overflow: hidden;
+
+        @include respond-to("md") {
+            font-size: $fs-3xl;
+        }
+    }
+
+    // ── Tagline — Cormorant italique
+    &__tagline {
+        font-family: $font-primary;
+        font-size: $fs-base;
+        font-weight: $fw-light;
+        font-style: italic;
+        color: get-color("primary-darker");
+        letter-spacing: $ls-wide;
+
+        @include respond-to("md") {
+            font-size: $fs-md;
+        }
+    }
+
+    // ── Liste des créations
+    // Séparation visuelle légère entre chaque item via border-bottom
+    &__creations {
+        display: flex;
+        flex-direction: column;
+
+        // Ligne de séparation entre chaque CreationItem
+        > * + * {
+            border-top: 1px solid rgba(get-color("primary-med"), 0.4);
+        }
+    }
+}
