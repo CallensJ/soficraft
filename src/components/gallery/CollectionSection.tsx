@@ -12,7 +12,6 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 interface CollectionSectionProps {
   collection: Collection;
   layout?: "default" | "reversed" | "fullwidth";
-  // index de la section dans le stack (0, 1, 2)
   stackIndex: number;
   totalSections: number;
 }
@@ -64,15 +63,16 @@ export default function CollectionSection({
         },
       });
 
-      // ── 3. Effet "recouvert" — uniquement sur les sections qui ont une suivante
-      //    La section scale down + s'assombrit pendant que la suivante monte
+      // ── 3. Effet "recouvert" (Stacking) avec Pinning GSAP
       if (stackIndex < totalSections - 1) {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: section,
-            start: "bottom bottom",
-            end: "bottom top",
-            scrub: 1,
+            start: "bottom bottom", // Se déclenche quand le BAS de la section touche le BAS de l'écran
+            end: () => `+=${window.innerHeight}`, // Dure le temps que la section suivante scrolle 100vh
+            scrub: true,
+            pin: true, // Fige la section actuelle
+            pinSpacing: false, // Permet à la section suivante de passer par-dessus
           },
         });
 
@@ -106,11 +106,9 @@ export default function CollectionSection({
       className={`collectionSection collectionSection--${collection.id} collectionSection--${layout}`}
       style={{ zIndex: stackIndex + 1 }}
     >
-      {/* ── Overlay d'assombrissement (invisible par défaut, animé par GSAP) ── */}
       <div ref={overlayRef} className="collectionSection__darkOverlay" />
 
       <div className="collectionSection__inner">
-        {/* ── En-tête collection ── */}
         <header className="collectionSection__header">
           <h2 ref={titleRef} className="collectionSection__title">
             {collection.name}
@@ -120,7 +118,6 @@ export default function CollectionSection({
           </p>
         </header>
 
-        {/* ── Liste des créations ── */}
         <div className="collectionSection__creations">
           {collection.creations.map((creation, index) => (
             <CreationItem key={creation.id} creation={creation} index={index} />

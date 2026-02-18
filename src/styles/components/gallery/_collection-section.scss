@@ -1,32 +1,21 @@
 // ════════════════════════════════════════════════════════════════════════════
 // COLLECTION SECTION — SOFICRAFT
-// Stacked panels : chaque section est sticky et se fait recouvrir
-// par la suivante qui glisse par le bas
+// Stacked panels gérés par GSAP (Pinning) au lieu de CSS natif
 // ════════════════════════════════════════════════════════════════════════════
 @use "../../abstracts/variables" as *;
 @use "../../abstracts/mixins" as *;
 @use "../../abstracts/functions" as *;
 
-// ════════════════════════════════════════════════════════════════════════════
-// WRAPPER — à appliquer dans page.tsx sur le div parent des 3 sections
-// ════════════════════════════════════════════════════════════════════════════
-
 .collectionsStack {
     position: relative;
 }
 
-// ════════════════════════════════════════════════════════════════════════════
-// SECTION COLLECTION
-// ════════════════════════════════════════════════════════════════════════════
-
 .collectionSection {
-    position: sticky;
-    top: 0;
-    // Hauteur min pour que la section occupe au moins tout le viewport
+    // Remplacement du sticky par du relative pour que le z-index fonctionne,
+    // GSAP s'occupe de figer la section au bon moment.
+    position: relative;
     min-height: 100vh;
     overflow: hidden;
-
-    // will-change pour que le navigateur prépare la couche GPU
     will-change: transform;
 
     padding: spacing(16) spacing(6);
@@ -60,22 +49,21 @@
         }
     }
 
-    // ── Overlay sombre — positionné au dessus du fond, sous le contenu
-    // Opacité 0 par défaut, GSAP anime vers 0.55 au scroll
+    // ── Overlay sombre
     &__darkOverlay {
         position: absolute;
         inset: 0;
         background-color: get-color("neutral-dark");
         opacity: 0;
-        pointer-events: none; // ne bloque pas les interactions
-        z-index: 1;
+        pointer-events: none;
+        z-index: 3;
         will-change: opacity;
     }
 
-    // ── Contenu au dessus de l'overlay
+    // ── Contenu
     &__inner {
         position: relative;
-        z-index: 2; // au dessus du darkOverlay
+        z-index: 2;
         max-width: $container-max-width;
         margin: 0 auto;
     }
@@ -90,7 +78,7 @@
         }
     }
 
-    // ── Titre collection — Imperial Script
+    // ── Titre collection
     &__title {
         font-family: $font-secondary;
         font-size: $fs-2xl;
@@ -98,14 +86,14 @@
         color: get-color("primary-dark");
         line-height: $lh-tight;
         margin-bottom: spacing(4);
-        overflow: hidden; // requis pour SplitText chars
+        overflow: hidden;
 
         @include respond-to("md") {
             font-size: $fs-3xl;
         }
     }
 
-    // ── Tagline — Cormorant italique
+    // ── Tagline
     &__tagline {
         font-family: $font-primary;
         font-size: $fs-base;

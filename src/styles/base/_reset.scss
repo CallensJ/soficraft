@@ -32,8 +32,7 @@ html {
   // Better font rendering
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  // Smooth scrolling
-  scroll-behavior: smooth;
+  // Do NOT set scroll-behavior: smooth — Lenis handles all smooth scrolling
 }
 
 body {

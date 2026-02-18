@@ -40,7 +40,7 @@ export default function Navbar() {
     const header = headerRef.current;
     if (!header) return;
 
-    ScrollTrigger.create({
+    const st = ScrollTrigger.create({
       start: "top -80",
       onUpdate: (self) => {
         if (self.direction === 1) {
@@ -53,7 +53,7 @@ export default function Navbar() {
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      st.kill();
     };
   }, []);
 

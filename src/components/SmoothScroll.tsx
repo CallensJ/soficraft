@@ -1,41 +1,45 @@
 "use client";
 
-import { ReactLenis } from "lenis/react";
+import { ReactLenis, useLenis } from "lenis/react";
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+gsap.ticker.lagSmoothing(0);
+
+/**
+ * Bridge component — must live INSIDE ReactLenis so useLenis
+ * can access the context once the Lenis instance is ready.
+ */
+function ScrollTriggerSync() {
+  const lenis = useLenis(() => {
+    ScrollTrigger.update();
+  });
+
+  useEffect(() => {
+    if (!lenis) return;
+    ScrollTrigger.refresh();
+  }, [lenis]);
+
+  return null;
+}
 
 export default function SmoothScroll({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  useEffect(() => {
-    // On s'assure que ScrollTrigger est au courant du scroll de Lenis
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Cette fonction permet à GSAP de se synchroniser parfaitement
-    // avec le rafraîchissement de Lenis
-    function update(time: number) {
-      ScrollTrigger.update();
-    }
-
-    gsap.ticker.add(update);
-
-    return () => {
-      gsap.ticker.remove(update);
-    };
-  }, []);
-
   return (
     <ReactLenis
       root
       options={{
-        lerp: 0.1, // Intensité du lissage (0.1 = très fluide)
-        duration: 1.5, // Durée de la transition
+        lerp: 0.1,
+        duration: 1.5,
         smoothWheel: true,
       }}
     >
+      <ScrollTriggerSync />
       {children}
     </ReactLenis>
   );
