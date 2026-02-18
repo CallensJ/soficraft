@@ -1,0 +1,139 @@
+// ════════════════════════════════════════════════════════════════════════════
+// CREATION ITEM — SOFICRAFT
+// Bloc éditorial image + texte, réutilisé pour chaque création
+// ════════════════════════════════════════════════════════════════════════════
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+@use "../../abstracts/functions" as *;
+
+.creationItem {
+    display: grid;
+    grid-template-columns: 1fr; // mobile : 1 colonne
+    gap: spacing(8);
+    padding: spacing(12) 0;
+
+    @include respond-to("lg") {
+        grid-template-columns: 55fr 45fr; // desktop : image 55% / texte 45%
+        gap: spacing(12);
+        align-items: center;
+        padding: spacing(16) 0;
+    }
+
+    // ── Variante inversée (image à droite, texte à gauche)
+    &--right {
+        @include respond-to("lg") {
+            grid-template-columns: 45fr 55fr;
+
+            .creationItem__imageWrapper {
+                order: 2;
+            }
+
+            .creationItem__text {
+                order: 1;
+            }
+        }
+    }
+
+    // ── Wrapper image
+    &__imageWrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 5; // portrait — met en valeur le bijou
+        overflow: hidden;
+        will-change: transform; // GPU hint pour le parallax
+
+        @include respond-to("lg") {
+            aspect-ratio: 4 / 5;
+        }
+    }
+
+    &__image {
+        object-fit: cover;
+        object-position: center;
+        transition: none; // GSAP gère les transitions
+    }
+
+    // ── Colonne texte
+    &__text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: spacing(5);
+
+        @include respond-to("lg") {
+            padding: 0 spacing(6);
+        }
+    }
+
+    // ── Titre création — Imperial Script
+    &__title {
+        font-family: $font-secondary;
+        font-size: $fs-lg;
+        font-weight: $fw-normal;
+        color: get-color("primary-dark");
+        line-height: $lh-tight;
+
+        @include respond-to("md") {
+            font-size: $fs-xl;
+        }
+    }
+
+    // ── Description — Cormorant
+    &__description {
+        display: flex;
+        flex-direction: column;
+        gap: spacing(3);
+
+        p {
+            font-family: $font-primary;
+            font-size: $fs-base;
+            font-weight: $fw-light;
+            color: get-color("neutral-dark");
+            line-height: $lh-relaxed;
+
+            @include respond-to("md") {
+                font-size: $fs-md;
+            }
+        }
+    }
+
+    // ── Séparateur fin
+    &__divider {
+        border: none;
+        border-top: 1px solid get-color("primary-med");
+        margin: spacing(1) 0;
+        opacity: 0.5;
+    }
+
+    // ── Métadonnées — Cormorant italique
+    &__meta {
+        display: flex;
+        flex-direction: column;
+        gap: spacing(2);
+    }
+
+    &__metaRow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: spacing(1);
+        font-family: $font-primary;
+        font-size: $fs-sm;
+        font-style: italic;
+        color: get-color("primary-darker");
+
+        dt {
+            font-weight: $fw-semibold;
+            font-style: normal;
+            color: get-color("primary-dark");
+
+            &::after {
+                content: " :";
+            }
+        }
+
+        dd {
+            font-weight: $fw-light;
+            margin: 0;
+        }
+    }
+}

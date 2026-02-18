@@ -40,7 +40,7 @@ const collectionCeltique: Collection = {
         "Argent sterling 925, feuilles celtiques stylisées, chaîne ajustable",
       univers:
         "Forêts primales · Héritage celtique · Connexion ancestrale · Gardiens oubliés",
-      image: "/images/gallery/foret-ancienne.jpg",
+      image: "/images/gallery/forest-necklace.webp",
       imageAlt:
         "Collier de la Forêt Ancienne — argent sterling avec feuilles celtiques",
       side: "left",
@@ -54,7 +54,7 @@ const collectionCeltique: Collection = {
         "Or blanc 14k, runes celtiques en relief, bracelet chaîne ajustable",
       univers:
         "Protection ancestrale · Force intérieure · Runes anciennes · Guerrier(ère) spirituel(le)",
-      image: "/images/gallery/runes-protectrices.jpg",
+      image: "/images/gallery/runes-protectrices.png",
       imageAlt:
         "Bracelet des Runes Protectrices — or blanc avec trois runes en relief",
       side: "right",
@@ -67,7 +67,7 @@ const collectionCeltique: Collection = {
       materials: "Or rose 14k, symbole Triquetra en relief, ajustable",
       univers:
         "Trinité celtique · Équilibre éternel · Renouveau cyclique · Intégrité de soi",
-      image: "/images/gallery/triquetra.jpg",
+      image: "/images/gallery/triquetra.png",
       imageAlt:
         "Bague de la Triquetra — or rose avec symbole triquetra en relief",
       side: "left",
@@ -93,7 +93,7 @@ const collectionLunaire: Collection = {
         "Argent sterling 925, lune en relief martelé, chaîne delicate ajustable",
       univers:
         "Lune · Nuit éternelle · Rêves lucides · Sagesse cachée · Cycles féminins",
-      image: "/images/gallery/lune-argentee.jpg",
+      image: "/images/gallery/lune-argentee.png",
       imageAlt:
         "Collier de la Lune Argentée — argent sterling avec lune martelée",
       side: "right",
@@ -107,7 +107,7 @@ const collectionLunaire: Collection = {
         "Or blanc 14k, petites étoiles en relief, chaîne fine ajustable",
       univers:
         "Étoiles veileuses · Nuits sans peur · Sensibilité reconnue · Ciel infini",
-      image: "/images/gallery/etoiles-veileuses.jpg",
+      image: "/images/gallery/etoiles-veileuses.png",
       imageAlt:
         "Bracelet des Étoiles Veileuses — or blanc avec étoiles en relief",
       side: "left",
@@ -120,7 +120,7 @@ const collectionLunaire: Collection = {
       materials: "Or jaune 14k, lune et étoiles en relief subtil, ajustable",
       univers:
         "Minuit magique · Transformation silencieuse · Moment de transition · Portails ouverts",
-      image: "/images/gallery/anneau-minuit.jpg",
+      image: "/images/gallery/anneau-minuit.png",
       imageAlt: "Anneau de Minuit — or jaune avec lune et étoiles en relief",
       side: "right",
     },
@@ -146,7 +146,7 @@ const collectionElementaire: Collection = {
         "Argent sterling 925, quatre pendentifs élémentaires, chaîne ajustable",
       univers:
         "Quatre éléments · Totalité de soi · Équilibre naturel · Transformation continue",
-      image: "/images/gallery/quatre-elements.jpg",
+      image: "/images/gallery/quatre-elements.png",
       imageAlt:
         "Collier des Quatre Éléments — argent sterling avec pendentifs élémentaires",
       side: "left",
@@ -160,7 +160,7 @@ const collectionElementaire: Collection = {
         "Or et argent mélangés, motif racines texturé, bracelet rigide ajustable",
       univers:
         "Ancrage profond · Héritage familial · Force souterraine · Stabilité dans la tempête",
-      image: "/images/gallery/racines-profondes.jpg",
+      image: "/images/gallery/racines-profondes.png",
       imageAlt:
         "Bracelet Racines Profondes — or et argent avec motif racines texturé",
       side: "right",
@@ -173,7 +173,7 @@ const collectionElementaire: Collection = {
       materials: "Or blanc 14k, ailes en relief, bague ajustable",
       univers:
         "Liberté acquise · Envol courageux · Détachement des attentes · Transformation volontaire",
-      image: "/images/gallery/ailes-liberees.jpg",
+      image: "/images/gallery/ailes-liberees.png",
       imageAlt: "Bague des Ailes Libérées — or blanc avec ailes en relief",
       side: "left",
     },
@@ -186,7 +186,7 @@ const collectionElementaire: Collection = {
         "Argent sterling 925, pendentif géométrique, chaîne fine ajustable",
       univers:
         "Transformation personnelle · Alchimie de soi · Cycles de croissance · Devenir soi",
-      image: "/images/gallery/alchimie-interieure.jpg",
+      image: "/images/gallery/alchimie-interieure.png",
       imageAlt:
         "Collier de l'Alchimie Intérieure — argent sterling avec pendentif géométrique",
       side: "right",

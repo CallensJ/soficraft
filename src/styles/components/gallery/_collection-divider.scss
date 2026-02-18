@@ -1,0 +1,39 @@
+// ════════════════════════════════════════════════════════════════════════════
+// COLLECTION DIVIDER — SOFICRAFT
+// Séparateur SVG animé entre les collections
+// ════════════════════════════════════════════════════════════════════════════
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+@use "../../abstracts/functions" as *;
+
+.collectionDivider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: spacing(6) spacing(6);
+
+    @include respond-to("md") {
+        padding: spacing(8) spacing(8);
+    }
+
+    // ── Variante celtique : fond neutre, couleur Brun Caramel
+    &--celtique {
+        background-color: get-color("neutral-light");
+        color: get-color("primary-dark");
+    }
+
+    // ── Variante lunaire : fond légèrement plus sombre, couleur Kaki Olive
+    &--lunaire {
+        background-color: get-color("neutral-bg");
+        color: get-color("primary-darker");
+    }
+
+    // ── SVG
+    &__svg {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        display: block;
+        opacity: 0.6;
+    }
+}

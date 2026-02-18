@@ -1,0 +1,60 @@
+// ════════════════════════════════════════════════════════════════════════════
+// GALLERY TRANSITION — SOFICRAFT
+// Phrase poétique de respiration avant le CTA final
+// ════════════════════════════════════════════════════════════════════════════
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+@use "../../abstracts/functions" as *;
+
+.galleryTransition {
+    background-color: get-color("primary-light");
+    padding: spacing(20) spacing(6);
+
+    @include respond-to("md") {
+        padding: spacing(24) spacing(8);
+    }
+
+    // ── Conteneur centré, très étroit pour forcer l'attention
+    &__inner {
+        max-width: 640px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    // ── H2 — Imperial Script
+    &__title {
+        font-family: $font-secondary;
+        font-size: $fs-2xl;
+        font-weight: $fw-normal;
+        color: get-color("neutral-dark");
+        line-height: $lh-tight;
+        margin-bottom: spacing(8);
+        overflow: hidden; // requis pour SplitText
+
+        @include respond-to("md") {
+            font-size: $fs-3xl;
+        }
+    }
+
+    // ── Phrase poétique — Cormorant, grand, aéré
+    &__phrase {
+        font-family: $font-primary;
+        font-size: $fs-md;
+        font-weight: $fw-light;
+        color: get-color("neutral-dark");
+        line-height: $lh-loose;
+        overflow: hidden; // requis pour SplitText
+
+        em {
+            font-style: italic;
+            color: get-color("primary-dark");
+            font-size: $fs-lg;
+            display: block;
+            margin-top: spacing(3);
+        }
+
+        @include respond-to("md") {
+            font-size: $fs-lg;
+        }
+    }
+}
