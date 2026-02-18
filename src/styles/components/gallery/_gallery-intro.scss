@@ -1,0 +1,89 @@
+// ════════════════════════════════════════════════════════════════════════════
+// GALLERY INTRO — SOFICRAFT
+// ════════════════════════════════════════════════════════════════════════════
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+@use "../../abstracts/functions" as *;
+
+.galleryIntro {
+    background-color: get-color("neutral-light");
+    padding: spacing(16) spacing(6);
+
+    @include respond-to("md") {
+        padding: spacing(20) spacing(8);
+    }
+
+    @include respond-to("lg") {
+        padding: spacing(24) spacing(10);
+    }
+
+    // ── Conteneur centré, largeur réduite pour favoriser la lecture
+    &__inner {
+        max-width: 720px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    // ── H2 — Imperial Script
+    &__title {
+        font-family: $font-secondary;
+        font-size: $fs-2xl;
+        font-weight: $fw-normal;
+        color: get-color("primary-dark");
+        line-height: $lh-tight;
+        margin-bottom: spacing(8);
+
+        // Nécessaire pour le SplitText lines
+        overflow: hidden;
+
+        @include respond-to("md") {
+            font-size: $fs-3xl;
+        }
+    }
+
+    // ── Paragraphes — Cormorant
+    &__text {
+        font-family: $font-primary;
+        font-size: $fs-md;
+        font-weight: $fw-light;
+        color: get-color("neutral-dark");
+        line-height: $lh-relaxed;
+        margin-bottom: spacing(6);
+
+        // Légère indentation de la première lettre pour l'aspect éditorial
+        &::first-letter {
+            font-size: $fs-xl;
+            font-weight: $fw-normal;
+            color: get-color("primary-dark");
+            float: left;
+            line-height: 1;
+            margin-right: spacing(1);
+            margin-top: spacing(1);
+        }
+
+        @include respond-to("md") {
+            font-size: $fs-lg;
+        }
+    }
+
+    // ── CTA lien texte — Vert Forêt
+    &__cta {
+        display: inline-block;
+        margin-top: spacing(4);
+        font-family: $font-primary;
+        font-size: $fs-md;
+        font-weight: $fw-normal;
+        font-style: italic;
+        color: get-color("secondary-green");
+        text-decoration: none;
+        letter-spacing: $ls-wide;
+        transition:
+            color $duration-normal $easing-ease-out,
+            letter-spacing $duration-normal $easing-ease-out;
+
+        &:hover {
+            color: get-color("primary-dark");
+            letter-spacing: 0.08em;
+        }
+    }
+}
