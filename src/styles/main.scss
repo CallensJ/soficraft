@@ -42,7 +42,6 @@
 // Composants réutilisables
 @use "components/buttons";
 @use "components/cards";
-@use "components/gallerie";
 @use "components/form";
 @use "components/modal";
 @use "components/homepage/hero";
@@ -54,6 +53,8 @@
 @use "components/about/storytelling";
 @use "components/about/valeursSection";
 @use "components/about/ctaFinal";
+//PAGE GALLERIE
+@use "components/gallery/hero-gallery";
 // ==========================================================================
 // 6. PAGES
 // ==========================================================================

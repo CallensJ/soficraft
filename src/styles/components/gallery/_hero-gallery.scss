@@ -1,0 +1,104 @@
+// ════════════════════════════════════════════════════════════════════════════
+// HERO GALLERY — SOFICRAFT
+// ════════════════════════════════════════════════════════════════════════════
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+@use "../../abstracts/functions" as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// BLOC PRINCIPAL
+// ════════════════════════════════════════════════════════════════════════════
+
+.heroGallery {
+    position: relative;
+    height: 70vh;
+    min-height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end; // contenu ancré en bas pour effet cinématique
+
+    // ── Image wrapper (permet le Ken Burns sans affecter le layout) ──
+    &__imageWrapper {
+        position: absolute;
+        inset: 0;
+        will-change: transform; // GPU hint pour le parallax GSAP
+
+        img {
+            object-fit: cover;
+            object-position: center 70%; // met l'accent sur la partie haute du bijou
+        }
+    }
+
+    // ── Overlay gradient du bas vers le haut ──
+    // Beige sable en bas → transparent en haut
+    // Donne de la lisibilité au texte sans tuer l'image
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to top,
+            rgba(get-color("neutral-dark"), 0.8) 0%,
+            rgba(get-color("neutral-dark"), 0.35) 50%,
+            rgba(get-color("neutral-dark"), 0.05) 100%
+        );
+        z-index: 1;
+    }
+
+    // ── Contenu texte ──
+    &__content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: $container-max-width;
+        margin: 0 auto;
+        padding: spacing(8) spacing(6) spacing(12);
+
+        @include respond-to("md") {
+            padding: spacing(10) spacing(8) spacing(16);
+        }
+
+        @include respond-to("lg") {
+            padding: spacing(12) spacing(10) spacing(20);
+        }
+    }
+
+    // ── H1 — Imperial Script ──
+    &__title {
+        font-family: $font-secondary;
+        font-size: $fs-3xl; // 48px mobile
+        font-weight: $fw-normal; // Imperial Script ne doit pas être bold
+        color: get-color("primary-light");
+        line-height: $lh-tight;
+        margin-bottom: spacing(4);
+        max-width: 700px;
+
+        // Nécessaire pour que GSAP SplitText gère correctement les words
+        overflow: hidden;
+
+        @include respond-to("md") {
+            font-size: $fs-4xl; // 56px tablet+
+        }
+    }
+
+    // ── Sous-titre — Cormorant ──
+    &__subtitle {
+        font-family: $font-primary;
+        font-size: $fs-base;
+        font-weight: $fw-light;
+        color: rgba(get-color("primary-light"), 0.85);
+        line-height: $lh-relaxed;
+        max-width: 560px;
+
+        // La seconde phrase — légèrement plus discrète
+        span {
+            display: block;
+            margin-top: spacing(2);
+            color: rgba(get-color("primary-light"), 0.65);
+            font-style: italic;
+        }
+
+        @include respond-to("md") {
+            font-size: $fs-md; // 18px tablet+
+        }
+    }
+}
