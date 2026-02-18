@@ -1,0 +1,140 @@
+// =============================================================================
+// CTA ABOUT — _cta-about.scss
+// Section CTA Final de la page À Propos
+// Conventions : get-color(), spacing(), respond-to(), $font-*, $fw-*, BEM
+// =============================================================================
+
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/functions" as *;
+@use "../../abstracts/mixins" as *;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BLOC : .cta-about
+// ─────────────────────────────────────────────────────────────────────────────
+.cta-about {
+    background-color: get-color("neutral-bg");
+    padding: spacing(16) $container-padding spacing(20);
+    position: relative;
+
+    // Séparateur décoratif en haut
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 1px;
+        background: linear-gradient(
+            to right,
+            transparent,
+            get-color("primary-med"),
+            transparent
+        );
+    }
+
+    @include respond-to("lg") {
+        padding: spacing(20) $container-padding spacing(24);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : bloc centré
+// ─────────────────────────────────────────────────────────────────────────────
+.cta-about__bloc {
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: spacing(8);
+    text-align: center;
+    will-change: opacity, transform;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : texte
+// ─────────────────────────────────────────────────────────────────────────────
+.cta-about__texte {
+    font-family: $font-primary;
+    font-weight: $fw-light;
+    font-style: italic;
+    font-size: $fs-md;
+    line-height: $lh-relaxed;
+    color: get-color("primary-darker");
+
+    @include respond-to("lg") {
+        font-size: $fs-lg;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : bouton principal
+// ─────────────────────────────────────────────────────────────────────────────
+.cta-about__btn {
+    display: inline-block;
+    padding: spacing(4) spacing(10);
+    background-color: get-color("secondary-green");
+    color: get-color("neutral-bg");
+    font-family: $font-primary;
+    font-weight: $fw-medium;
+    font-size: $fs-base;
+    letter-spacing: $ls-wide;
+    text-decoration: none;
+    border-radius: $radius-full;
+    border: 1px solid transparent;
+    will-change: transform;
+
+    // Transition CSS pour le background (GSAP gère le y)
+    transition:
+        background-color $transition-normal,
+        border-color $transition-normal,
+        color $transition-normal;
+
+    &:hover {
+        background-color: transparent;
+        border-color: get-color("secondary-green");
+        color: get-color("secondary-green");
+    }
+
+    @include respond-to("lg") {
+        font-size: $fs-md;
+        padding: spacing(5) spacing(12);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉLÉMENT : lien retour
+// ─────────────────────────────────────────────────────────────────────────────
+.cta-about__lien {
+    font-family: $font-primary;
+    font-size: $fs-sm;
+    color: get-color("primary-darker");
+    text-decoration: none;
+    letter-spacing: $ls-wide;
+    opacity: 0.7;
+    transition: opacity $transition-normal;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    // Underline animé
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: get-color("primary-darker");
+        transition: width $transition-normal;
+    }
+
+    &:hover::after {
+        width: 100%;
+    }
+}
