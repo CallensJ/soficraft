@@ -29,7 +29,7 @@ const galleryItems: GalleryItem[] = [
     category: "Bague",
     size: "medium",
     offset: "down",
-    image: "bagues.webp",
+    image: "snow-ring.png",
   },
   {
     id: "creation-02",
