@@ -1,0 +1,342 @@
+// ============================================================================
+// FORM WIZARD - STYLES
+// ============================================================================
+// Fichier: styles/components/commande/_form-wizard.scss
+
+@import "@/styles/variables/colors";
+@import "@/styles/variables/typography";
+@import "@/styles/variables/spacing";
+@import "@/styles/mixins/responsive";
+
+// ============================================================================
+// FORM WIZARD CONTAINER
+// ============================================================================
+
+.form-wizard {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: $spacing-xl $spacing-lg;
+
+    @include tablet {
+        padding: $spacing-lg $spacing-md;
+    }
+
+    @include mobile {
+        padding: $spacing-md;
+    }
+}
+
+// ============================================================================
+// FORM ELEMENT
+// ============================================================================
+
+.form-wizard__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+}
+
+.form-wizard__steps {
+    min-height: 400px;
+    width: 100%;
+
+    @include mobile {
+        min-height: 350px;
+    }
+}
+
+// ============================================================================
+// NAVIGATION BUTTONS
+// ============================================================================
+
+.form-wizard__nav {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: space-between;
+    margin-top: $spacing-xl;
+    padding-top: $spacing-lg;
+    border-top: 1px solid rgba($color-vert-foret, 0.1);
+}
+
+.form-wizard__button {
+    flex: 1;
+    padding: $spacing-md $spacing-lg;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-family: $font-body;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    @include mobile {
+        padding: $spacing-sm $spacing-md;
+        font-size: 14px;
+    }
+}
+
+// Button - Previous
+.form-wizard__button--prev {
+    background-color: rgba($color-beige-sable, 0.3);
+    color: $color-noir-charbon;
+    border-color: $color-beige-sable;
+
+    &:hover:not(:disabled) {
+        background-color: $color-beige-sable;
+        border-color: $color-vert-foret;
+    }
+
+    &:active:not(:disabled) {
+        transform: scale(0.98);
+    }
+}
+
+// Button - Next
+.form-wizard__button--next {
+    background-color: $color-vert-foret;
+    color: white;
+    border-color: $color-vert-foret;
+
+    &:hover:not(:disabled) {
+        background-color: darken($color-vert-foret, 10%);
+        box-shadow: 0 4px 12px rgba($color-vert-foret, 0.3);
+    }
+
+    &:active:not(:disabled) {
+        transform: scale(0.98);
+    }
+}
+
+// Button - Submit
+.form-wizard__button--submit {
+    background-color: $color-vert-foret;
+    color: white;
+    border-color: $color-vert-foret;
+    font-size: 18px;
+    font-weight: 600;
+
+    @include mobile {
+        font-size: 16px;
+    }
+
+    &:hover:not(:disabled) {
+        background-color: darken($color-vert-foret, 10%);
+        box-shadow: 0 6px 20px rgba($color-vert-foret, 0.4);
+        transform: translateY(-2px);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+}
+
+// ============================================================================
+// ERROR MESSAGE
+// ============================================================================
+
+.form-wizard__error {
+    background-color: rgba($color-rouge-erreur, 0.08);
+    border-left: 4px solid $color-rouge-erreur;
+    border-radius: 8px;
+    padding: $spacing-lg;
+    margin-top: $spacing-lg;
+    animation: slideInDown 0.4s ease-out;
+
+    @include mobile {
+        padding: $spacing-md;
+    }
+}
+
+.form-wizard__error-icon {
+    font-size: 24px;
+    margin-bottom: $spacing-sm;
+}
+
+.form-wizard__error-title {
+    font-family: $font-title;
+    font-size: 18px;
+    color: $color-rouge-erreur;
+    margin: 0 0 $spacing-sm 0;
+
+    @include mobile {
+        font-size: 16px;
+    }
+}
+
+.form-wizard__error-message {
+    font-family: $font-body;
+    font-size: 14px;
+    color: $color-noir-charbon;
+    line-height: 1.6;
+    margin: 0 0 $spacing-md 0;
+}
+
+.form-wizard__error-actions {
+    display: flex;
+    gap: $spacing-sm;
+    flex-wrap: wrap;
+
+    @include mobile {
+        flex-direction: column;
+    }
+}
+
+.form-wizard__error-button {
+    padding: $spacing-sm $spacing-md;
+    border: none;
+    border-radius: 6px;
+    font-family: $font-body;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+
+    @include mobile {
+        flex: 1;
+    }
+
+    &--retry {
+        background-color: $color-rouge-erreur;
+        color: white;
+
+        &:hover {
+            background-color: darken($color-rouge-erreur, 10%);
+        }
+    }
+
+    &--contact {
+        background-color: transparent;
+        color: $color-rouge-erreur;
+        border: 1px solid $color-rouge-erreur;
+
+        &:hover {
+            background-color: rgba($color-rouge-erreur, 0.1);
+        }
+    }
+}
+
+// ============================================================================
+// SUBMITTING OVERLAY
+// ============================================================================
+
+.form-wizard__submitting {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($color-beige-sable, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.form-wizard__submitting-content {
+    text-align: center;
+}
+
+.form-wizard__spinner {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto $spacing-lg;
+    border: 4px solid rgba($color-vert-foret, 0.2);
+    border-top-color: $color-vert-foret;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.form-wizard__submitting-text {
+    font-family: $font-body;
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-noir-charbon;
+    margin: 0 0 $spacing-sm 0;
+
+    @include mobile {
+        font-size: 16px;
+    }
+}
+
+.form-wizard__submitting-subtext {
+    font-family: $font-body;
+    font-size: 14px;
+    color: darken($color-beige-sable, 40%);
+    margin: 0;
+}
+
+// ============================================================================
+// ANIMATIONS
+// ============================================================================
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+// ============================================================================
+// ACCESSIBILITY
+// ============================================================================
+
+// Focus visible for keyboard navigation
+.form-wizard__button:focus-visible {
+    outline: 2px solid $color-vert-foret;
+    outline-offset: 2px;
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+    .form-wizard__submitting,
+    .form-wizard__button {
+        transition: none;
+    }
+
+    .form-wizard__spinner {
+        animation: none;
+        border-top-color: $color-vert-foret;
+    }
+}

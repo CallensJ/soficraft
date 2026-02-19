@@ -1,0 +1,159 @@
+// ============================================================================
+// STEP INDICATOR - STYLES
+// ============================================================================
+// Fichier: styles/components/commande/_step-indicator.scss
+
+@import "@/styles/variables/colors";
+@import "@/styles/variables/typography";
+@import "@/styles/variables/spacing";
+@import "@/styles/mixins/responsive";
+
+// ============================================================================
+// STEP INDICATOR CONTAINER
+// ============================================================================
+
+.step-indicator {
+    width: 100%;
+    margin-bottom: $spacing-xl;
+    padding: $spacing-lg 0;
+    border-bottom: 1px solid rgba($color-vert-foret, 0.1);
+
+    @include mobile {
+        margin-bottom: $spacing-lg;
+        padding: $spacing-md 0;
+    }
+}
+
+// ============================================================================
+// PROGRESS BAR
+// ============================================================================
+
+.step-indicator__progress-container {
+    width: 100%;
+    margin-bottom: $spacing-md;
+}
+
+.step-indicator__progress-background {
+    width: 100%;
+    height: 6px;
+    background-color: rgba($color-beige-sable, 0.5);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.step-indicator__progress-bar {
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        $color-vert-foret,
+        darken($color-vert-foret, 5%)
+    );
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 8px rgba($color-vert-foret, 0.4);
+
+    // Avoid transitions on first load
+    &:first-child {
+        transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
+
+// ============================================================================
+// COUNTER SECTION
+// ============================================================================
+
+.step-indicator__counter {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-md;
+}
+
+.step-indicator__step-number {
+    font-family: $font-body;
+    font-size: 14px;
+    font-weight: 500;
+    color: $color-noir-charbon;
+
+    @include mobile {
+        font-size: 13px;
+    }
+}
+
+.step-indicator__step-separator {
+    color: rgba($color-noir-charbon, 0.4);
+    font-size: 12px;
+}
+
+.step-indicator__step-total {
+    font-family: $font-body;
+    font-size: 14px;
+    color: rgba($color-noir-charbon, 0.6);
+
+    @include mobile {
+        font-size: 13px;
+    }
+}
+
+// ============================================================================
+// LABELS
+// ============================================================================
+
+.step-indicator__labels {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-md;
+    margin-top: $spacing-md;
+
+    @include tablet {
+        gap: $spacing-sm;
+    }
+
+    @include mobile {
+        gap: $spacing-xs;
+    }
+}
+
+.step-indicator__label {
+    font-family: $font-body;
+    font-size: 12px;
+    color: rgba($color-noir-charbon, 0.5);
+    text-align: center;
+    padding: $spacing-sm;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background-color: transparent;
+
+    @include mobile {
+        font-size: 11px;
+        padding: $spacing-xs;
+    }
+
+    &.active {
+        color: $color-vert-foret;
+        background-color: rgba($color-vert-foret, 0.08);
+        font-weight: 600;
+    }
+}
+
+// ============================================================================
+// ACCESSIBILITY
+// ============================================================================
+
+[role="progressbar"] {
+    // Ensures screen readers can read the progress
+    appearance: none;
+}
+
+// Reduced motion preferences
+@media (prefers-reduced-motion: reduce) {
+    .step-indicator__progress-bar {
+        transition: none;
+    }
+
+    .step-indicator__label {
+        transition: none;
+    }
+}
