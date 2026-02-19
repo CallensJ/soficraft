@@ -1,0 +1,397 @@
+// ============================================================================
+// SUCCESS PAGE - STYLES
+// ============================================================================
+// Fichier: styles/components/commande/_success-page.scss
+
+@import "@/styles/variables/colors";
+@import "@/styles/variables/typography";
+@import "@/styles/variables/spacing";
+@import "@/styles/mixins/responsive";
+
+// ============================================================================
+// SUCCESS PAGE CONTAINER
+// ============================================================================
+
+.success-page {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: $spacing-xl $spacing-lg;
+    text-align: center;
+    position: relative;
+
+    @include tablet {
+        padding: $spacing-lg $spacing-md;
+    }
+
+    @include mobile {
+        padding: $spacing-lg $spacing-md;
+    }
+}
+
+// ============================================================================
+// CHECKMARK ICON
+// ============================================================================
+
+.success-page__checkmark {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto $spacing-xl;
+    color: $color-vert-foret;
+
+    @include mobile {
+        width: 60px;
+        height: 60px;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+.success-page__checkmark-svg {
+    filter: drop-shadow(0 4px 12px rgba($color-vert-foret, 0.2));
+}
+
+// ============================================================================
+// MAIN MESSAGE
+// ============================================================================
+
+.success-page__title {
+    font-family: $font-title;
+    font-size: 36px;
+    font-weight: 400;
+    color: $color-noir-charbon;
+    margin: 0 0 $spacing-md 0;
+
+    @include tablet {
+        font-size: 32px;
+    }
+
+    @include mobile {
+        font-size: 24px;
+    }
+}
+
+.success-page__subtitle {
+    font-family: $font-body;
+    font-size: 18px;
+    color: rgba($color-noir-charbon, 0.7);
+    line-height: 1.6;
+    margin: 0 0 $spacing-xl 0;
+
+    @include mobile {
+        font-size: 16px;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+// ============================================================================
+// NEXT STEPS BOX
+// ============================================================================
+
+.success-page__box {
+    background-color: rgba($color-beige-sable, 0.4);
+    border-radius: 8px;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-xl;
+    text-align: left;
+
+    @include mobile {
+        padding: $spacing-md;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+.success-page__box-title {
+    font-family: $font-body;
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-noir-charbon;
+    margin: 0 0 $spacing-lg 0;
+
+    @include mobile {
+        font-size: 16px;
+        margin-bottom: $spacing-md;
+    }
+}
+
+// ============================================================================
+// TIMELINE
+// ============================================================================
+
+.success-page__timeline {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+}
+
+.success-page__timeline-item {
+    padding-left: $spacing-lg;
+    border-left: 3px solid $color-vert-foret;
+    position: relative;
+
+    @include mobile {
+        padding-left: $spacing-md;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: -7.5px;
+        top: 0;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: $color-vert-foret;
+        border: 3px solid white;
+    }
+}
+
+.success-page__timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+}
+
+.success-page__timeline-title {
+    font-family: $font-body;
+    font-size: 15px;
+    font-weight: 600;
+    color: $color-noir-charbon;
+    margin: 0;
+
+    @include mobile {
+        font-size: 14px;
+    }
+}
+
+.success-page__timeline-description {
+    font-family: $font-body;
+    font-size: 14px;
+    color: rgba($color-noir-charbon, 0.7);
+    line-height: 1.5;
+    margin: 0;
+
+    @include mobile {
+        font-size: 13px;
+    }
+}
+
+// ============================================================================
+// INFO BOX
+// ============================================================================
+
+.success-page__info-box {
+    background-color: rgba($color-vert-foret, 0.08);
+    border-left: 4px solid $color-vert-foret;
+    border-radius: 6px;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-xl;
+    text-align: left;
+
+    @include mobile {
+        padding: $spacing-md;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+.success-page__info-title {
+    font-family: $font-body;
+    font-size: 16px;
+    font-weight: 600;
+    color: $color-noir-charbon;
+    margin: 0 0 $spacing-sm 0;
+
+    @include mobile {
+        font-size: 14px;
+    }
+}
+
+.success-page__info-text {
+    font-family: $font-body;
+    font-size: 14px;
+    color: rgba($color-noir-charbon, 0.7);
+    margin: 0 0 $spacing-sm 0;
+
+    @include mobile {
+        font-size: 13px;
+    }
+}
+
+.success-page__info-list {
+    list-style: none;
+    padding: 0;
+    margin: $spacing-sm 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+
+    li {
+        font-family: $font-body;
+        font-size: 13px;
+        color: rgba($color-noir-charbon, 0.7);
+        padding-left: $spacing-lg;
+        position: relative;
+
+        @include mobile {
+            font-size: 12px;
+        }
+
+        &::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: $color-vert-foret;
+            font-weight: bold;
+        }
+    }
+}
+
+.success-page__info-contact {
+    font-family: $font-body;
+    font-size: 13px;
+    color: rgba($color-noir-charbon, 0.7);
+    margin-top: $spacing-md;
+
+    @include mobile {
+        font-size: 12px;
+    }
+}
+
+.success-page__contact-link {
+    color: $color-vert-foret;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid $color-vert-foret;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+        opacity: 0.7;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $color-vert-foret;
+        outline-offset: 2px;
+    }
+}
+
+// ============================================================================
+// ACTIONS BUTTONS
+// ============================================================================
+
+.success-page__actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
+    margin-bottom: $spacing-xl;
+    flex-wrap: wrap;
+
+    @include mobile {
+        flex-direction: column;
+        gap: $spacing-sm;
+    }
+}
+
+.success-page__button {
+    padding: $spacing-md $spacing-lg;
+    border: none;
+    border-radius: 8px;
+    font-family: $font-body;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+
+    @include mobile {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $color-vert-foret;
+        outline-offset: 2px;
+    }
+
+    &--primary {
+        background-color: $color-vert-foret;
+        color: white;
+
+        &:hover {
+            background-color: darken($color-vert-foret, 10%);
+            box-shadow: 0 4px 12px rgba($color-vert-foret, 0.3);
+        }
+    }
+
+    &--secondary {
+        background-color: transparent;
+        color: $color-vert-foret;
+        border: 2px solid $color-vert-foret;
+
+        &:hover {
+            background-color: rgba($color-vert-foret, 0.1);
+        }
+    }
+}
+
+// ============================================================================
+// CLOSING MESSAGE
+// ============================================================================
+
+.success-page__closing {
+    text-align: center;
+    padding-top: $spacing-lg;
+    border-top: 1px solid rgba($color-vert-foret, 0.1);
+}
+
+.success-page__closing-text {
+    font-family: $font-body;
+    font-size: 15px;
+    color: rgba($color-noir-charbon, 0.7);
+    line-height: 1.8;
+    margin: 0 0 $spacing-md 0;
+
+    @include mobile {
+        font-size: 13px;
+    }
+}
+
+.success-page__closing-signature {
+    font-family: $font-body;
+    font-size: 16px;
+    color: $color-noir-charbon;
+    font-weight: 500;
+    margin: 0;
+
+    @include mobile {
+        font-size: 14px;
+    }
+}
+
+.success-page__closing-author {
+    display: block;
+    margin-top: $spacing-xs;
+    font-style: italic;
+}
+
+// ============================================================================
+// CONFETTI ANIMATION
+// ============================================================================
+
+.success-page__confetti {
+    position: fixed;
+    font-size: 24px;
+    pointer-events: none;
+    left: 50%;
+    top: -50px;
+}
+
+// ============================================================================
+// ACCESSIBILITY
+// ============================================================================
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+    .success-page__button {
+        transition: none;
+    }
+}
