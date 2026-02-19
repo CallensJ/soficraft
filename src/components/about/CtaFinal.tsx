@@ -78,7 +78,7 @@ export default function CTAAbout() {
           SOFICRAFT, vous choisissez de soutenir cet univers.
         </p>
 
-        <Link ref={btnRef} href="/galerie" className="cta-about__btn">
+        <Link ref={btnRef} href="/gallerie" className="cta-about__btn">
           Explorer mes créations →
         </Link>
 

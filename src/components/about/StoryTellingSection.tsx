@@ -8,19 +8,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Images temporaires Unsplash
+// Images temporaires Unsplash (À remplacer par tes visuels finaux)
 // ─────────────────────────────────────────────────────────────────────────────
 const IMAGES = {
-  enfance:
-    "https://images.unsplash.com/photo-1611486212557-88be5ff6f941?w=700&q=80",
-  infirmiere:
-    "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=700&q=80",
-  creation:
-    "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=700&q=80",
+  enfance: "/images/about/me-child.png",
+  infirmiere: "/images/about/me-nurse.png",
+  creation: "/images/about/me-working.png",
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Composant
+// Composant corrigé avec le contenu v2.0
 // ─────────────────────────────────────────────────────────────────────────────
 export default function StorytellingSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -36,7 +33,7 @@ export default function StorytellingSection() {
     if (!section) return;
 
     const ctx = gsap.context(() => {
-      // ── 1. Ligne verticale narrative — se dessine au scroll ──────────────
+      // ── 1. Ligne verticale narrative ──────────────
       if (lineRef.current) {
         gsap.from(lineRef.current, {
           scaleY: 0,
@@ -51,7 +48,7 @@ export default function StorytellingSection() {
         });
       }
 
-      // ── 2. H2 principal ──────────────────────────────────────────────────
+      // ── 2. H2 principal ──────────────
       const h2 = section.querySelector(".storytelling__title");
       if (h2) {
         gsap.from(h2, {
@@ -62,19 +59,18 @@ export default function StorytellingSection() {
           scrollTrigger: {
             trigger: h2,
             start: "top 85%",
-            toggleActions: "play none none none",
+            toggleActions: "play reverse play reverse",
           },
         });
       }
 
-      // ── 3. Animations par partie ─────────────────────────────────────────
+      // ── 3. Animations par partie ──────────────
       const parts = [part1Ref, part2Ref, part3Ref];
 
       parts.forEach((partRef) => {
         const part = partRef.current;
         if (!part) return;
 
-        // H3 — slide depuis la gauche avec overshoot
         const h3 = part.querySelector("h3");
         if (h3) {
           gsap.from(h3, {
@@ -90,7 +86,6 @@ export default function StorytellingSection() {
           });
         }
 
-        // Paragraphes — stagger fade-in + translateY
         const paragraphs = part.querySelectorAll("p");
         if (paragraphs.length) {
           gsap.from(paragraphs, {
@@ -107,7 +102,6 @@ export default function StorytellingSection() {
           });
         }
 
-        // Image — clip-path reveal (rideau de bas en haut)
         const imageWrapper = part.querySelector(".storytelling__image-wrapper");
         if (imageWrapper) {
           gsap.from(imageWrapper, {
@@ -121,7 +115,6 @@ export default function StorytellingSection() {
             },
           });
 
-          // Parallax sur l'image à l'intérieur du wrapper
           const img = imageWrapper.querySelector("img");
           if (img) {
             gsap.to(img, {
@@ -138,7 +131,7 @@ export default function StorytellingSection() {
         }
       });
 
-      // ── 4. Texte de transition "Mais il y avait un secret..." ────────────
+      // ── 4. Texte de transition ────────────
       if (transitionRef.current) {
         gsap.from(transitionRef.current, {
           opacity: 0,
@@ -153,7 +146,7 @@ export default function StorytellingSection() {
         });
       }
 
-      // ── 5. Conclusion finale ─────────────────────────────────────────────
+      // ── 5. Conclusion finale ─────────────
       if (conclusionRef.current) {
         gsap.from(conclusionRef.current, {
           opacity: 0,
@@ -168,8 +161,7 @@ export default function StorytellingSection() {
         });
       }
 
-      // ── 6. Changement subtil de background entre parties ─────────────────
-      // Partie 2 : légère teinte chaude
+      // ── 6. Changement de background ─────────────────
       if (part2Ref.current) {
         ScrollTrigger.create({
           trigger: part2Ref.current,
@@ -179,30 +171,19 @@ export default function StorytellingSection() {
             gsap.to(section, {
               backgroundColor: "rgba(212, 184, 150, 0.06)",
               duration: 1.2,
-              ease: "power2.out",
             }),
           onLeave: () =>
-            gsap.to(section, {
-              backgroundColor: "transparent",
-              duration: 1.2,
-              ease: "power2.out",
-            }),
+            gsap.to(section, { backgroundColor: "transparent", duration: 1.2 }),
           onEnterBack: () =>
             gsap.to(section, {
               backgroundColor: "rgba(212, 184, 150, 0.06)",
               duration: 1.2,
-              ease: "power2.out",
             }),
           onLeaveBack: () =>
-            gsap.to(section, {
-              backgroundColor: "transparent",
-              duration: 1.2,
-              ease: "power2.out",
-            }),
+            gsap.to(section, { backgroundColor: "transparent", duration: 1.2 }),
         });
       }
 
-      // Partie 3 : légère teinte verte (naissance SOFICRAFT)
       if (part3Ref.current) {
         ScrollTrigger.create({
           trigger: part3Ref.current,
@@ -212,26 +193,16 @@ export default function StorytellingSection() {
             gsap.to(section, {
               backgroundColor: "rgba(77, 107, 61, 0.05)",
               duration: 1.2,
-              ease: "power2.out",
             }),
           onLeave: () =>
-            gsap.to(section, {
-              backgroundColor: "transparent",
-              duration: 1.2,
-              ease: "power2.out",
-            }),
+            gsap.to(section, { backgroundColor: "transparent", duration: 1.2 }),
           onEnterBack: () =>
             gsap.to(section, {
               backgroundColor: "rgba(77, 107, 61, 0.05)",
               duration: 1.2,
-              ease: "power2.out",
             }),
           onLeaveBack: () =>
-            gsap.to(section, {
-              backgroundColor: "transparent",
-              duration: 1.2,
-              ease: "power2.out",
-            }),
+            gsap.to(section, { backgroundColor: "transparent", duration: 1.2 }),
         });
       }
     }, section);
@@ -241,75 +212,63 @@ export default function StorytellingSection() {
 
   return (
     <section ref={sectionRef} className="storytelling">
-      {/* ── Ligne verticale narrative ──────────────────────────────────── */}
       <div ref={lineRef} className="storytelling__line" aria-hidden="true" />
 
       <div className="storytelling__container">
-        {/* ── H2 ──────────────────────────────────────────────────────── */}
+        {/* H2 Principal [cite: 2] */}
         <h2 className="storytelling__title">
           Mon chemin, de l&rsquo;établi de mon père à SOFICRAFT
         </h2>
-
-        {/* ════════════════════════════════════════════════════════════════
-            PARTIE 1 — Enfance & Héritage
-        ════════════════════════════════════════════════════════════════ */}
+        {/* PARTIE 1 — Enfance & Héritage [cite: 7, 57] */}
         <div
           ref={part1Ref}
           className="storytelling__part storytelling__part--right"
         >
           <div className="storytelling__text">
             <h3>Une enfance suspendue entre réalité et magie</h3>
-
             <p>
-              Je suis née dans l&rsquo;atelier de mon père. Pas littéralement,
+              Je suis née dans l&rsquo;atelier de mon père.Pas littéralement,
               bien sûr, mais c&rsquo;est là que j&rsquo;ai grandi — assise sur
               un tabouret en bois, les yeux fixes sur ses mains qui
               transformaient du métal brut en créatures gracieuses. Il était
               joaillier, mais pas dans le sens traditionnel. Mon père ne créait
-              pas pour les riches. Il créait pour ceux qui comprenaient que la
+              pas pour les riches Il créait pour ceux qui comprenaient que la
               beauté était une nécessité, pas un luxe.
             </p>
-
             <p>
               Pendant qu&rsquo;il travaillait, je dessinais. Je remplissais des
               carnets entiers de créatures que personne d&rsquo;autre ne voyait
               — des elfes aux ailes délicates, des dragons nichés dans des
               forêts de pierres précieuses, des runes celtiques qui chuchotaient
               des secrets oubliés. Mon père me regardait avec ce sourire
-              bienveillant et me disait&nbsp;: &laquo;&nbsp;Sophie, tu vois les
-              mondes que les autres ne peuvent pas voir. C&rsquo;est un
-              don.&nbsp;&raquo;
+              bienveillant et me disait : &laquo; Sophie, tu vois les mondes que
+              les autres ne peuvent pas voir. C&rsquo;est un don.&raquo;
             </p>
-
             <p>
               Il m&rsquo;a enseigné bien plus qu&rsquo;un savoir-faire. Il
               m&rsquo;a transmis le langage des métaux précieux, la patience
               nécessaire pour transformer une vision en réalité tangible, et
               surtout — cette conviction profonde que chaque création porte une
-              intention. Que chaque bijou peut être un pont entre le monde réel
-              et l&rsquo;univers imaginaire de celui qui le porte.
+              intention.Que chaque bijou peut être un pont entre le monde réel
+              et l&rsquo;univers imaginaire de celui qui le porte. Avant tout,
+              il y avait une main.Une main qui connaît le langage des métaux
+              précieux parce qu&rsquo;elle a grandi en l&rsquo;écoutant.
             </p>
           </div>
-
           <div className="storytelling__image-wrapper">
             <Image
               src={IMAGES.enfance}
-              alt="Atelier de joaillerie — héritage familial"
+              alt="Atelier de joaillerie familial"
               fill
               sizes="(max-width: 768px) 100vw, 45vw"
               style={{ objectFit: "cover" }}
             />
           </div>
         </div>
-
-        {/* ── Texte de transition ──────────────────────────────────────── */}
         <p ref={transitionRef} className="storytelling__transition">
           Mais il y avait un secret dans ma vie&hellip;
         </p>
-
-        {/* ════════════════════════════════════════════════════════════════
-            PARTIE 2 — Double vie : Infirmière & Créatrice
-        ════════════════════════════════════════════════════════════════ */}
+        {/* PARTIE 2 — Double vie [cite: 16] */}
         <div
           ref={part2Ref}
           className="storytelling__part storytelling__part--left"
@@ -317,122 +276,106 @@ export default function StorytellingSection() {
           <div className="storytelling__image-wrapper">
             <Image
               src={IMAGES.infirmiere}
-              alt="Sophie dans son double rôle — infirmière et créatrice"
+              alt="Dualité entre soin et création"
               fill
               sizes="(max-width: 768px) 100vw, 45vw"
               style={{ objectFit: "cover" }}
             />
           </div>
-
           <div className="storytelling__text">
             <h3>
-              Entre l&rsquo;hôpital et l&rsquo;atelier&nbsp;: trouver son
-              équilibre
+              Entre l&rsquo;hôpital et l&rsquo;atelier : trouver son équilibre
             </h3>
-
             <p>
-              À 22 ans, j&rsquo;ai choisi de devenir infirmière. Mes parents ont
-              été surpris. Je pouvais voir la question dans leurs yeux&nbsp;:
-              pourquoi abandonner l&rsquo;atelier pour les salles
-              d&rsquo;hôpital&nbsp;? Mais pour moi, c&rsquo;était une évidence.
-              Je voulais aider. Je voulais être présente dans les moments où les
-              gens ont le plus besoin de magie — quand ils souffrent, quand ils
-              doutent, quand ils ne savent pas s&rsquo;ils vont s&rsquo;en
-              sortir.
+              Je vis sur une frontière. Depuis l&rsquo;enfance, j&rsquo;ai
+              toujours eu un pied dans la réalité quotidienne et l&rsquo;autre
+              dans des mondes que personne d&rsquo;autre ne semble voir.Mon père
+              m&rsquo;a transmis bien plus qu&rsquo;un métier d&rsquo;artisan —
+              il m&rsquo;a donné le pouvoir de transformer le métal en
+              histoires, de faire parler les matières, de créer de la magie avec
+              mes mains.
             </p>
-
             <p>
-              La vie d&rsquo;infirmière est intense. C&rsquo;est des horaires
-              décalés, de la fatigue émotionnelle, des moments où tu dois mettre
-              tes rêves de côté pour être là pour quelqu&rsquo;un d&rsquo;autre.
-              Pendant longtemps, j&rsquo;ai pensé que j&rsquo;avais abandonné
-              l&rsquo;atelier pour de bon. Que cette part de moi qui rêvait, qui
-              créait, qui dansait avec les fées — elle était dormante.
+              Aujourd&rsquo;hui, je suis infirmière.Je travaille dans la réalité
+              très concrète des hôpitaux — urgent, criant, douloureux[cite: 16].
+              Le chaos de cette vie au rythme effréné. [cite_start]Et puis,
+              pendant mes heures libres, chez SOFICRAFT, je retourne à
+              l&rsquo;établi de mon père. Je crée. Et c&rsquo;est peut-être là
+              que je suis vraiment moi-même — dans cet entre-deux où la fantasy
+              rencontre l&rsquo;artisanat[cite: 18]. C&rsquo;est mon
+              échappatoire. [cite_start]Un endroit où je crée des mondes
+              miniatures où la magie existe vraiment.
             </p>
-
             <p>
-              Et puis, un jour, pendant une nuit de garde particulièrement
-              difficile, j&rsquo;ai pris un carnet et commencé à dessiner. Juste
-              pour me sentir vivante à nouveau. C&rsquo;était un petit anneau en
-              argent, orné de feuilles de chêne entrelacées. Quelques jours plus
-              tard, j&rsquo;ai retrouvé les outils de mon père dans ma cave. Je
-              ne sais pas pourquoi, mais je me suis mise à créer.
+              Chaque pièce née de ces mains porte une intention. Elle vibre
+              d&rsquo;une énergie particulière — celle d&rsquo;une artisane qui
+              refuse la production de masse. Contrairement aux bijoux
+              traditionnels qui célèbrent la richesse, les créations de
+              SOFICRAFT racontent ton histoire. Tu remarqueras une chose étrange
+              : je ne produis jamais en masse. Je crée pour toi.Rien de plus,
+              rien de moins.
             </p>
-
             <p>
-              Et soudain, j&rsquo;ai compris. Ce n&rsquo;était pas un choix
-              entre l&rsquo;infirmière et la créatrice. C&rsquo;était un
-              &laquo;&nbsp;ET&nbsp;&raquo; parfait. Les deux vies se
-              nourrissaient l&rsquo;une l&rsquo;autre. À l&rsquo;hôpital, je
-              voyais la vulnérabilité humaine, la beauté dans la fragilité. En
-              atelier, je transformais cette compréhension en talismans.
+              Cet équilibre n&rsquo;est pas facile.Mais c&rsquo;est ce qui me
+              rend authentique. Quand tu portes une création SOFICRAFT, tu
+              portes les mains d&rsquo;une personne qui comprend vraiment ce que
+              c&rsquo;est que de chercher la magie dans le quotidien. De refuser
+              l&rsquo;étouffant. De croire qu&rsquo;il existe plus.
             </p>
           </div>
         </div>
-
-        {/* ════════════════════════════════════════════════════════════════
-            PARTIE 3 — Naissance de SOFICRAFT
-        ════════════════════════════════════════════════════════════════ */}
+        {/* PARTIE 3 — Naissance de SOFICRAFT [cite: 26] */}
         <div
           ref={part3Ref}
           className="storytelling__part storytelling__part--right"
         >
           <div className="storytelling__text">
             <h3>Comment un rêve devient réalité</h3>
-
             <p>
-              SOFICRAFT n&rsquo;a pas commencé comme une
-              &laquo;&nbsp;marque&nbsp;&raquo;. C&rsquo;est né d&rsquo;une
-              conversation avec mon père. Un jour, je lui ai montré les
-              créations que j&rsquo;avais faites pendant mes jours de congé. Il
-              a regardé chaque pièce avec attention — en silence. Et puis il
-              m&rsquo;a dit&nbsp;: &laquo;&nbsp;Ce n&rsquo;est pas la même chose
-              que ce que je créais. C&rsquo;est mieux. Tu as ajouté quelque
-              chose que je n&rsquo;avais pas&nbsp;: tu as compris ce que les
-              gens cherchent vraiment.&nbsp;&raquo;
+              SOFICRAFT n&rsquo;a pas commencé comme une &laquo; marque &raquo;.
+              C&rsquo;est né d&rsquo;une conversation avec mon père.Un jour, je
+              lui ai montré les créations que j&rsquo;avais faites pendant mes
+              jours de congé. Il a regardé chaque pièce avec attention — en
+              silence. Et puis il m&rsquo;a dit : &laquo; Ce n&rsquo;est pas la
+              même chose que ce que je créais. C&rsquo;est mieux. Tu as ajouté
+              quelque chose que je n&rsquo;avais pas : tu as compris ce que les
+              gens cherchent vraiment.&raquo;
             </p>
-
             <p>
-              Au début, je créais seulement pour les proches. Une amie qui
-              aimait les contes de fée a reçu un anneau. Une collègue de travail
-              qui se sentait perdue a reçu un bracelet aux symboles runiques. Et
-              lentement, les demandes ont augmenté. Les gens sentaient quelque
-              chose dans ces bijoux — ce n&rsquo;était pas juste de la matière.
-              C&rsquo;était de l&rsquo;intention, de la compréhension, de la
-              magie.
+              Au début, je créais seulement pour les proches. [cite_start]Une
+              amie qui aimait les contes de fée a reçu un anneau[cite: 29, 30].
+              Une collègue de travail qui se sentait perdue a reçu un bracelet
+              aux symboles runiques. Et lentement, les demandes ont augmenté.
+              Les gens sentaient quelque chose dans ces bijoux — ce
+              n&rsquo;était pas juste de la matière. [cite_start]C&rsquo;était
+              de l&rsquo;intention, de la compréhension, de la magie.
             </p>
-
             <p>
-              Quand mon père m&rsquo;a suggéré de créer une
-              &laquo;&nbsp;vraie&nbsp;&raquo; marque, j&rsquo;ai d&rsquo;abord
-              refusé. Je ne voulais pas industrialiser ce que je faisais. Mais
-              il a compris. Il m&rsquo;a dit&nbsp;: &laquo;&nbsp;Sophie, tu ne
-              produis pas. Tu crées. Et tu crées pour les gens qui refusent le
-              quotidien étouffant. Donne-leur un nom. Donne-leur un univers.
-              Sois leur guide.&nbsp;&raquo;
+              Quand mon père m&rsquo;a suggéré de créer une &laquo; vraie
+              &raquo; marque, j&rsquo;ai d&rsquo;abord refusé. Je ne voulais pas
+              industrialiser ce que je faisais. [cite_start]Mais il a compris.
+              Il m&rsquo;a dit : &laquo; Sophie, tu ne produis pas. Tu crées. Et
+              tu crées pour les gens qui refusent le quotidien étouffant.
+              Donne-leur un nom. Donne-leur un univers. Sois leur guide.&raquo;
             </p>
-
             <p>
-              C&rsquo;est comme ça que SOFICRAFT est né. Non pas comme une
+              C&rsquo;est comme ça que SOFICRAFT est né.Non pas comme une
               bijouterie, mais comme un univers. Un espace où la magie et le
-              savoir-faire se rencontrent. Un lieu où les rêveurs, les
-              créateurs, les âmes sensibles peuvent trouver des talismans qui
-              les comprennent vraiment.
+              savoir-faire se rencontrent. [cite_start]Un lieu où les rêveurs,
+              les créateurs, les âmes sensibles peuvent trouver des talismans
+              qui les comprennent vraiment.
             </p>
           </div>
-
           <div className="storytelling__image-wrapper">
             <Image
               src={IMAGES.creation}
-              alt="Sophie créant un bijou à l'atelier"
+              alt="Sophie à son établi"
               fill
               sizes="(max-width: 768px) 100vw, 45vw"
               style={{ objectFit: "cover" }}
             />
           </div>
         </div>
-
-        {/* ── Conclusion ───────────────────────────────────────────────── */}
         <p ref={conclusionRef} className="storytelling__conclusion">
           Aujourd&rsquo;hui, je fais toujours les deux choses. Je soigne à
           l&rsquo;hôpital. Et dans mes heures libres, je crée. Mais je sais
