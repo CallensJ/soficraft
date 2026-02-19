@@ -2,38 +2,23 @@
 
 import { useFormContext, Controller } from "react-hook-form";
 import { FormDataCommande } from "../FormWizard";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 // ============================================================================
-// TYPES
+// STEP 4 COORDINATES COMPONENT
 // ============================================================================
 
-interface ImagePreview {
-  file: File;
-  preview: string;
-  id: string;
-}
-
-// ============================================================================
-// STEP 3 INSPIRATIONS COMPONENT
-// ============================================================================
-
-export default function Step3Inspirations() {
+export default function Step4Coordinates() {
   const {
     control,
+    register,
     formState: { errors },
     watch,
-    setValue,
   } = useFormContext<FormDataCommande>();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [imagePreviews, setImagePreviews] = useState<ImagePreview[]>([]);
-  const [dragActive, setDragActive] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const uploadedImages = watch("images");
-  const description = watch("description");
-  const descriptionLength = description?.length || 0;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const budgetValue = watch("budgetApproximatif");
 
   // ──────────────────────────────────────────────────────────────────────
   // ANIMATION - Content fade in on mount
@@ -41,7 +26,7 @@ export default function Step3Inspirations() {
 
   useEffect(() => {
     const sections = containerRef.current?.querySelectorAll(
-      "[data-inspiration-section]",
+      "[data-coordinate-section]",
     ) as NodeListOf<HTMLElement>;
 
     if (sections.length > 0) {
@@ -55,7 +40,7 @@ export default function Step3Inspirations() {
           opacity: 1,
           y: 0,
           duration: 0.4,
-          stagger: 0.15,
+          stagger: 0.12,
           ease: "power2.out",
         },
       );
@@ -63,296 +48,249 @@ export default function Step3Inspirations() {
   }, []);
 
   // ──────────────────────────────────────────────────────────────────────
-  // FILE HANDLING - Upload & Preview
+  // ANIMATION - Budget value update
   // ──────────────────────────────────────────────────────────────────────
 
-  const handleFiles = (files: FileList | null) => {
-    if (!files) return;
-
-    const newPreviews: ImagePreview[] = [];
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-
-      // Validation
-      if (!file.type.startsWith("image/")) {
-        console.error(`${file.name} n'est pas une image.`);
-        continue;
-      }
-
-      if (file.size > 5 * 1024 * 1024) {
-        console.error(`${file.name} dépasse 5MB.`);
-        continue;
-      }
-
-      // Create preview
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const preview = e.target?.result as string;
-        newPreviews.push({
-          file,
-          preview,
-          id: `preview-${Date.now()}-${i}`,
-        });
-
-        // Update form state
-        const currentFiles = uploadedImages || [];
-        setValue("images", [...currentFiles, file] as any);
-
-        // Animate new preview
-        setTimeout(() => {
-          const newPreviewElement = containerRef.current?.querySelector(
-            `[data-preview-id="${newPreviews[newPreviews.length - 1]?.id}"]`,
-          ) as HTMLElement;
-
-          if (newPreviewElement) {
-            gsap.fromTo(
-              newPreviewElement,
-              {
-                opacity: 0,
-                scale: 0.8,
-              },
-              {
-                opacity: 1,
-                scale: 1,
-                duration: 0.3,
-                ease: "back.out",
-              },
-            );
-          }
-        }, 0);
-      };
-      reader.readAsDataURL(file);
-    }
-
-    setImagePreviews([...imagePreviews, ...newPreviews]);
-  };
-
-  const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFiles(e.dataTransfer.files);
-    }
-  };
-
-  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      handleFiles(e.target.files);
-    }
-  };
-
-  const removeImage = (id: string) => {
-    const updatedPreviews = imagePreviews.filter((p) => p.id !== id);
-    setImagePreviews(updatedPreviews);
-
-    // Update form state
-    const newFiles = updatedPreviews.map((p) => p.file);
-    setValue("images", newFiles as any);
-
-    // Animate removal
-    const previewElement = containerRef.current?.querySelector(
-      `[data-preview-id="${id}"]`,
+  useEffect(() => {
+    const budgetDisplay = containerRef.current?.querySelector(
+      "[data-budget-display]",
     ) as HTMLElement;
 
-    if (previewElement) {
-      gsap.to(previewElement, {
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.2,
-        ease: "power2.in",
+    if (budgetDisplay) {
+      gsap.to(budgetDisplay, {
+        duration: 0.3,
+        textContent: `${budgetValue}€`,
+        snap: { textContent: 1 },
+        ease: "power2.out",
       });
     }
-  };
-
-  // ──────────────────────────────────────────────────────────────────────
-  // VALIDATION - At least one image OR description
-  // ──────────────────────────────────────────────────────────────────────
-
-  const hasError = !!errors.description;
-  const hasContent =
-    imagePreviews.length > 0 || (description && description.trim().length > 0);
+  }, [budgetValue]);
 
   // ──────────────────────────────────────────────────────────────────────
   // RENDER
   // ──────────────────────────────────────────────────────────────────────
 
   return (
-    <div className="step-3-inspirations" ref={containerRef}>
+    <div className="step-4-coordinates" ref={containerRef}>
       {/* HEADER */}
-      <div className="step-3-inspirations__header" data-inspiration-section>
-        <h2 className="step-3-inspirations__title">
-          Montre-moi ton inspiration
-        </h2>
-        <p className="step-3-inspirations__subtitle">
-          C'est là que ça devient fun. Tu peux uploader des images (screenshots,
-          photos, mood boards, whatevs) ET/OU me décrire ton rêve avec des mots.
+      <div className="step-4-coordinates__header">
+        <h2 className="step-4-coordinates__title">Tes coordonnées & budget</h2>
+        <p className="step-4-coordinates__subtitle">
+          Dernière étape ! Je vais avoir besoin de comment te contacter et d'une
+          idée de ton budget.
         </p>
       </div>
 
-      {/* ERROR MESSAGE */}
-      {hasError && (
-        <div className="step-3-inspirations__error" role="alert">
-          <span className="step-3-inspirations__error-icon">⚠️</span>
-          <span className="step-3-inspirations__error-text">
-            {errors.description?.message}
-          </span>
-        </div>
-      )}
+      {/* FORM FIELDS */}
 
-      {/* SECTION 1: IMAGE UPLOAD */}
-      <section
-        className="step-3-inspirations__section"
-        data-inspiration-section
-      >
-        <h3 className="step-3-inspirations__section-title">
-          Images d'inspiration
-        </h3>
+      {/* FIELD 1: NOM */}
+      <div className="step-4-coordinates__field" data-coordinate-section>
+        <label htmlFor="nom" className="step-4-coordinates__label">
+          Ton nom (ou pseudo si tu préfères)
+          <span className="step-4-coordinates__required">*</span>
+        </label>
 
-        {/* UPLOAD ZONE */}
-        <div
-          className={`step-3-inspirations__upload-zone ${dragActive ? "drag-active" : ""}`}
-          onDragEnter={handleDrag}
-          onDragLeave={handleDrag}
-          onDragOver={handleDrag}
-          onDrop={handleDrop}
-        >
-          <input
-            ref={fileInputRef}
-            type="file"
-            multiple
-            accept="image/jpeg,image/png,image/webp"
-            onChange={handleFileInputChange}
-            className="step-3-inspirations__file-input"
-            aria-label="Télécharger des images d'inspiration"
-          />
-
-          <div className="step-3-inspirations__upload-content">
-            <div className="step-3-inspirations__upload-icon">📸</div>
-            <p className="step-3-inspirations__upload-text">
-              Glisse tes images ici... ou clique pour parcourir
-            </p>
-            <p className="step-3-inspirations__upload-hint">
-              Formats acceptés : JPG, PNG, WebP | Max 5MB par image
-            </p>
-          </div>
-        </div>
-
-        {/* IMAGE PREVIEWS */}
-        {imagePreviews.length > 0 && (
-          <div className="step-3-inspirations__previews">
-            {imagePreviews.map((preview) => (
-              <div
-                key={preview.id}
-                className="step-3-inspirations__preview-item"
-                data-preview-id={preview.id}
-              >
-                <img
-                  src={preview.preview}
-                  alt={preview.file.name}
-                  className="step-3-inspirations__preview-image"
-                />
-                <button
-                  type="button"
-                  onClick={() => removeImage(preview.id)}
-                  className="step-3-inspirations__preview-remove"
-                  aria-label={`Supprimer ${preview.file.name}`}
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* HINT */}
-        <div className="step-3-inspirations__subsection-hint">
-          <span className="step-3-inspirations__hint-icon">💡</span>
-          <span className="step-3-inspirations__hint-text">
-            Conseil : Utilise des photos claires avec bon éclairage. Ça m'aide à
-            mieux comprendre les couleurs et les détails que tu aimes.
-          </span>
-        </div>
-      </section>
-
-      {/* SECTION 2: DESCRIPTION */}
-      <section
-        className="step-3-inspirations__section"
-        data-inspiration-section
-      >
-        <h3 className="step-3-inspirations__section-title">
-          Ou raconte-moi ton rêve avec des mots...
-        </h3>
-
-        <Controller
-          name="description"
-          control={control}
-          render={({ field }) => (
-            <div className="step-3-inspirations__textarea-wrapper">
-              <textarea
-                {...field}
-                placeholder="Par exemple : Je veux une bague délicate avec une feuille d'automne en cuivre, qui parle de mon amour pour la nature. Ou : Un collier qui fait peur et qui dit 'je suis sauvage'..."
-                maxLength={500}
-                className="step-3-inspirations__textarea"
-                aria-describedby="description-hint description-count"
-              />
-
-              {/* CHARACTER COUNT */}
-              <div className="step-3-inspirations__textarea-footer">
-                <span
-                  className="step-3-inspirations__character-count"
-                  id="description-count"
-                >
-                  {descriptionLength}/500
-                </span>
-              </div>
-            </div>
-          )}
+        <input
+          id="nom"
+          type="text"
+          placeholder="ex: Marie"
+          className={`step-4-coordinates__input ${errors.nom ? "error" : ""}`}
+          {...register("nom")}
+          aria-describedby={errors.nom ? "nom-error" : undefined}
         />
 
-        {/* HINT */}
-        <div className="step-3-inspirations__subsection-hint">
-          <span className="step-3-inspirations__hint-icon">💡</span>
-          <span
-            className="step-3-inspirations__hint-text"
-            id="description-hint"
+        {errors.nom && (
+          <span className="step-4-coordinates__error" id="nom-error">
+            <span className="step-4-coordinates__error-icon">⚠️</span>
+            {errors.nom.message}
+          </span>
+        )}
+      </div>
+
+      {/* FIELD 2: EMAIL */}
+      <div className="step-4-coordinates__field" data-coordinate-section>
+        <label htmlFor="email" className="step-4-coordinates__label">
+          Ton adresse email
+          <span className="step-4-coordinates__required">*</span>
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="ex: marie@example.com"
+          className={`step-4-coordinates__input ${errors.email ? "error" : ""}`}
+          {...register("email")}
+          aria-describedby={errors.email ? "email-error" : "email-hint"}
+        />
+
+        {!errors.email && (
+          <span className="step-4-coordinates__hint" id="email-hint">
+            C'est là que je te contacte avec les nouvelles de ta création.
+          </span>
+        )}
+
+        {errors.email && (
+          <span className="step-4-coordinates__error" id="email-error">
+            <span className="step-4-coordinates__error-icon">⚠️</span>
+            {errors.email.message}
+          </span>
+        )}
+      </div>
+
+      {/* FIELD 3: TÉLÉPHONE */}
+      <div className="step-4-coordinates__field" data-coordinate-section>
+        <label htmlFor="telephone" className="step-4-coordinates__label">
+          Ton téléphone (optionnel)
+        </label>
+
+        <input
+          id="telephone"
+          type="tel"
+          placeholder="ex: +33 6 12 34 56 78"
+          className={`step-4-coordinates__input ${
+            errors.telephone ? "error" : ""
+          }`}
+          {...register("telephone")}
+          aria-describedby={
+            errors.telephone ? "telephone-error" : "telephone-hint"
+          }
+        />
+
+        {!errors.telephone && (
+          <span className="step-4-coordinates__hint" id="telephone-hint">
+            Si tu préfères une conversation rapide plutôt qu'un email.
+          </span>
+        )}
+
+        {errors.telephone && (
+          <span className="step-4-coordinates__error" id="telephone-error">
+            <span className="step-4-coordinates__error-icon">⚠️</span>
+            {errors.telephone.message}
+          </span>
+        )}
+      </div>
+
+      {/* FIELD 4: BUDGET SLIDER */}
+      <div className="step-4-coordinates__field" data-coordinate-section>
+        <label
+          htmlFor="budgetApproximatif"
+          className="step-4-coordinates__label"
+        >
+          Quel est ton budget approximatif ?
+          <span className="step-4-coordinates__required">*</span>
+        </label>
+
+        <div className="step-4-coordinates__budget-wrapper">
+          <Controller
+            name="budgetApproximatif"
+            control={control}
+            render={({ field }) => (
+              <input
+                id="budgetApproximatif"
+                type="range"
+                min="50"
+                max="1000"
+                step="10"
+                className="step-4-coordinates__slider"
+                {...field}
+                onChange={(e) => field.onChange(Number(e.target.value))}
+              />
+            )}
+          />
+
+          <div className="step-4-coordinates__budget-display">
+            <span
+              className="step-4-coordinates__budget-value"
+              data-budget-display
+            >
+              {budgetValue}€
+            </span>
+          </div>
+        </div>
+
+        <div className="step-4-coordinates__budget-guide">
+          <p className="step-4-coordinates__budget-guide-title">
+            Petit guide des budgets :
+          </p>
+          <ul className="step-4-coordinates__budget-list">
+            <li>
+              <span className="step-4-coordinates__budget-range">50-150€</span>
+              <span className="step-4-coordinates__budget-description">
+                Bague simple, collier discret, petit porte-clé
+              </span>
+            </li>
+            <li>
+              <span className="step-4-coordinates__budget-range">150-300€</span>
+              <span className="step-4-coordinates__budget-description">
+                Bague avec détails, collier avec pierre, boucles d'oreilles
+              </span>
+            </li>
+            <li>
+              <span className="step-4-coordinates__budget-range">300-500€</span>
+              <span className="step-4-coordinates__budget-description">
+                Création complexe, collier XXL, set complet
+              </span>
+            </li>
+            <li>
+              <span className="step-4-coordinates__budget-range">500€+</span>
+              <span className="step-4-coordinates__budget-description">
+                Custom premium. On parle d'une vraie masterpiece.
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="step-4-coordinates__hint">
+          C'est une indication pour que je sache dans quel univers on travaille.
+          Ce n'est pas un prix fixe. On affine ensemble après la conception.
+        </div>
+      </div>
+
+      {/* FIELD 5: RGPD CONSENT */}
+      <div
+        className="step-4-coordinates__field step-4-coordinates__field--consent"
+        data-coordinate-section
+      >
+        <div className="step-4-coordinates__consent-wrapper">
+          <Controller
+            name="consentDonnees"
+            control={control}
+            render={({ field }) => (
+              <label className="step-4-coordinates__consent-label">
+                <input
+                  type="checkbox"
+                  checked={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  className="step-4-coordinates__consent-input"
+                  aria-describedby={
+                    errors.consentDonnees ? "consent-error" : undefined
+                  }
+                />
+                <span className="step-4-coordinates__consent-text">
+                  Je accepte que mes données soient traitées pour ma demande de
+                  commande et pour que Sophie me contacte à ce sujet.
+                </span>
+              </label>
+            )}
+          />
+
+          {errors.consentDonnees && (
+            <span className="step-4-coordinates__error" id="consent-error">
+              <span className="step-4-coordinates__error-icon">⚠️</span>
+              {errors.consentDonnees.message}
+            </span>
+          )}
+
+          <a
+            href="/confidentialite"
+            className="step-4-coordinates__privacy-link"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Ne sois pas timide ! Plus tu me décris tes sensations et tes
-            émotions, plus je peux créer quelque chose qui vibre vraiment avec
-            toi.
-          </span>
+            Lire la politique de confidentialité →
+          </a>
         </div>
-      </section>
-
-      {/* VALIDATION INDICATOR */}
-      {!hasError && hasContent && (
-        <div className="step-3-inspirations__success">
-          <span className="step-3-inspirations__success-icon">✓</span>
-          <span className="step-3-inspirations__success-text">
-            Inspiration reçue !
-          </span>
-        </div>
-      )}
-
-      {/* FINAL HINT */}
-      <div className="step-3-inspirations__final-hint">
-        <span className="step-3-inspirations__hint-icon">ℹ️</span>
-        <span className="step-3-inspirations__hint-text">
-          Tu dois au moins télécharger une image OU écrire une description.
-          Parle-moi, montre-moi, ou les deux !
-        </span>
       </div>
     </div>
   );
