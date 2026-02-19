@@ -4,16 +4,17 @@ import { useRef, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Creation } from "../../data/gallery-data";
+import { Creation, BijouxType } from "../../data/gallery-data";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface CreationItemProps {
   creation: Creation;
   index: number;
+  activeFilter?: BijouxType | null;
 }
 
-export default function CreationItem({ creation, index }: CreationItemProps) {
+export default function CreationItem({ creation, index, activeFilter }: CreationItemProps) {
   const itemRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -71,6 +72,29 @@ export default function CreationItem({ creation, index }: CreationItemProps) {
     return () => ctx.revert();
   }, [creation.side]);
 
+  // ── Highlight : dim non-matching creations when a filter is active
+  useEffect(() => {
+    if (!activeFilter || !itemRef.current) return;
+
+    const isMatch = creation.type === activeFilter;
+
+    if (!isMatch) {
+      gsap.to(itemRef.current, {
+        opacity: 0.5,
+        filter: "saturate(0.3)",
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    } else {
+      gsap.to(itemRef.current, {
+        opacity: 1,
+        filter: "saturate(1)",
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    }
+  }, [activeFilter, creation.type]);
+
   // Paragraphes : le \n\n dans les descriptions sépare les blocs
   const paragraphs = creation.description.split("\n\n");
 
@@ -78,6 +102,7 @@ export default function CreationItem({ creation, index }: CreationItemProps) {
     <div
       ref={itemRef}
       className={`creationItem creationItem--${creation.side} creationItem--index-${index}`}
+      data-bijou-type={creation.type}
     >
       {/* ── Colonne image ── */}
       <div ref={imageRef} className="creationItem__imageWrapper">
