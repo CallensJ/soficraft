@@ -69,6 +69,9 @@
 @use "components/commande/introduction";
 @use "components/commande/faq";
 @use "components/commande/success-page";
+
+// PAGE CONTACT
+@use "components/contact/contact" as contact-components;
 // ==========================================================================
 // 6. PAGES
 // ==========================================================================

@@ -1,0 +1,633 @@
+// ════════════════════════════════════════════════════════════════════════════
+// CONTACT PAGE - SOFICRAFT
+// ════════════════════════════════════════════════════════════════════════════
+
+@use 'sass:color';
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
+
+// ════════════════════════════════════════════════════════════════════════════
+// HERO CONTACT
+// ════════════════════════════════════════════════════════════════════════════
+
+.hero-contact {
+  position: relative;
+  min-height: 60vh;
+  @include flex-center;
+  flex-direction: column;
+  padding: $space-4xl $space-lg;
+  background-color: $color-neutral-bg;
+  overflow: hidden;
+  text-align: center;
+
+  // SVG noise grain overlay
+  &::after {
+    content: '';
+    @include absolute-full;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    @include flex-center;
+    flex-direction: column;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  // Fil d'or vertical — au-dessus du label
+  &__thread {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, #C9A961);
+    margin-bottom: $space-lg;
+    transform-origin: top center;
+  }
+
+  &__label {
+    font-family: $font-primary;
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+    letter-spacing: $ls-wide * 3;
+    text-transform: uppercase;
+    color: $color-primary-dark;
+    margin-bottom: $space-lg;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $fs-4xl;
+    font-weight: $fw-normal;
+    color: $color-neutral-dark;
+    line-height: $lh-tight;
+    margin-bottom: $space-xl;
+
+    @include respond-to('md') {
+      font-size: 5rem;
+    }
+  }
+
+  &__text {
+    font-family: $font-primary;
+    font-size: $fs-md;
+    line-height: $lh-relaxed;
+    color: $color-primary-dark;
+    max-width: 600px;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// CONTACT INFO — 3 cards grid
+// ════════════════════════════════════════════════════════════════════════════
+
+.contact-info {
+  padding: $space-4xl $space-lg;
+  background-color: #F5F1EB;
+
+  &__inner {
+    @include container;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: $space-3xl;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $fs-3xl;
+    font-weight: $fw-normal;
+    color: $color-neutral-dark;
+    margin-bottom: $space-md;
+  }
+
+  &__subtitle {
+    font-family: $font-primary;
+    font-size: $fs-md;
+    color: $color-primary-dark;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-xl;
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  // Card
+  &__card {
+    padding: $space-2xl $space-xl;
+    background: rgba(212, 184, 150, 0.12);
+    border: 1px solid #C9A961;
+    border-radius: 2px;
+    @include flex-column;
+    gap: $space-md;
+    @include transition(transform, $duration-normal);
+
+    // Asymmetric tilt on middle card
+    &--middle {
+      transform: rotate(-0.5deg);
+
+      &:hover {
+        transform: rotate(0deg) translateY(-4px);
+      }
+    }
+
+    &:not(&--middle):hover {
+      transform: translateY(-4px);
+    }
+  }
+
+  &__card-icon {
+    width: 40px;
+    height: 40px;
+    color: $color-secondary-green;
+    flex-shrink: 0;
+  }
+
+  &__card-title {
+    font-family: $font-primary;
+    font-size: $fs-lg;
+    font-weight: $fw-semibold;
+    color: $color-neutral-dark;
+  }
+
+  &__card-desc {
+    font-family: $font-primary;
+    font-size: $fs-base;
+    font-style: italic;
+    color: $color-primary-dark;
+    line-height: $lh-relaxed;
+  }
+
+  &__card-link {
+    font-family: $font-primary;
+    font-size: $fs-base;
+    font-weight: $fw-medium;
+    color: $color-secondary-green;
+    text-decoration: none;
+    @include transition(color);
+
+    &:hover {
+      color: color.scale($color-secondary-green, $lightness: -15%);
+      text-decoration: underline;
+    }
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// HORAIRES
+// ════════════════════════════════════════════════════════════════════════════
+
+.horaires {
+  padding: $space-4xl $space-lg;
+  background: linear-gradient(180deg, $color-primary-light 0%, #F5F1EB 100%);
+  text-align: center;
+
+  &__inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $fs-3xl;
+    font-weight: $fw-normal;
+    color: $color-neutral-dark;
+    margin-bottom: $space-xl;
+  }
+
+  &__text {
+    font-family: $font-primary;
+    font-size: $fs-md;
+    line-height: $lh-relaxed;
+    color: $color-primary-dark;
+    margin-bottom: $space-2xl;
+  }
+
+  &__block {
+    display: inline-flex;
+    flex-direction: column;
+    gap: $space-md;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(201, 169, 97, 0.4);
+    border-radius: 2px;
+    padding: $space-xl $space-2xl;
+  }
+
+  &__item {
+    @include flex-row;
+    align-items: flex-start;
+    gap: $space-md;
+    font-family: $font-primary;
+    font-size: $fs-base;
+    color: $color-neutral-dark;
+    line-height: $lh-relaxed;
+  }
+
+  &__item-icon {
+    width: 20px;
+    height: 20px;
+    color: $color-secondary-green;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// LOCALISATION LYON
+// ════════════════════════════════════════════════════════════════════════════
+
+.localisation {
+  padding: $space-4xl $space-lg;
+  background-color: $color-neutral-bg;
+  overflow: hidden;
+
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-3xl;
+    align-items: center;
+
+    @include respond-to('lg') {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__content {
+    @include flex-column;
+    gap: $space-xl;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $fs-3xl;
+    font-weight: $fw-normal;
+    color: $color-neutral-dark;
+  }
+
+  &__text {
+    font-family: $font-primary;
+    font-size: $fs-md;
+    line-height: $lh-relaxed;
+    color: $color-primary-dark;
+  }
+
+  &__cta {
+    align-self: flex-start;
+  }
+
+  // Visual block — typographic map
+  &__visual {
+    position: relative;
+    height: 320px;
+    border: 1px solid #C9A961;
+    border-radius: 2px;
+    @include flex-center;
+    overflow: hidden;
+    background: rgba(212, 184, 150, 0.08);
+  }
+
+  &__watermark {
+    position: absolute;
+    font-family: $font-secondary;
+    font-size: 10rem;
+    color: $color-neutral-dark;
+    opacity: 0.05;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+
+    @include respond-to('md') {
+      font-size: 14rem;
+    }
+  }
+
+  &__coords {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    @include flex-column;
+    gap: $space-md;
+  }
+
+  &__coords-city {
+    font-family: $font-primary;
+    font-size: $fs-lg;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-wide * 4;
+    text-transform: uppercase;
+    color: $color-neutral-dark;
+  }
+
+  &__coords-sep {
+    width: 40px;
+    height: 1px;
+    background: #C9A961;
+    margin: 0 auto;
+  }
+
+  &__coords-gps {
+    font-family: $font-primary;
+    font-size: $fs-base;
+    letter-spacing: $ls-wide * 2;
+    color: $color-primary-dark;
+  }
+
+  &__coords-zone {
+    font-family: $font-primary;
+    font-size: $fs-sm;
+    font-style: italic;
+    color: $color-primary-med;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// CONTACT FORM
+// ════════════════════════════════════════════════════════════════════════════
+
+.contact-form-section {
+  position: relative;
+  padding: $space-4xl $space-lg;
+  background-color: $color-neutral-bg;
+  overflow: hidden;
+
+  // Grain overlay (same as hero)
+  &::after {
+    content: '';
+    @include absolute-full;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    @include container;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: $space-3xl;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $fs-3xl;
+    font-weight: $fw-normal;
+    color: $color-neutral-dark;
+    margin-bottom: $space-md;
+  }
+
+  &__subtitle {
+    font-family: $font-primary;
+    font-size: $fs-md;
+    color: $color-primary-dark;
+    line-height: $lh-relaxed;
+  }
+}
+
+// ── Form wrapper ─────────────────────────────────────────────────────────────
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  @include flex-column;
+  gap: $space-2xl;
+
+  // ── Float label field ──────────────────────────────────────────────────────
+  &__field {
+    position: relative;
+  }
+
+  &__label {
+    position: absolute;
+    top: $space-md;
+    left: 0;
+    font-family: $font-primary;
+    font-size: $fs-base;
+    color: $color-primary-med;
+    pointer-events: none;
+    @include transition(all, $duration-fast);
+    transform-origin: left top;
+
+    // Floated state (when input has value or is focused)
+    .contact-form__field--floated & {
+      transform: translateY(-22px) scale(0.85);
+      color: $color-primary-dark;
+    }
+
+    .contact-form__field--error & {
+      color: $color-error;
+    }
+
+    .contact-form__field--floated.contact-form__field--error & {
+      color: $color-error;
+    }
+  }
+
+  &__input,
+  &__select,
+  &__textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid $color-primary-med;
+    border-radius: 0;
+    padding: $space-md 0;
+    font-family: $font-primary;
+    font-size: $fs-base;
+    color: $color-neutral-dark;
+    outline: none;
+    appearance: none;
+    @include transition(border-bottom-color, $duration-fast);
+
+    &:focus {
+      border-bottom-color: $color-secondary-green;
+    }
+
+    .contact-form__field--error & {
+      border-bottom-color: $color-error;
+    }
+  }
+
+  &__select {
+    cursor: pointer;
+
+    option[value=""] {
+      color: $color-primary-med;
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  // Character counter
+  &__counter {
+    text-align: right;
+    font-family: $font-primary;
+    font-size: $fs-sm;
+    color: $color-primary-med;
+    margin-top: $space-xs;
+
+    &--warning {
+      color: $color-warning;
+    }
+
+    &--limit {
+      color: $color-error;
+    }
+  }
+
+  // Error message
+  &__error {
+    font-family: $font-primary;
+    font-size: $fs-sm;
+    color: $color-error;
+    margin-top: $space-xs;
+  }
+
+  // Help text
+  &__help {
+    font-family: $font-primary;
+    font-size: $fs-sm;
+    font-style: italic;
+    color: $color-primary-med;
+    margin-top: $space-xs;
+  }
+
+  // Checkboxes group
+  &__checkboxes {
+    @include flex-column;
+    gap: $space-sm;
+    margin-top: $space-md;
+  }
+
+  &__checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    cursor: pointer;
+    font-family: $font-primary;
+    font-size: $fs-base;
+    color: $color-neutral-dark;
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: $color-secondary-green;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+  }
+
+  // Consent checkbox (single)
+  &__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-md;
+    font-family: $font-primary;
+    font-size: $fs-sm;
+    color: $color-primary-dark;
+    line-height: $lh-relaxed;
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: $color-secondary-green;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+  }
+
+  // Group label (for checkboxes / radio groups)
+  &__group-label {
+    font-family: $font-primary;
+    font-size: $fs-base;
+    font-weight: $fw-medium;
+    color: $color-primary-dark;
+    margin-bottom: $space-sm;
+    display: block;
+  }
+
+  // Submit row
+  &__submit {
+    display: flex;
+    justify-content: center;
+    padding-top: $space-md;
+
+    // Loading spinner inside button
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ── Success message ───────────────────────────────────────────────────────────
+
+.contact-success {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  @include flex-column;
+  align-items: center;
+  gap: $space-xl;
+  padding: $space-3xl $space-xl;
+
+  &__icon {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $fs-3xl;
+    font-weight: $fw-normal;
+    color: $color-neutral-dark;
+  }
+
+  &__text {
+    font-family: $font-primary;
+    font-size: $fs-md;
+    line-height: $lh-relaxed;
+    color: $color-primary-dark;
+    white-space: pre-line;
+  }
+
+  &__signature {
+    font-family: $font-primary;
+    font-size: $fs-base;
+    font-style: italic;
+    color: $color-primary-med;
+  }
+}

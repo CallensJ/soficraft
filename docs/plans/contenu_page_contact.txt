@@ -1,0 +1,340 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    CONTENU PAGE /CONTACT - SOFICRAFT
+═══════════════════════════════════════════════════════════════════════════════
+
+PAGE STRUCTURE:
+- Hero Introduction (Immersion storytelling)
+- Section Informations de Contact
+- Section Localisation (Lyon)
+- Formulaire de Contact (avec animations GSAP reveal)
+- Footer Integration
+
+═══════════════════════════════════════════════════════════════════════════════
+[SECTION HERO - INTRODUCTION IMMERSIVE]
+═══════════════════════════════════════════════════════════════════════════════
+
+[H1]
+Me Contacter
+
+[PARAGRAPHE - Narration première personne]
+Entre dans mon univers et partageons une conversation.
+
+Que tu cherches une création sur-mesure qui te ressemble, que tu aies des questions 
+sur mes bijoux, ou simplement envie d'en savoir plus sur mon travail entre les deux 
+mondes — celui de soignante et celle de créatrice — je suis là pour t'écouter.
+
+Je sais que mon temps est précieux et varié. Entre mes gardes à l'hôpital et mes 
+heures passées en atelier, ma disponibilité varie. C'est pourquoi je préfère une 
+approche flexible : un message, une demande spécifique, et nous trouverons ensemble 
+le meilleur moment pour discuter de ton projet magique.
+
+[ANNOTATION TECHNIQUE]
+- Animation: Fade-in du texte au scroll (GSAP ScrollTrigger)
+- Hero image optionnel : bannière avec ambiance atelier/nature enchantée
+- Font: Cormorant Garamond pour le paragraphe, Imperial Script pour H1
+
+═══════════════════════════════════════════════════════════════════════════════
+[SECTION INFORMATIONS DE CONTACT]
+═══════════════════════════════════════════════════════════════════════════════
+
+[H2]
+Comment me Joindre ?
+
+[PARAGRAPHE]
+Voici les différentes façons de me contacter selon ce qui te convient le mieux :
+
+[BLOCK CONTACT GRID - 3 colonnes]
+
+CONTACT #1 - Par Formulaire (Recommandé)
+[DESCRIPTION]
+Complète le formulaire ci-dessous avec ta demande. Tu auras une réponse dans les 
+2-3 jours ouvrables. C'est la meilleure façon pour me laisser tous les détails 
+de ton projet.
+
+[CONTACT #2 - Email Direct]
+Email: contact@soficraft.com
+[DESCRIPTION]
+Si tu préfères écrire directement un email, je suis à ton écoute. Décris-moi 
+ton idée, tes inspirations, tes rêves.
+
+[CONTACT #3 - Instagram]
+@soficraft.jewelry
+[DESCRIPTION]
+Tu peux aussi me envoyer un message privé sur Instagram. J'y suis régulièrement, 
+c'est plus personnel et direct.
+
+[ANNOTATION TECHNIQUE]
+- Layout: Grid 3 colonnes (responsive: 1 colonne mobile, 2 tablette)
+- Icons: Utiliser des icônes en harmonie avec le thème (envelope, mail, instagram)
+- Animation: Stagger effect (GSAP) - chaque bloc apparaît successivement au scroll
+- Couleur des blocs: Utiliser Beige Sable avec border en Vert Forêt
+
+═══════════════════════════════════════════════════════════════════════════════
+[SECTION HORAIRES ET DISPONIBILITÉS]
+═══════════════════════════════════════════════════════════════════════════════
+
+[H2]
+Mes Horaires (Flexibles)
+
+[PARAGRAPHE - Narration storytelling]
+Travaillant à la fois comme soignante et créatrice, mes horaires ne suivent pas 
+une routine classique. Certaines semaines, je suis davantage disponible en fin 
+d'après-midi et soirée. D'autres, mes gardes me prennent la journée.
+
+Ce qui est constant, c'est mon engagement : tu auras toujours une réponse à 
+ta demande. Que ce soit un week-end ou dans les premiers jours de la semaine.
+
+[AVAILABILITY BLOCK]
+Zone Horaire: Europe/Paris (Lyon)
+
+Disponibilité Générale:
+- Lundi - Dimanche: Flexible selon planning
+- Réponse garantie: 2-3 jours ouvrables maximum
+- Urgence ou question rapide: Message Instagram peut être plus rapide
+
+[ANNOTATION TECHNIQUE]
+- Section en arrière-plan dégradé (Beige Sable → Beige plus clair)
+- Icône horloge / calendrier intégrée
+- Responsive: Full width avec padding généreux
+
+═══════════════════════════════════════════════════════════════════════════════
+[SECTION LOCALISATION - LYON]
+═══════════════════════════════════════════════════════════════════════════════
+
+[H2]
+Une Créatrice de Lyon
+
+[PARAGRAPHE]
+Mon atelier est basé à Lyon, une ville riche d'histoire et de magie où l'inspiration 
+ne manque jamais. C'est entre les traboules de la Presqu'île et les rues de Fourvière 
+que je crée mes bijoux, en hommage à ma région natale.
+
+Si tu es dans la région, tu peux aussi passer me rencontrer directement pour 
+discuter de ton projet en personne. N'oublie pas : prévenons-nous à l'avance 
+via le formulaire ou un message pour coordonner un moment qui nous convient à tous deux.
+
+[MAP COMPONENT PLACEHOLDER]
+<GoogleMap 
+  location="Lyon, France"
+  latitude={45.7640}
+  longitude={4.8357}
+  markerLabel="Atelier SOFICRAFT"
+/>
+
+[ANNOTATION TECHNIQUE]
+- Intégrer Google Maps API ou alternative (Mapbox)
+- Marker custom avec logo SOFICRAFT
+- Style de la carte: Tons chauds (marrons, verts forêt) pour matcher l'univers
+- Animation: Fade-in du composant au scroll + zoom subtle on hover
+- Responsive: Full width mobile, constrained width desktop
+
+═══════════════════════════════════════════════════════════════════════════════
+[SECTION FORMULAIRE DE CONTACT]
+═══════════════════════════════════════════════════════════════════════════════
+
+[H2]
+Raconte-moi Ton Projet
+
+[PARAGRAPHE]
+Remplis le formulaire ci-dessous. Plus tu seras détaillée(é), plus je comprendrai 
+ta vision et pourrai te proposer quelque chose d'authentique.
+
+[FORM COMPONENT]
+
+ANIMATION: Contact Form Reveal (GSAP)
+- Trigger: Scroll vers la section formulaire
+- Effect: Opacity 0 → 1 + translateY(30px) → 0
+- Duration: 0.8s
+- Stagger items du form: 0.1s entre chaque champ
+
+[FORM FIELDS STRUCTURE]
+
+FIELD #1 - Nom Complet
+Type: Text Input
+Placeholder: "Ton prénom et nom"
+Required: true
+Animation: Reveal avec délai
+Validation: Min 2 caractères
+
+FIELD #2 - Email
+Type: Email Input
+Placeholder: "Ton email pour que je te réponde"
+Required: true
+Animation: Reveal avec délai
+Validation: Format email valide
+
+FIELD #3 - Type de Demande
+Type: Select Dropdown
+Options:
+  - Bijou sur-mesure
+  - Question sur un produit
+  - Collaboration
+  - Autre
+Required: true
+Animation: Reveal avec délai
+DefaultValue: "Sélectionne une option"
+
+FIELD #4 - Budget Indicatif (Optionnel)
+Type: Range Slider ou Select
+Options:
+  - 50€ - 100€
+  - 100€ - 250€
+  - 250€ - 500€
+  - 500€ +
+Animation: Reveal avec délai
+Help Text: "Cela m'aide à comprendre le scope de ton projet"
+
+FIELD #5 - Description de Ton Projet
+Type: Textarea
+Placeholder: "Décris-moi ta vision... Quels éléments de fantasy t'inspirent ? 
+Quel style de bijou imagines-tu ? Quelles couleurs te parlent ? Des inspirations, 
+des références ?"
+Required: true
+Animation: Reveal avec délai
+Max Length: 1500 caractères
+Character Counter: Visible
+
+FIELD #6 - Délai Souhaité
+Type: Select ou Radio Buttons
+Options:
+  - Sans urgence
+  - Dans 1-2 mois
+  - Dans 1 mois
+  - ASAP (à discuter)
+Required: false
+Animation: Reveal avec délai
+Help Text: "Cela m'aide à planifier mon calendrier"
+
+FIELD #7 - Comment tu m'as Trouvée ? (Optionnel)
+Type: Checkbox Multiple
+Options:
+  - Instagram
+  - Référence (bouche à oreille)
+  - Moteur de recherche
+  - Autre
+Animation: Reveal avec délai
+
+FIELD #8 - J'accepte les Conditions Générales
+Type: Checkbox
+Required: true
+Label: "J'accepte que Sophie me contacte pour discuter de mon projet"
+Animation: Reveal avec délai
+Link: "/conditions-generales" ou similar
+
+[BUTTON SUBMIT]
+Text: "Envoyer Mon Projet"
+Type: Primary CTA Button
+Animation: 
+  - Hover: Subtle scale + shadow
+  - Click: Loading state (spinner)
+Colors: 
+  - Default: Vert Forêt #4D6B3D
+  - Hover: Vert Forêt plus foncé
+  - Disabled: Beige Grisé
+
+[FORM BEHAVIOR]
+- Validation on blur pour chaque champ
+- Submission: POST vers API endpoint /api/contact
+- Success Message: Toast notification + redirect vers thank-you page
+- Error Handling: Display error messages spécifiques par champ
+- Loading: Disable button + show spinner pendant envoi
+
+[ANNOTATION TECHNIQUE]
+- Framework: React Hook Form + Zod pour validation
+- Animations GSAP: ScrollTrigger + Stagger
+- Responsive: Full width mobile, max-width 600px desktop
+- Accessibility: ARIA labels, focus management, keyboard navigation
+- Email notification: Envoi d'email de confirmation à l'utilisateur
+
+═══════════════════════════════════════════════════════════════════════════════
+[SECTION THANK YOU / POST-SUBMIT]
+═══════════════════════════════════════════════════════════════════════════════
+
+[H2]
+Merci ! 🌙
+
+[PARAGRAPHE]
+Ton message m'a été transmis avec succès. Je vais le lire attentivement et 
+te répondre dans les 2-3 jours ouvrables.
+
+En attendant, tu peux explorer ma Galerie pour découvrir d'autres créations 
+ou me suivre sur Instagram pour les nouveautés.
+
+À bientôt,
+Sophie ✨
+
+[BUTTON]
+Retour vers la Galerie
+Link: "/gallery"
+
+[ANNOTATION TECHNIQUE]
+- Page interstitielle ou Modal overlay
+- Animation: Fade-in + scale effect
+- Auto-redirect après 5 secondes vers homepage (optionnel)
+
+═══════════════════════════════════════════════════════════════════════════════
+[DESIGN & ANIMATIONS - NOTES GLOBALES]
+═══════════════════════════════════════════════════════════════════════════════
+
+PALETTE COULEURS:
+- Primary: Vert Forêt #4D6B3D
+- Secondary: Beige Sable #D4B896
+- Accent: Or Doux #C9A961
+- Background: Beige Clair #F5F1EB
+- Text: Gris Foncé #2C2C2C
+
+TYPOGRAPHIE:
+- Titres (H1, H2): Imperial Script, 2.5rem - 1.8rem
+- Paragraphes: Cormorant Garamond, 1.1rem
+- Labels formulaire: Cormorant Garamond, 1rem
+- Placeholder: Italique, couleur #999
+
+ANIMATIONS GSAP:
+1. Hero Section: Fade-in au scroll (opacity 0→1)
+2. Contact Cards: Stagger animation (translateY + opacity)
+3. Form Fields: Reveal on scroll avec délai progressif (0.1s stagger)
+4. Map: Fade-in + subtle zoom
+5. Submit Button: Hover effect + click animation avec spinner
+6. Success Message: Entrance animation (scale + fade)
+
+SPACING:
+- Section padding: 60px vertical, 40px horizontal (mobile: 30px)
+- Form fields gap: 24px
+- Card spacing: 20px gap en grid
+
+RESPONSIVE BREAKPOINTS:
+- Mobile: < 640px (single column everything)
+- Tablet: 641px - 1024px (2 columns pour contact cards)
+- Desktop: > 1024px (3 columns pour contact cards, constrained width forms)
+
+═══════════════════════════════════════════════════════════════════════════════
+[INTEGRATION NOTES - DÉVELOPPEMENT]
+═══════════════════════════════════════════════════════════════════════════════
+
+FICHIERS À CRÉER:
+- /app/contact/page.tsx (main page component)
+- /components/ContactForm.tsx (form component with validation)
+- /components/ContactInfo.tsx (info cards grid)
+- /components/LocationMap.tsx (Google Maps integration)
+- /styles/components/contact/ (SCSS files for styling)
+- /api/contact/route.ts (API endpoint for form submission)
+
+DÉPENDANCES:
+- react-hook-form
+- zod (validation)
+- gsap (animations)
+- next-mailer ou SendGrid (email notifications)
+- @react-google-maps/api (optional, for maps)
+
+EMAIL TEMPLATE:
+- Confirmation email to user after successful submission
+- Notification email to Sophie (admin) with form data
+
+ENVIRONNEMENT:
+- EMAIL_API_KEY (SendGrid or similar)
+- GOOGLE_MAPS_API_KEY (if using Google Maps)
+- CONTACT_ADMIN_EMAIL = "contact@soficraft.com"
+
+═══════════════════════════════════════════════════════════════════════════════
+FIN DU DOCUMENT
+═══════════════════════════════════════════════════════════════════════════════

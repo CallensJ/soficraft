@@ -24,7 +24,7 @@ const navLinks = [
 export default function Navbar() {
   const pathname = usePathname();
   // Pages where the initial hero background is light (cream) — links need dark color
-  const hasLightHero = ["/a-propos"].includes(pathname);
+  const hasLightHero = ["/a-propos", "/contact"].includes(pathname);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
