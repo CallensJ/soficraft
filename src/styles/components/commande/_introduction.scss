@@ -16,13 +16,13 @@
     margin: 0 auto $space-2xl;
     padding: $space-2xl $space-lg;
 
-    @include respond-to('md') {
-        padding: $space-xl $space-md;
-    }
-
     @include respond-to('sm') {
         padding: $space-lg $space-md;
         margin-bottom: $space-xl;
+    }
+
+    @include respond-to('md') {
+        padding: $space-xl $space-md;
     }
 }
 
@@ -51,18 +51,18 @@
 
 .introduction__title {
     font-family: $font-secondary;
-    font-size: 56px;
+    font-size: $fs-4xl;
     font-weight: 400;
     line-height: 1.15;
     color: $color-neutral-dark;
     margin: 0 0 $space-md 0;
 
-    @include respond-to('md') {
-        font-size: 44px;
-    }
-
     @include respond-to('sm') {
         font-size: 34px;
+    }
+
+    @include respond-to('md') {
+        font-size: 44px;
     }
 }
 
@@ -79,7 +79,7 @@
 
     p {
         font-family: $font-primary;
-        font-size: 18px;
+        font-size: $fs-md;
         font-style: italic;
         color: rgba($color-neutral-dark, 0.72);
         line-height: 1.9;
@@ -127,12 +127,12 @@
     grid-template-columns: repeat(3, 1fr);
     gap: $space-lg;
 
-    @include respond-to('md') {
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
         gap: $space-md;
     }
 
-    @include respond-to('sm') {
-        grid-template-columns: 1fr;
+    @include respond-to('md') {
         gap: $space-md;
     }
 }
@@ -169,15 +169,15 @@
     display: block;
     margin-bottom: $space-sm;
 
-    @include respond-to('md') {
-        font-size: 52px;
-    }
-
     @include respond-to('sm') {
         font-size: 40px;
         margin-bottom: 0;
         flex-shrink: 0;
         padding-top: 2px;
+    }
+
+    @include respond-to('md') {
+        font-size: 52px;
     }
 }
 
@@ -240,21 +240,21 @@
     gap: $space-sm;
     text-align: center;
 
-    @include respond-to('md') {
-        padding: $space-lg;
+    @include respond-to('sm') {
+        padding: $space-lg $space-md;
         margin-left: -$space-md;
         margin-right: -$space-md;
     }
 
-    @include respond-to('sm') {
-        padding: $space-lg $space-md;
+    @include respond-to('md') {
+        padding: $space-lg;
         margin-left: -$space-md;
         margin-right: -$space-md;
     }
 }
 
 .introduction__callout-ornament {
-    font-size: 18px;
+    font-size: $fs-md;
     color: $color-secondary-green;
     opacity: 0.7;
     display: block;
@@ -283,6 +283,9 @@
 // ACCESSIBILITY
 // ============================================================================
 
+// Resets for scroll-reveal animations applied by GSAP in Introduction.tsx
+// (opacity: 0→1, translateY entrance) — ensures no animation on these elements
+// when the user has prefers-reduced-motion enabled
 @media (prefers-reduced-motion: reduce) {
     .introduction__rule,
     .introduction__title,
