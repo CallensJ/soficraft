@@ -3,6 +3,8 @@
 // Interfaces TypeScript + données des 3 collections (10 créations)
 // ════════════════════════════════════════════════════════════════════════════
 
+export type BijouxType = "bagues" | "colliers" | "bracelets" | "boucles";
+
 export interface Creation {
   id: string;
   title: string;
@@ -12,6 +14,7 @@ export interface Creation {
   image: string;
   imageAlt: string;
   side: "left" | "right";
+  type: BijouxType;
 }
 
 export interface Collection {
@@ -44,6 +47,7 @@ const collectionCeltique: Collection = {
       imageAlt:
         "Collier de la Forêt Ancienne — argent sterling avec feuilles celtiques",
       side: "left",
+      type: "colliers",
     },
     {
       id: "runes-protectrices",
@@ -58,6 +62,7 @@ const collectionCeltique: Collection = {
       imageAlt:
         "Bracelet des Runes Protectrices — or blanc avec trois runes en relief",
       side: "right",
+      type: "bracelets",
     },
     {
       id: "triquetra",
@@ -71,6 +76,7 @@ const collectionCeltique: Collection = {
       imageAlt:
         "Bague de la Triquetra — or rose avec symbole triquetra en relief",
       side: "left",
+      type: "bagues",
     },
   ],
 };
@@ -97,6 +103,7 @@ const collectionLunaire: Collection = {
       imageAlt:
         "Collier de la Lune Argentée — argent sterling avec lune martelée",
       side: "right",
+      type: "colliers",
     },
     {
       id: "etoiles-veileuses",
@@ -111,6 +118,7 @@ const collectionLunaire: Collection = {
       imageAlt:
         "Bracelet des Étoiles Veileuses — or blanc avec étoiles en relief",
       side: "left",
+      type: "bracelets",
     },
     {
       id: "anneau-minuit",
@@ -123,6 +131,7 @@ const collectionLunaire: Collection = {
       image: "/images/gallery/anneau-minuit.png",
       imageAlt: "Anneau de Minuit — or jaune avec lune et étoiles en relief",
       side: "right",
+      type: "bagues",
     },
   ],
 };
@@ -150,6 +159,7 @@ const collectionElementaire: Collection = {
       imageAlt:
         "Collier des Quatre Éléments — argent sterling avec pendentifs élémentaires",
       side: "left",
+      type: "colliers",
     },
     {
       id: "racines-profondes",
@@ -164,6 +174,7 @@ const collectionElementaire: Collection = {
       imageAlt:
         "Bracelet Racines Profondes — or et argent avec motif racines texturé",
       side: "right",
+      type: "bracelets",
     },
     {
       id: "ailes-liberees",
@@ -176,6 +187,7 @@ const collectionElementaire: Collection = {
       image: "/images/gallery/ailes-liberees.png",
       imageAlt: "Bague des Ailes Libérées — or blanc avec ailes en relief",
       side: "left",
+      type: "bagues",
     },
     {
       id: "alchimie-interieure",
@@ -190,6 +202,7 @@ const collectionElementaire: Collection = {
       imageAlt:
         "Collier de l'Alchimie Intérieure — argent sterling avec pendentif géométrique",
       side: "right",
+      type: "colliers",
     },
   ],
 };
