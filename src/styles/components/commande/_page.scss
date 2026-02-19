@@ -12,7 +12,15 @@
 
 .commande-page {
     width: 100%;
+    max-width: $container-max-width;
+    margin: 0 auto;
     background-color: $color-neutral-bg;
+    // Clear the fixed navbar (~67px: padding-block $space-md + logo height)
+    padding-top: $space-4xl;
+
+    @include respond-to('sm') {
+        padding-top: $space-3xl;
+    }
 }
 
 .commande-layout {
@@ -63,11 +71,6 @@
 // RESPONSIVE CONSIDERATIONS
 // ============================================================================
 
-@include respond-to('sm') {
-    .commande-page {
-        padding: 0;
-    }
-}
 
 // ============================================================================
 // PRINT STYLES
