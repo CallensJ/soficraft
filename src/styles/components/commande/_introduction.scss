@@ -1,0 +1,302 @@
+// ============================================================================
+// INTRODUCTION - STYLES
+// ============================================================================
+// Fichier: styles/components/commande/_introduction.scss
+
+@import "@/styles/variables/colors";
+@import "@/styles/variables/typography";
+@import "@/styles/variables/spacing";
+@import "@/styles/mixins/responsive";
+
+// ============================================================================
+// INTRODUCTION CONTAINER
+// ============================================================================
+
+.introduction {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto $spacing-xl;
+    padding: $spacing-xl $spacing-lg;
+
+    @include tablet {
+        padding: $spacing-lg $spacing-md;
+        margin-bottom: $spacing-lg;
+    }
+
+    @include mobile {
+        padding: $spacing-lg $spacing-md;
+        margin-bottom: $spacing-md;
+    }
+}
+
+// ============================================================================
+// HEADER SECTION
+// ============================================================================
+
+.introduction__header {
+    margin-bottom: $spacing-xl;
+
+    @include mobile {
+        margin-bottom: $spacing-lg;
+    }
+}
+
+.introduction__title {
+    font-family: $font-title;
+    font-size: 40px;
+    font-weight: 400;
+    color: $color-noir-charbon;
+    margin: 0 0 $spacing-lg 0;
+
+    @include tablet {
+        font-size: 32px;
+    }
+
+    @include mobile {
+        font-size: 24px;
+    }
+}
+
+.introduction__subtitle {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+
+    p {
+        font-family: $font-body;
+        font-size: 16px;
+        color: rgba($color-noir-charbon, 0.7);
+        line-height: 1.8;
+        margin: 0;
+
+        @include mobile {
+            font-size: 14px;
+        }
+    }
+}
+
+// ============================================================================
+// TIMELINE SECTION
+// ============================================================================
+
+.introduction__timeline-section {
+    margin-bottom: $spacing-xl;
+
+    @include mobile {
+        margin-bottom: $spacing-lg;
+    }
+}
+
+.introduction__timeline-title {
+    font-family: $font-body;
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-noir-charbon;
+    margin: 0 0 $spacing-lg 0;
+    text-align: center;
+
+    @include mobile {
+        font-size: 16px;
+        margin-bottom: $spacing-md;
+    }
+}
+
+// ============================================================================
+// TIMELINE LAYOUT
+// ============================================================================
+
+.introduction__timeline {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+}
+
+.introduction__timeline-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: $spacing-lg;
+    padding-left: $spacing-lg;
+    position: relative;
+
+    @include mobile {
+        gap: $spacing-md;
+        padding-left: $spacing-md;
+    }
+
+    &:not(:last-child) {
+        padding-bottom: $spacing-lg;
+
+        @include mobile {
+            padding-bottom: $spacing-md;
+        }
+    }
+
+    // Vertical line connecting items
+    &:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        left: 19px;
+        top: 50px;
+        width: 2px;
+        height: calc(100% - 50px);
+        background: linear-gradient(
+            to bottom,
+            $color-vert-foret,
+            rgba($color-vert-foret, 0.2)
+        );
+
+        @include mobile {
+            left: 12px;
+        }
+    }
+}
+
+// ============================================================================
+// TIMELINE MARKER (CIRCLE)
+// ============================================================================
+
+.introduction__timeline-marker {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba($color-vert-foret, 0.1);
+    border: 2px solid $color-vert-foret;
+    margin-left: -$spacing-lg;
+    position: relative;
+    z-index: 1;
+
+    @include mobile {
+        width: 32px;
+        height: 32px;
+        margin-left: -$spacing-md;
+    }
+}
+
+.introduction__timeline-icon {
+    font-size: 18px;
+
+    @include mobile {
+        font-size: 14px;
+    }
+}
+
+.introduction__timeline-connector {
+    display: none;
+}
+
+// ============================================================================
+// TIMELINE CONTENT
+// ============================================================================
+
+.introduction__timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    padding-top: $spacing-xs;
+}
+
+.introduction__timeline-step-title {
+    font-family: $font-body;
+    font-size: 16px;
+    font-weight: 600;
+    color: $color-noir-charbon;
+    margin: 0;
+
+    @include mobile {
+        font-size: 14px;
+    }
+}
+
+.introduction__timeline-step-description {
+    font-family: $font-body;
+    font-size: 14px;
+    color: rgba($color-noir-charbon, 0.7);
+    line-height: 1.6;
+    margin: 0;
+
+    @include mobile {
+        font-size: 13px;
+    }
+}
+
+.introduction__timeline-duration {
+    font-family: $font-body;
+    font-size: 13px;
+    font-weight: 600;
+    color: $color-vert-foret;
+    display: inline-block;
+
+    @include mobile {
+        font-size: 12px;
+    }
+}
+
+.introduction__timeline-note {
+    font-family: $font-body;
+    font-size: 12px;
+    color: rgba($color-noir-charbon, 0.5);
+    font-style: italic;
+
+    @include mobile {
+        font-size: 11px;
+    }
+}
+
+// ============================================================================
+// CALLOUT BOX
+// ============================================================================
+
+.introduction__callout {
+    background-color: rgba($color-beige-sable, 0.4);
+    border-left: 4px solid $color-vert-foret;
+    border-radius: 6px;
+    padding: $spacing-lg;
+    display: flex;
+    gap: $spacing-md;
+    align-items: flex-start;
+
+    @include mobile {
+        padding: $spacing-md;
+        gap: $spacing-sm;
+    }
+}
+
+.introduction__callout-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+
+    @include mobile {
+        font-size: 20px;
+    }
+}
+
+.introduction__callout-content {
+    font-family: $font-body;
+    font-size: 14px;
+    color: rgba($color-noir-charbon, 0.8);
+    line-height: 1.6;
+    text-align: left;
+
+    @include mobile {
+        font-size: 13px;
+    }
+
+    strong {
+        color: $color-noir-charbon;
+    }
+}
+
+// ============================================================================
+// ACCESSIBILITY
+// ============================================================================
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+    .introduction__timeline-item {
+        transition: none;
+    }
+}
