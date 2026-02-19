@@ -15,12 +15,8 @@
     max-width: $container-max-width;
     margin: 0 auto;
     background-color: $color-neutral-bg;
-    // Clear the fixed navbar (~67px: padding-block $space-md + logo height)
-    padding-top: $space-4xl;
-
-    @include respond-to('sm') {
-        padding-top: $space-3xl;
-    }
+    // No top padding — the hero section is full-bleed and sits under the fixed navbar.
+    // The navbar is transparent over the dark hero, so links are visible without offset.
 }
 
 .commande-layout {

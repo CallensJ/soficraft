@@ -1,5 +1,5 @@
 // ============================================================================
-// INTRODUCTION - STYLES (Option B: Quiet Editorial Luxury)
+// INTRODUCTION - STYLES (Hero + Quiet Editorial Luxury)
 // ============================================================================
 // Fichier: styles/components/commande/_introduction.scss
 
@@ -11,20 +11,170 @@
 // ============================================================================
 
 .introduction {
-    @include container;
+    // No container here — hero is full-bleed
     margin-bottom: $space-2xl;
+}
+
+// ============================================================================
+// HERO — Full-bleed cinematic section
+// ============================================================================
+
+.introduction__hero {
+    position: relative;
+    // Break out of the .commande-page max-width container
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.introduction__hero-image-wrap {
+    position: absolute;
+    inset: 0;
+    // Slight oversize to allow parallax without gaps
+    top: -8%;
+    bottom: -8%;
+}
+
+.introduction__hero-overlay {
+    position: absolute;
+    inset: 0;
+    // Gradient: rich dark bottom for nav contrast at top,
+    // deeper darkness at bottom to flow into content
+    background: linear-gradient(
+        to bottom,
+        rgba($color-neutral-dark, 0.55) 0%,
+        rgba($color-neutral-dark, 0.3) 40%,
+        rgba($color-neutral-dark, 0.5) 70%,
+        rgba($color-neutral-dark, 0.75) 100%
+    );
+    z-index: 1;
+}
+
+.introduction__hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: $space-4xl $space-lg $space-2xl;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-md;
+
+    @include respond-to("sm") {
+        padding: $space-3xl $space-lg $space-2xl;
+    }
+}
+
+.introduction__hero-label {
+    font-family: $font-primary;
+    font-size: 11px;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: $color-primary-light;
+    opacity: 0; // animated by GSAP
+}
+
+.introduction__hero-rule {
+    display: block;
+    width: 48px;
+    height: 1px;
+    background-color: rgba($color-primary-light, 0.6);
+    margin: $space-xs auto;
+    transform-origin: center;
+    opacity: 0; // animated by GSAP
+}
+
+.introduction__hero-sub {
+    font-family: $font-primary;
+    font-size: $fs-md;
+    font-style: italic;
+    color: rgba($color-neutral-light, 0.82);
+    line-height: 1.7;
+    margin: 0;
+    opacity: 0; // animated by GSAP
+
+    @include respond-to("md") {
+        font-size: $fs-lg;
+    }
+}
+
+.introduction__hero-cta {
+    display: inline-block;
+    margin-top: $space-sm;
+    padding: $space-md $space-2xl;
+    font-family: $font-primary;
+    font-size: 13px;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: $color-neutral-dark;
+    background-color: $color-primary-light;
+    border: 1px solid transparent;
+    border-radius: $radius-sm;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+    opacity: 0; // animated by GSAP
+
+    &:hover {
+        background-color: transparent;
+        color: $color-primary-light;
+        border-color: $color-primary-light;
+    }
+}
+
+// Animated scroll indicator (thin line pulsing downward)
+.introduction__hero-scroll {
+    position: absolute;
+    bottom: $space-xl;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.introduction__hero-scroll-line {
+    display: block;
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(
+        to bottom,
+        rgba($color-primary-light, 0.7),
+        transparent
+    );
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(0.6); transform-origin: top; }
+    50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+}
+
+// ============================================================================
+// EDITORIAL BODY — sits below the hero
+// ============================================================================
+
+.introduction__body {
+    @include container;
     padding-top: $space-2xl;
     padding-bottom: $space-2xl;
 
     @include respond-to("sm") {
-        padding-top: $space-lg;
-        padding-bottom: $space-lg;
-        margin-bottom: $space-xl;
-    }
-
-    @include respond-to("md") {
         padding-top: $space-xl;
-        padding-bottom: $space-xl;
+        padding-bottom: $space-lg;
     }
 }
 
@@ -44,6 +194,16 @@
     }
 }
 
+.introduction__header-label {
+    font-family: $font-primary;
+    font-size: 11px;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba($color-neutral-dark, 0.45);
+    margin: $space-sm 0 $space-xl;
+}
+
 // Decorative thin horizontal rules flanking the title
 .introduction__rule {
     display: block;
@@ -59,15 +219,21 @@
     font-size: $fs-4xl;
     font-weight: 400;
     line-height: 1.15;
-    color: $color-neutral-dark;
-    margin: 0 0 $space-md 0;
+    // Inside hero: light color on dark image
+    color: $color-neutral-light;
+    margin: 0;
+    opacity: 0; // animated by GSAP
 
     @include respond-to("sm") {
-        font-size: 34px;
+        font-size: 38px;
     }
 
     @include respond-to("md") {
-        font-size: 44px;
+        font-size: 56px;
+    }
+
+    @include respond-to("lg") {
+        font-size: 68px;
     }
 }
 
@@ -284,6 +450,11 @@
 // (opacity: 0→1, translateY entrance) — ensures no animation on these elements
 // when the user has prefers-reduced-motion enabled
 @media (prefers-reduced-motion: reduce) {
+    .introduction__hero-label,
+    .introduction__hero-rule,
+    .introduction__hero-sub,
+    .introduction__hero-cta,
+    .introduction__hero-scroll-line,
     .introduction__rule,
     .introduction__title,
     .introduction__subtitle p,
@@ -292,5 +463,6 @@
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
+        animation: none !important;
     }
 }
