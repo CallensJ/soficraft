@@ -11,18 +11,20 @@
 // ============================================================================
 
 .introduction {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto $space-2xl;
-    padding: $space-2xl $space-lg;
+    @include container;
+    margin-bottom: $space-2xl;
+    padding-top: $space-2xl;
+    padding-bottom: $space-2xl;
 
     @include respond-to('sm') {
-        padding: $space-lg $space-md;
+        padding-top: $space-lg;
+        padding-bottom: $space-lg;
         margin-bottom: $space-xl;
     }
 
     @include respond-to('md') {
-        padding: $space-xl $space-md;
+        padding-top: $space-xl;
+        padding-bottom: $space-xl;
     }
 }
 
@@ -33,6 +35,9 @@
 .introduction__header {
     text-align: center;
     margin-bottom: $space-2xl;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
 
     @include respond-to('sm') {
         margin-bottom: $space-xl;
@@ -225,11 +230,7 @@
 // CALLOUT BANNER
 // ============================================================================
 
-// Break out of the 800px container to span edge-to-edge within commande-page
 .introduction__callout {
-    // Full-bleed: compensate for the .introduction padding
-    margin-left: -$space-lg;
-    margin-right: -$space-lg;
     background-color: rgba($color-primary-light, 0.18);
     border-top: 1px solid rgba($color-primary-light, 0.8);
     border-bottom: 1px solid rgba($color-primary-light, 0.8);
@@ -242,16 +243,10 @@
 
     @include respond-to('sm') {
         padding: $space-lg $space-md;
-        // Keep -$space-lg to match .introduction base padding (still $space-lg at 640–767px)
-        margin-left: -$space-lg;
-        margin-right: -$space-lg;
     }
 
     @include respond-to('md') {
-        padding: $space-lg;
-        // .introduction padding switches to $space-md at md+, so negative margin follows
-        margin-left: -$space-md;
-        margin-right: -$space-md;
+        padding: $space-lg $space-xl;
     }
 }
 

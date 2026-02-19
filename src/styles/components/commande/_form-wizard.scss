@@ -12,17 +12,25 @@
 // ============================================================================
 
 .form-wizard {
-    width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: $space-xl $space-lg;
-
-    @include respond-to('md') {
-        padding: $space-lg $space-md;
-    }
+    @include container;
+    padding-top: $space-xl;
+    padding-bottom: $space-xl;
 
     @include respond-to('sm') {
-        padding: $space-md;
+        padding-top: $space-lg;
+        padding-bottom: $space-lg;
+    }
+
+    @include respond-to('md') {
+        padding-top: $space-xl;
+        padding-bottom: $space-xl;
+    }
+
+    // Inner form content stays readable — centered narrow column
+    &__form {
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 

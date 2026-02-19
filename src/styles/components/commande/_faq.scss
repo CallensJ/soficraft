@@ -3,27 +3,35 @@
 // ============================================================================
 // Fichier: styles/components/commande/_faq.scss
 
-@import "@/styles/variables/colors";
-@import "@/styles/variables/typography";
-@import "@/styles/variables/spacing";
-@import "@/styles/mixins/responsive";
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
 
 // ============================================================================
 // FAQ CONTAINER
 // ============================================================================
 
 .faq {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: $spacing-xl $spacing-lg;
+    @include container;
+    padding-top: $space-xl;
+    padding-bottom: $space-xl;
 
-    @include tablet {
-        padding: $spacing-lg $spacing-md;
+    @include respond-to('sm') {
+        padding-top: $space-lg;
+        padding-bottom: $space-lg;
     }
 
-    @include mobile {
-        padding: $spacing-lg $spacing-md;
+    @include respond-to('md') {
+        padding-top: $space-xl;
+        padding-bottom: $space-xl;
+    }
+
+    // Header, accordion and footer stay at readable max-width, centered
+    &__header,
+    &__accordion,
+    &__footer {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
@@ -33,42 +41,42 @@
 
 .faq__header {
     text-align: center;
-    margin-bottom: $spacing-xl;
+    margin-bottom: $space-xl;
 
-    @include mobile {
-        margin-bottom: $spacing-lg;
+    @include respond-to('sm') {
+        margin-bottom: $space-lg;
     }
 }
 
 .faq__title {
-    font-family: $font-title;
+    font-family: $font-secondary;
     font-size: 36px;
     font-weight: 400;
-    color: $color-noir-charbon;
-    margin: 0 0 $spacing-md 0;
+    color: $color-neutral-dark;
+    margin: 0 0 $space-md 0;
 
-    @include tablet {
+    @include respond-to('md') {
         font-size: 32px;
     }
 
-    @include mobile {
+    @include respond-to('sm') {
         font-size: 24px;
     }
 }
 
 .faq__subtitle {
-    font-family: $font-body;
+    font-family: $font-primary;
     font-size: 14px;
-    color: rgba($color-noir-charbon, 0.7);
+    color: rgba($color-neutral-dark, 0.7);
     margin: 0;
     line-height: 1.6;
 }
 
 .faq__contact-link {
-    color: $color-vert-foret;
+    color: $color-secondary-green;
     text-decoration: none;
     font-weight: 600;
-    border-bottom: 1px solid $color-vert-foret;
+    border-bottom: 1px solid $color-secondary-green;
     display: inline;
     transition: opacity 0.3s ease;
 
@@ -77,7 +85,7 @@
     }
 
     &:focus-visible {
-        outline: 2px solid $color-vert-foret;
+        outline: 2px solid $color-secondary-green;
         outline-offset: 2px;
     }
 }
@@ -89,24 +97,24 @@
 .faq__accordion {
     display: flex;
     flex-direction: column;
-    gap: $spacing-md;
-    margin-bottom: $spacing-xl;
+    gap: $space-md;
+    margin-bottom: $space-xl;
 }
 
 .faq__item {
-    border: 2px solid rgba($color-beige-sable, 0.5);
+    border: 2px solid rgba($color-primary-light, 0.5);
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
 
     &:hover {
-        border-color: $color-vert-foret;
-        background-color: rgba($color-vert-foret, 0.02);
+        border-color: $color-secondary-green;
+        background-color: rgba($color-secondary-green, 0.02);
     }
 
     &.expanded {
-        border-color: $color-vert-foret;
-        background-color: rgba($color-vert-foret, 0.04);
+        border-color: $color-secondary-green;
+        background-color: rgba($color-secondary-green, 0.04);
     }
 }
 
@@ -116,51 +124,51 @@
 
 .faq__question {
     width: 100%;
-    padding: $spacing-md $spacing-lg;
+    padding: $space-md $space-lg;
     border: none;
     background-color: transparent;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: $spacing-md;
+    gap: $space-md;
     transition: all 0.3s ease;
 
-    @include mobile {
-        padding: $spacing-md;
+    @include respond-to('sm') {
+        padding: $space-md;
     }
 
     &:hover {
-        background-color: rgba($color-vert-foret, 0.02);
+        background-color: rgba($color-secondary-green, 0.02);
     }
 
     &:focus-visible {
-        outline: 2px solid $color-vert-foret;
+        outline: 2px solid $color-secondary-green;
         outline-offset: -2px;
     }
 
     .faq__item.expanded & {
-        background-color: rgba($color-vert-foret, 0.05);
+        background-color: rgba($color-secondary-green, 0.05);
     }
 }
 
 .faq__question-text {
-    font-family: $font-body;
+    font-family: $font-primary;
     font-size: 15px;
     font-weight: 600;
-    color: $color-noir-charbon;
+    color: $color-neutral-dark;
     text-align: left;
     flex: 1;
 
-    @include mobile {
+    @include respond-to('sm') {
         font-size: 13px;
     }
 }
 
 .faq__question-icon {
-    font-family: $font-body;
+    font-family: $font-primary;
     font-size: 20px;
-    color: $color-vert-foret;
+    color: $color-secondary-green;
     font-weight: 600;
     flex-shrink: 0;
     display: flex;
@@ -184,23 +192,23 @@
 }
 
 .faq__answer-content {
-    padding: 0 $spacing-lg;
+    padding: 0 $space-lg;
 
-    @include mobile {
-        padding: 0 $spacing-md;
+    @include respond-to('sm') {
+        padding: 0 $space-md;
     }
 }
 
 .faq__answer-paragraph {
-    font-family: $font-body;
+    font-family: $font-primary;
     font-size: 14px;
-    color: rgba($color-noir-charbon, 0.8);
+    color: rgba($color-neutral-dark, 0.8);
     line-height: 1.8;
-    margin: $spacing-md 0;
+    margin: $space-md 0;
 
-    @include mobile {
+    @include respond-to('sm') {
         font-size: 13px;
-        margin: $spacing-sm 0;
+        margin: $space-sm 0;
     }
 
     &:first-child {
@@ -215,20 +223,20 @@
 .faq__answer-list {
     list-style: none;
     padding: 0;
-    margin: $spacing-md 0;
+    margin: $space-md 0;
     display: flex;
     flex-direction: column;
-    gap: $spacing-sm;
+    gap: $space-sm;
 
     li {
-        font-family: $font-body;
+        font-family: $font-primary;
         font-size: 13px;
-        color: rgba($color-noir-charbon, 0.8);
+        color: rgba($color-neutral-dark, 0.8);
         line-height: 1.6;
-        padding-left: $spacing-lg;
+        padding-left: $space-lg;
         position: relative;
 
-        @include mobile {
+        @include respond-to('sm') {
             font-size: 12px;
         }
 
@@ -236,7 +244,7 @@
             content: "•";
             position: absolute;
             left: 0;
-            color: $color-vert-foret;
+            color: $color-secondary-green;
             font-weight: bold;
         }
     }
@@ -248,48 +256,48 @@
 
 .faq__footer {
     text-align: center;
-    padding-top: $spacing-lg;
-    border-top: 1px solid rgba($color-vert-foret, 0.1);
+    padding-top: $space-lg;
+    border-top: 1px solid rgba($color-secondary-green, 0.1);
 }
 
 .faq__footer-text {
-    font-family: $font-body;
+    font-family: $font-primary;
     font-size: 14px;
-    color: rgba($color-noir-charbon, 0.7);
-    margin: 0 0 $spacing-md 0;
+    color: rgba($color-neutral-dark, 0.7);
+    margin: 0 0 $space-md 0;
 
-    @include mobile {
+    @include respond-to('sm') {
         font-size: 13px;
-        margin-bottom: $spacing-sm;
+        margin-bottom: $space-sm;
     }
 }
 
 .faq__footer-button {
     display: inline-block;
-    padding: $spacing-sm $spacing-lg;
+    padding: $space-sm $space-lg;
     background-color: transparent;
-    color: $color-vert-foret;
-    border: 2px solid $color-vert-foret;
+    color: $color-secondary-green;
+    border: 2px solid $color-secondary-green;
     border-radius: 6px;
-    font-family: $font-body;
+    font-family: $font-primary;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
     transition: all 0.3s ease;
 
-    @include mobile {
+    @include respond-to('sm') {
         font-size: 13px;
-        padding: $spacing-xs $spacing-md;
+        padding: $space-xs $space-md;
     }
 
     &:hover {
-        background-color: rgba($color-vert-foret, 0.1);
-        box-shadow: 0 2px 8px rgba($color-vert-foret, 0.2);
+        background-color: rgba($color-secondary-green, 0.1);
+        box-shadow: 0 2px 8px rgba($color-secondary-green, 0.2);
     }
 
     &:focus-visible {
-        outline: 2px solid $color-vert-foret;
+        outline: 2px solid $color-secondary-green;
         outline-offset: 2px;
     }
 }
