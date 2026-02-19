@@ -242,12 +242,14 @@
 
     @include respond-to('sm') {
         padding: $space-lg $space-md;
-        margin-left: -$space-md;
-        margin-right: -$space-md;
+        // Keep -$space-lg to match .introduction base padding (still $space-lg at 640–767px)
+        margin-left: -$space-lg;
+        margin-right: -$space-lg;
     }
 
     @include respond-to('md') {
         padding: $space-lg;
+        // .introduction padding switches to $space-md at md+, so negative margin follows
         margin-left: -$space-md;
         margin-right: -$space-md;
     }
