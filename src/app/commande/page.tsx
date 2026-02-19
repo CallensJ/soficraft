@@ -1,8 +1,8 @@
 "use client";
 
-import Introduction from "@/components/commande/Introduction";
-import FormWizard from "@/components/commande/FormWizard";
-import FAQ from "@/components/commande/FAQ";
+import FAQ from "../../components/commande/FAQ";
+import FormWizard from "../../components/commande/FormWizard";
+import Introduction from "../../components/commande/Introduction";
 
 // ============================================================================
 // COMMANDE PAGE

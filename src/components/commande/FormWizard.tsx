@@ -6,12 +6,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import gsap from "gsap";
 
+import StepIndicator from "./StepIndicator";
+import SuccessPage from "./SuccessPage";
 import Step1Thematic from "./steps/Step1Thematic";
 import Step2Materials from "./steps/Step2Materials";
 import Step3Inspirations from "./steps/Step3Inspirations";
 import Step4Coordinates from "./steps/Step4Coordinates";
-import SuccessPage from "./SuccessPage";
-import StepIndicator from "./StepIndicator";
 
 // ============================================================================
 // TYPES & INTERFACES

@@ -64,12 +64,13 @@
 // PAGE COMMANDE
 @use "components/commande/form-wizard";
 @use "components/commande/step-indicator";
-@use "components/commande/steps"
-    // ==========================================================================
-    // 6. PAGES
-    // ==========================================================================
-    // Styles spécifiques aux pages
-    @use "pages/home";
+@use "components/commande/steps";
+@use "components/commande/page";
+// ==========================================================================
+// 6. PAGES
+// ==========================================================================
+// Styles spécifiques aux pages
+@use "pages/home";
 @use "pages/gallery";
 @use "pages/product";
 @use "pages/contact";

@@ -1,0 +1,84 @@
+// ============================================================================
+// COMMANDE PAGE - GLOBAL STYLES
+// ============================================================================
+// Fichier: styles/components/commande/_page.scss
+
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
+
+// ============================================================================
+// PAGE LAYOUT
+// ============================================================================
+
+.commande-page {
+    width: 100%;
+    background-color: $color-neutral-bg;
+}
+
+.commande-layout {
+    width: 100%;
+}
+
+// ============================================================================
+// PAGE SECTIONS
+// ============================================================================
+
+.commande-page__form-section {
+    width: 100%;
+    padding: $space-xl 0;
+    background-color: $color-neutral-bg;
+
+    @include respond-to('sm') {
+        padding: $space-lg 0;
+    }
+}
+
+.commande-page__faq-section {
+    width: 100%;
+    padding: $space-xl 0;
+    background-color: white;
+    border-top: 1px solid rgba($color-secondary-green, 0.1);
+
+    @include respond-to('sm') {
+        padding: $space-lg 0;
+    }
+}
+
+// ============================================================================
+// SECTION DIVIDERS & SPACING
+// ============================================================================
+
+// Smooth transitions between sections
+.commande-page__form-section,
+.commande-page__faq-section {
+    &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 1px;
+    }
+}
+
+// ============================================================================
+// RESPONSIVE CONSIDERATIONS
+// ============================================================================
+
+@include respond-to('sm') {
+    .commande-page {
+        padding: 0;
+    }
+}
+
+// ============================================================================
+// PRINT STYLES
+// ============================================================================
+
+@media print {
+    .commande-page__form-section {
+        page-break-inside: avoid;
+    }
+
+    .commande-page__faq-section {
+        page-break-inside: avoid;
+    }
+}

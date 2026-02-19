@@ -1,0 +1,1007 @@
+// ============================================================================
+// STEP COMPONENTS - STYLES
+// ============================================================================
+// Fichier: styles/components/commande/_steps.scss
+
+@use 'sass:color';
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
+
+// ============================================================================
+// SHARED STEP STYLES
+// ============================================================================
+
+.step-1-thematic,
+.step-2-materials,
+.step-3-inspirations,
+.step-4-coordinates {
+    width: 100%;
+}
+
+// Header styles shared across all steps
+%step-header {
+    margin-bottom: $space-lg;
+
+    @include respond-to('sm') {
+        margin-bottom: $space-md;
+    }
+}
+
+%step-title {
+    font-family: $font-secondary;
+    font-size: 28px;
+    font-weight: 400;
+    color: $color-neutral-dark;
+    margin: 0 0 $space-md 0;
+
+    @include respond-to('md') {
+        font-size: 24px;
+    }
+
+    @include respond-to('sm') {
+        font-size: 20px;
+    }
+}
+
+%step-subtitle {
+    font-family: $font-primary;
+    font-size: 16px;
+    color: rgba($color-neutral-dark, 0.7);
+    line-height: 1.6;
+    margin: 0;
+
+    @include respond-to('sm') {
+        font-size: 14px;
+    }
+}
+
+// Error styles shared across steps
+%error-message {
+    background-color: rgba($color-error, 0.08);
+    border-left: 4px solid $color-error;
+    border-radius: 6px;
+    padding: $space-md;
+    margin-bottom: $space-lg;
+    display: flex;
+    gap: $space-sm;
+    align-items: flex-start;
+}
+
+%error-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+%error-text {
+    font-family: $font-primary;
+    font-size: 14px;
+    color: $color-error;
+    line-height: 1.5;
+}
+
+// Hint styles
+%hint-message {
+    display: flex;
+    gap: $space-sm;
+    align-items: flex-start;
+    margin-top: $space-lg;
+    padding: $space-md;
+    background-color: rgba($color-secondary-green, 0.05);
+    border-radius: 6px;
+    font-size: 13px;
+    color: rgba($color-neutral-dark, 0.7);
+    line-height: 1.6;
+}
+
+%hint-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+// ============================================================================
+// STEP 1: THEMATIC
+// ============================================================================
+
+.step-1-thematic__header {
+    @extend %step-header;
+}
+
+.step-1-thematic__title {
+    @extend %step-title;
+}
+
+.step-1-thematic__subtitle {
+    @extend %step-subtitle;
+}
+
+.step-1-thematic__error {
+    @extend %error-message;
+}
+
+.step-1-thematic__error-icon {
+    @extend %error-icon;
+}
+
+.step-1-thematic__error-text {
+    @extend %error-text;
+}
+
+.step-1-thematic__fieldset {
+    border: none;
+    padding: 0;
+    margin: $space-lg 0;
+}
+
+.step-1-thematic__options {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+}
+
+.step-1-thematic__option {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-md;
+    padding: $space-md;
+    border: 2px solid rgba($color-primary-light, 0.5);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent;
+
+    @include respond-to('sm') {
+        padding: $space-sm;
+    }
+
+    &:hover {
+        border-color: $color-secondary-green;
+        background-color: rgba($color-secondary-green, 0.02);
+    }
+
+    &.selected {
+        border-color: $color-secondary-green;
+        background-color: rgba($color-secondary-green, 0.08);
+    }
+}
+
+.step-1-thematic__input {
+    appearance: none;
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.step-1-thematic__option-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+}
+
+.step-1-thematic__option-header {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+}
+
+.step-1-thematic__radio-custom {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $color-primary-light;
+    border-radius: 50%;
+    background-color: white;
+    transition: all 0.3s ease;
+
+    .step-1-thematic__option.selected & {
+        border-color: $color-secondary-green;
+        background-color: $color-secondary-green;
+        box-shadow: 0 0 0 4px rgba($color-secondary-green, 0.1);
+
+        &::after {
+            content: "";
+            display: block;
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    position: relative;
+}
+
+.step-1-thematic__option-label {
+    font-family: $font-primary;
+    font-size: 16px;
+    font-weight: 500;
+    color: $color-neutral-dark;
+
+    @include respond-to('sm') {
+        font-size: 14px;
+    }
+}
+
+.step-1-thematic__option-description {
+    font-family: $font-primary;
+    font-size: 14px;
+    color: rgba($color-neutral-dark, 0.6);
+    line-height: 1.5;
+    margin: 0;
+
+    @include respond-to('sm') {
+        font-size: 13px;
+    }
+}
+
+.step-1-thematic__hint {
+    @extend %hint-message;
+}
+
+.step-1-thematic__hint-icon {
+    @extend %hint-icon;
+}
+
+.step-1-thematic__hint-text {
+    flex: 1;
+}
+
+// ============================================================================
+// STEP 2: MATERIALS
+// ============================================================================
+
+.step-2-materials__header {
+    @extend %step-header;
+}
+
+.step-2-materials__title {
+    @extend %step-title;
+}
+
+.step-2-materials__subtitle {
+    @extend %step-subtitle;
+}
+
+.step-2-materials__error {
+    @extend %error-message;
+}
+
+.step-2-materials__error-icon {
+    @extend %error-icon;
+}
+
+.step-2-materials__error-text {
+    @extend %error-text;
+}
+
+.step-2-materials__fieldset {
+    border: none;
+    padding: 0;
+    margin: $space-lg 0;
+}
+
+.step-2-materials__options {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+}
+
+.step-2-materials__option {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-md;
+    padding: $space-md;
+    border: 2px solid rgba($color-primary-light, 0.5);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent;
+
+    @include respond-to('sm') {
+        padding: $space-sm;
+    }
+
+    &:hover {
+        border-color: $color-secondary-green;
+        background-color: rgba($color-secondary-green, 0.02);
+    }
+
+    &.selected {
+        border-color: $color-secondary-green;
+        background-color: rgba($color-secondary-green, 0.08);
+    }
+}
+
+.step-2-materials__input {
+    appearance: none;
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.step-2-materials__option-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+}
+
+.step-2-materials__option-header {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+}
+
+.step-2-materials__checkbox-custom {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $color-primary-light;
+    border-radius: 4px;
+    background-color: white;
+    transition: all 0.3s ease;
+    position: relative;
+
+    .step-2-materials__option.selected & {
+        border-color: $color-secondary-green;
+        background-color: $color-secondary-green;
+        box-shadow: 0 0 0 4px rgba($color-secondary-green, 0.1);
+
+        &::after {
+            content: "✓";
+            display: block;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            line-height: 1;
+        }
+    }
+}
+
+.step-2-materials__option-label {
+    font-family: $font-primary;
+    font-size: 16px;
+    font-weight: 500;
+    color: $color-neutral-dark;
+
+    @include respond-to('sm') {
+        font-size: 14px;
+    }
+}
+
+.step-2-materials__option-description {
+    font-family: $font-primary;
+    font-size: 14px;
+    color: rgba($color-neutral-dark, 0.6);
+    line-height: 1.5;
+    margin: 0;
+
+    @include respond-to('sm') {
+        font-size: 13px;
+    }
+}
+
+.step-2-materials__selection-info {
+    margin-top: $space-lg;
+    padding: $space-md;
+    background-color: rgba($color-secondary-green, 0.08);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.step-2-materials__selection-count {
+    font-family: $font-primary;
+    font-size: 14px;
+    font-weight: 500;
+    color: $color-secondary-green;
+}
+
+.step-2-materials__hint {
+    @extend %hint-message;
+}
+
+.step-2-materials__hint-icon {
+    @extend %hint-icon;
+}
+
+.step-2-materials__hint-text {
+    flex: 1;
+}
+
+// ============================================================================
+// STEP 3: INSPIRATIONS
+// ============================================================================
+
+.step-3-inspirations__header {
+    @extend %step-header;
+}
+
+.step-3-inspirations__title {
+    @extend %step-title;
+}
+
+.step-3-inspirations__subtitle {
+    @extend %step-subtitle;
+}
+
+.step-3-inspirations__error {
+    @extend %error-message;
+}
+
+.step-3-inspirations__error-icon {
+    @extend %error-icon;
+}
+
+.step-3-inspirations__error-text {
+    @extend %error-text;
+}
+
+.step-3-inspirations__section {
+    margin-bottom: $space-xl;
+
+    @include respond-to('sm') {
+        margin-bottom: $space-lg;
+    }
+}
+
+.step-3-inspirations__section-title {
+    font-family: $font-primary;
+    font-size: 16px;
+    font-weight: 600;
+    color: $color-neutral-dark;
+    margin: 0 0 $space-md 0;
+
+    @include respond-to('sm') {
+        font-size: 14px;
+    }
+}
+
+// Upload Zone
+.step-3-inspirations__upload-zone {
+    border: 2px dashed rgba($color-secondary-green, 0.4);
+    border-radius: 8px;
+    padding: $space-xl;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: rgba($color-primary-light, 0.3);
+
+    @include respond-to('sm') {
+        padding: $space-lg;
+    }
+
+    &:hover {
+        border-color: $color-secondary-green;
+        background-color: rgba($color-secondary-green, 0.05);
+    }
+
+    &.drag-active {
+        border-color: $color-secondary-green;
+        background-color: rgba($color-secondary-green, 0.1);
+        box-shadow: 0 0 0 3px rgba($color-secondary-green, 0.1);
+    }
+}
+
+.step-3-inspirations__file-input {
+    display: none;
+}
+
+.step-3-inspirations__upload-content {
+    pointer-events: none;
+}
+
+.step-3-inspirations__upload-icon {
+    font-size: 48px;
+    margin-bottom: $space-md;
+
+    @include respond-to('sm') {
+        font-size: 36px;
+    }
+}
+
+.step-3-inspirations__upload-text {
+    font-family: $font-primary;
+    font-size: 16px;
+    font-weight: 500;
+    color: $color-neutral-dark;
+    margin: 0 0 $space-sm 0;
+
+    @include respond-to('sm') {
+        font-size: 14px;
+    }
+}
+
+.step-3-inspirations__upload-hint {
+    font-family: $font-primary;
+    font-size: 13px;
+    color: rgba($color-neutral-dark, 0.6);
+    margin: 0;
+
+    @include respond-to('sm') {
+        font-size: 12px;
+    }
+}
+
+// Image Previews
+.step-3-inspirations__previews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: $space-md;
+    margin-top: $space-lg;
+
+    @include respond-to('sm') {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: $space-sm;
+    }
+}
+
+.step-3-inspirations__preview-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.step-3-inspirations__preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.step-3-inspirations__preview-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: rgba($color-error, 0.9);
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: $color-error;
+        transform: scale(1.1);
+    }
+}
+
+// Textarea
+.step-3-inspirations__textarea-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+}
+
+.step-3-inspirations__textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: $space-md;
+    border: 2px solid rgba($color-primary-light, 0.5);
+    border-radius: 8px;
+    font-family: $font-primary;
+    font-size: 14px;
+    color: $color-neutral-dark;
+    resize: vertical;
+    transition: all 0.3s ease;
+
+    @include respond-to('sm') {
+        min-height: 120px;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $color-secondary-green;
+        box-shadow: 0 0 0 3px rgba($color-secondary-green, 0.1);
+    }
+
+    &::placeholder {
+        color: rgba($color-neutral-dark, 0.4);
+    }
+}
+
+.step-3-inspirations__textarea-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.step-3-inspirations__character-count {
+    font-family: $font-primary;
+    font-size: 12px;
+    color: rgba($color-neutral-dark, 0.5);
+}
+
+// Subsection hints
+.step-3-inspirations__subsection-hint {
+    @extend %hint-message;
+    margin-top: $space-md;
+    margin-bottom: 0;
+}
+
+.step-3-inspirations__hint-icon {
+    @extend %hint-icon;
+}
+
+.step-3-inspirations__hint-text {
+    flex: 1;
+}
+
+// Success message
+.step-3-inspirations__success {
+    display: flex;
+    gap: $space-sm;
+    align-items: center;
+    margin-top: $space-lg;
+    padding: $space-md;
+    background-color: rgba($color-secondary-green, 0.1);
+    border-left: 4px solid $color-secondary-green;
+    border-radius: 6px;
+}
+
+.step-3-inspirations__success-icon {
+    font-size: 18px;
+    color: $color-secondary-green;
+    flex-shrink: 0;
+}
+
+.step-3-inspirations__success-text {
+    font-family: $font-primary;
+    font-size: 14px;
+    color: $color-secondary-green;
+    font-weight: 500;
+}
+
+// Final hint
+.step-3-inspirations__final-hint {
+    @extend %hint-message;
+    margin-top: $space-lg;
+    background-color: rgba($color-error, 0.05);
+    border-left-color: rgba($color-error, 0.3);
+}
+
+// ============================================================================
+// STEP 4: COORDINATES
+// ============================================================================
+
+.step-4-coordinates__header {
+    @extend %step-header;
+}
+
+.step-4-coordinates__title {
+    @extend %step-title;
+}
+
+.step-4-coordinates__subtitle {
+    @extend %step-subtitle;
+}
+
+.step-4-coordinates__field {
+    margin-bottom: $space-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+
+    @include respond-to('sm') {
+        margin-bottom: $space-md;
+    }
+
+    &--consent {
+        margin-top: $space-xl;
+        padding-top: $space-lg;
+        border-top: 1px solid rgba($color-secondary-green, 0.1);
+    }
+}
+
+.step-4-coordinates__label {
+    font-family: $font-primary;
+    font-size: 14px;
+    font-weight: 600;
+    color: $color-neutral-dark;
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+}
+
+.step-4-coordinates__required {
+    color: $color-error;
+}
+
+.step-4-coordinates__input {
+    width: 100%;
+    padding: $space-sm $space-md;
+    border: 2px solid rgba($color-primary-light, 0.5);
+    border-radius: 6px;
+    font-family: $font-primary;
+    font-size: 14px;
+    color: $color-neutral-dark;
+    transition: all 0.3s ease;
+
+    @include respond-to('sm') {
+        font-size: 16px; // Prevent zoom on iOS
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $color-secondary-green;
+        box-shadow: 0 0 0 3px rgba($color-secondary-green, 0.1);
+    }
+
+    &:hover:not(:focus) {
+        border-color: rgba($color-secondary-green, 0.3);
+    }
+
+    &.error {
+        border-color: $color-error;
+
+        &:focus {
+            box-shadow: 0 0 0 3px rgba($color-error, 0.1);
+        }
+    }
+
+    &::placeholder {
+        color: rgba($color-neutral-dark, 0.4);
+    }
+}
+
+.step-4-coordinates__error {
+    @extend %error-message;
+}
+
+.step-4-coordinates__error-icon {
+    @extend %error-icon;
+}
+
+.step-4-coordinates__hint {
+    font-family: $font-primary;
+    font-size: 13px;
+    color: rgba($color-neutral-dark, 0.6);
+    margin-top: $space-xs;
+}
+
+// Budget Slider
+.step-4-coordinates__budget-wrapper {
+    display: flex;
+    gap: $space-lg;
+    align-items: center;
+
+    @include respond-to('sm') {
+        flex-direction: column;
+        gap: $space-md;
+    }
+}
+
+.step-4-coordinates__slider {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(
+        to right,
+        rgba($color-secondary-green, 0.2) 0%,
+        rgba($color-secondary-green, 0.2) calc(var(--value, 25) * 1%),
+        rgba($color-primary-light, 0.3) calc(var(--value, 25) * 1%),
+        rgba($color-primary-light, 0.3) 100%
+    );
+    outline: none;
+    cursor: pointer;
+
+    // Webkit browsers
+    &::-webkit-slider-thumb {
+        appearance: none;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: linear-gradient(
+            135deg,
+            $color-secondary-green,
+            color.scale($color-secondary-green, $lightness: -5%)
+        );
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba($color-secondary-green, 0.3);
+        transition: all 0.2s ease;
+
+        &:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba($color-secondary-green, 0.4);
+        }
+
+        &:active {
+            transform: scale(1.1);
+        }
+    }
+
+    // Firefox
+    &::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: linear-gradient(
+            135deg,
+            $color-secondary-green,
+            color.scale($color-secondary-green, $lightness: -5%)
+        );
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 2px 8px rgba($color-secondary-green, 0.3);
+        transition: all 0.2s ease;
+
+        &:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba($color-secondary-green, 0.4);
+        }
+
+        &:active {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.step-4-coordinates__budget-display {
+    min-width: 100px;
+    text-align: center;
+
+    @include respond-to('sm') {
+        width: 100%;
+    }
+}
+
+.step-4-coordinates__budget-value {
+    font-family: $font-secondary;
+    font-size: 28px;
+    font-weight: 600;
+    color: $color-secondary-green;
+
+    @include respond-to('sm') {
+        font-size: 24px;
+    }
+}
+
+// Budget Guide
+.step-4-coordinates__budget-guide {
+    margin-top: $space-lg;
+    padding: $space-md;
+    background-color: rgba($color-primary-light, 0.2);
+    border-radius: 6px;
+}
+
+.step-4-coordinates__budget-guide-title {
+    font-family: $font-primary;
+    font-size: 13px;
+    font-weight: 600;
+    color: $color-neutral-dark;
+    margin: 0 0 $space-sm 0;
+}
+
+.step-4-coordinates__budget-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+
+    li {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        gap: $space-sm;
+        font-size: 12px;
+
+        @include respond-to('sm') {
+            grid-template-columns: 80px 1fr;
+        }
+    }
+}
+
+.step-4-coordinates__budget-range {
+    font-weight: 600;
+    color: $color-secondary-green;
+}
+
+.step-4-coordinates__budget-description {
+    color: rgba($color-neutral-dark, 0.7);
+    line-height: 1.4;
+}
+
+// RGPD Consent
+.step-4-coordinates__consent-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+}
+
+.step-4-coordinates__consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-sm;
+    cursor: pointer;
+    padding: $space-sm;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: rgba($color-secondary-green, 0.05);
+    }
+}
+
+.step-4-coordinates__consent-input {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: $color-secondary-green;
+}
+
+.step-4-coordinates__consent-text {
+    font-family: $font-primary;
+    font-size: 13px;
+    color: $color-neutral-dark;
+    line-height: 1.5;
+    flex: 1;
+}
+
+.step-4-coordinates__privacy-link {
+    font-family: $font-primary;
+    font-size: 12px;
+    color: $color-secondary-green;
+    text-decoration: none;
+    border-bottom: 1px solid $color-secondary-green;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+        opacity: 0.7;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $color-secondary-green;
+        outline-offset: 2px;
+    }
+}
+
+// ============================================================================
+// ACCESSIBILITY
+// ============================================================================
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+// Focus visible for keyboard navigation
+input:focus-visible {
+    outline: 2px solid $color-secondary-green;
+    outline-offset: 2px;
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+    .step-1-thematic__option,
+    .step-2-materials__option,
+    .step-3-inspirations__upload-zone,
+    .step-4-coordinates__input,
+    .step-4-coordinates__slider::-webkit-slider-thumb,
+    .step-4-coordinates__slider::-moz-range-thumb {
+        transition: none;
+    }
+}
