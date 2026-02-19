@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import CreationItem from "./CreationItem";
-import { Collection } from "../../data/gallery-data";
+import { Collection, BijouxType } from "../../data/gallery-data";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -14,6 +14,7 @@ interface CollectionSectionProps {
   layout?: "default" | "reversed" | "fullwidth";
   stackIndex: number;
   totalSections: number;
+  activeFilter?: BijouxType | null;
 }
 
 export default function CollectionSection({
@@ -21,6 +22,7 @@ export default function CollectionSection({
   layout = "default",
   stackIndex,
   totalSections,
+  activeFilter,
 }: CollectionSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -120,7 +122,7 @@ export default function CollectionSection({
 
         <div className="collectionSection__creations">
           {collection.creations.map((creation, index) => (
-            <CreationItem key={creation.id} creation={creation} index={index} />
+            <CreationItem key={creation.id} creation={creation} index={index} activeFilter={activeFilter} />
           ))}
         </div>
       </div>
