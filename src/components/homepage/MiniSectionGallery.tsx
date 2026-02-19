@@ -47,14 +47,14 @@ const galleryItems: GalleryItem[] = [
     offset: "none",
     image: "earrings.webp",
   },
-  // {
-  //   id: "creation-04",
-  //   title: "Lierre Enchanté",
-  //   category: "Bracelet",
-  //   size: "expanded",
-  //   offset: "up",
-  //   image: "bracelet.webp", // À ajouter plus tard
-  // },
+  {
+    id: "creation-04",
+    title: "Lierre Enchanté",
+    category: "Bracelet",
+    size: "expanded",
+    offset: "up",
+    image: "bracelet.png", // À ajouter plus tard
+  },
   {
     id: "creation-05",
     title: "Rêve de Fae",
