@@ -9,9 +9,16 @@ import CollectionSection from "./CollectionSection";
 
 gsap.registerPlugin(ScrollToPlugin);
 
+const VALID_FILTERS: BijouxType[] = ["bagues", "colliers", "bracelets", "boucles"];
+
+function parseFilter(value: string | null): BijouxType | null {
+  if (!value) return null;
+  return VALID_FILTERS.includes(value as BijouxType) ? (value as BijouxType) : null;
+}
+
 export default function GalleryClientWrapper() {
   const searchParams = useSearchParams();
-  const activeFilter = searchParams.get("collection") as BijouxType | null;
+  const activeFilter = parseFilter(searchParams.get("collection"));
 
   useEffect(() => {
     if (!activeFilter) return;
