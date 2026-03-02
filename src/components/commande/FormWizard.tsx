@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -25,7 +25,7 @@ export interface FormDataCommande {
   materiaux: string[]; // ['argent', 'cuivre', 'pierres', 'bois', 'autre']
 
   // Step 3
-  images: File[];
+  images: (File | string)[];
   description: string;
 
   // Step 4
@@ -126,7 +126,7 @@ export default function FormWizard({ onSuccess }: FormWizardProps) {
   // ──────────────────────────────────────────────────────────────────────
 
   const methods = useForm<FormDataCommande>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(validationSchema) as any,
     mode: "onBlur",
     defaultValues: {
       thematique: undefined,
@@ -201,7 +201,7 @@ export default function FormWizard({ onSuccess }: FormWizardProps) {
   // FORM SUBMISSION
   // ──────────────────────────────────────────────────────────────────────
 
-  const onSubmit: SubmitHandler<FormDataCommande> = async (data) => {
+  const onSubmit = async (data: FormDataCommande) => {
     setIsSubmitting(true);
     setSubmitError(null);
 
