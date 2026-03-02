@@ -15,10 +15,9 @@ gsap.registerPlugin(ScrollTrigger);
 const schema = z.object({
   nom: z.string().min(2, "Minimum 2 caractères"),
   email: z.string().email("Email invalide"),
-  typedemande: z.enum(
-    ["sur-mesure", "question", "collaboration", "autre"],
-    { errorMap: () => ({ message: "Sélectionne une option" }) }
-  ),
+  typedemande: z.enum(["sur-mesure", "question", "collaboration", "autre"], {
+    message: "Sélectionne une option",
+  }),
   budget: z.string().optional(),
   description: z
     .string()
@@ -26,9 +25,9 @@ const schema = z.object({
     .max(1500, "Maximum 1500 caractères"),
   delai: z.string().optional(),
   provenance: z.array(z.string()).optional(),
-  consentement: z.literal(true, {
-    errorMap: () => ({ message: "Ce champ est requis pour continuer" }),
-  }),
+  consentement: z
+    .boolean()
+    .refine((v) => v === true, "Ce champ est requis pour continuer"),
 });
 
 type FormValues = z.infer<typeof schema>;
