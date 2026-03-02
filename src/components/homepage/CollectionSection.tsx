@@ -205,11 +205,11 @@ export default function CollectionsSection() {
               </div>
 
               {/* Hover overlay */}
-              <div className="collections__card-overlay">
+              {/*<div className="collections__card-overlay">
                 <span className="collections__card-overlay-text">
                   {collection.cta}
                 </span>
-              </div>
+              </div>*/}
             </div>
 
             {/* Contenu texte */}
@@ -218,7 +218,7 @@ export default function CollectionsSection() {
               <p className="collections__card-description">
                 {collection.description}
               </p>
-              <Link href={collection.href} className="collections__card-cta">
+              {/*<Link href={collection.href} className="collections__card-cta">
                 <span>{collection.cta}</span>
                 <svg
                   width="16"
@@ -234,7 +234,7 @@ export default function CollectionsSection() {
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
                 </svg>
-              </Link>
+              </Link>*/}
             </div>
           </article>
         ))}

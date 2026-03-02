@@ -50,26 +50,30 @@
 
 .faq__title {
     font-family: $font-secondary;
-    font-size: 36px;
+    font-size: $fs-2xl; // 40px mobile
     font-weight: 400;
     color: $color-neutral-dark;
     margin: 0 0 $space-md 0;
 
     @include respond-to('md') {
-        font-size: 32px;
+        font-size: $fs-3xl; // 48px tablette+
     }
 
-    @include respond-to('sm') {
-        font-size: 24px;
+    @include respond-to('lg') {
+        font-size: 52px; // desktop
     }
 }
 
 .faq__subtitle {
     font-family: $font-primary;
-    font-size: 14px;
+    font-size: $fs-base; // 16px
     color: rgba($color-neutral-dark, 0.7);
     margin: 0;
     line-height: 1.6;
+
+    @include respond-to('md') {
+        font-size: $fs-md; // 18px
+    }
 }
 
 .faq__contact-link {
@@ -154,14 +158,14 @@
 
 .faq__question-text {
     font-family: $font-primary;
-    font-size: 15px;
+    font-size: $fs-base; // 16px
     font-weight: 600;
     color: $color-neutral-dark;
     text-align: left;
     flex: 1;
 
-    @include respond-to('sm') {
-        font-size: 13px;
+    @include respond-to('md') {
+        font-size: $fs-md; // 18px
     }
 }
 
@@ -201,14 +205,13 @@
 
 .faq__answer-paragraph {
     font-family: $font-primary;
-    font-size: 14px;
+    font-size: $fs-base; // 16px
     color: rgba($color-neutral-dark, 0.8);
     line-height: 1.8;
     margin: $space-md 0;
 
-    @include respond-to('sm') {
-        font-size: 13px;
-        margin: $space-sm 0;
+    @include respond-to('md') {
+        font-size: $fs-md; // 18px
     }
 
     &:first-child {
@@ -230,14 +233,14 @@
 
     li {
         font-family: $font-primary;
-        font-size: 13px;
+        font-size: $fs-base; // 16px
         color: rgba($color-neutral-dark, 0.8);
         line-height: 1.6;
         padding-left: $space-lg;
         position: relative;
 
-        @include respond-to('sm') {
-            font-size: 12px;
+        @include respond-to('md') {
+            font-size: $fs-md; // 18px
         }
 
         &::before {
@@ -262,14 +265,9 @@
 
 .faq__footer-text {
     font-family: $font-primary;
-    font-size: 14px;
+    font-size: $fs-base; // 16px
     color: rgba($color-neutral-dark, 0.7);
     margin: 0 0 $space-md 0;
-
-    @include respond-to('sm') {
-        font-size: 13px;
-        margin-bottom: $space-sm;
-    }
 }
 
 .faq__footer-button {
@@ -280,16 +278,11 @@
     border: 2px solid $color-secondary-green;
     border-radius: 6px;
     font-family: $font-primary;
-    font-size: 14px;
+    font-size: $fs-base; // 16px
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
     transition: all 0.3s ease;
-
-    @include respond-to('sm') {
-        font-size: 13px;
-        padding: $space-xs $space-md;
-    }
 
     &:hover {
         background-color: rgba($color-secondary-green, 0.1);
