@@ -51,3 +51,7 @@ Thumbs.db
 
 # GSAP cache (if applicable)
 .cache/
+
+.claude-code.json
+claude.md
+SASS_SEDTUP_COMPLETE.md
